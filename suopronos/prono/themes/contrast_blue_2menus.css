@@ -1,0 +1,64 @@
+@import url("layout/3d.css");
+
+/* Top and Sub menus */
+.zpMenu-contrast_blue .zpMenu {
+	background:  #B0C4DE;
+	border: 1px solid blue;
+}
+
+/* Top and Sub menus */
+.zpMenu-contrast_blue .zpMenu a,
+.zpMenu-contrast_blue .zpMenu .zpMenu-label {
+	color:  #0002B9;
+	font-weight: normal;
+}
+
+/* Top and Sub menus */
+.zpMenu-contrast_blue .zpMenu .zpMenu-item-selected .zpMenu-label,
+.zpMenu-contrast_blue .zpMenu .zpMenu-item-selected a {
+	color:#00FFFF;
+}
+
+
+/* Vertical border, 1st level */
+.zpMenu-contrast_blue .zpMenu-vertical-mode .zpMenu-level-1 {
+	border-color: rgb(255,242,245);
+}
+
+/* Sub menu */
+.zpMenu-contrast_blue .zpMenuContainer .zpMenuContainer .zpMenu-item {
+	margin-top:0px;
+	padding-top: 0px;
+	background:   #CADBE7;
+	border-bottom: 1px solid rgb(255,242,245);
+	padding:0px;
+	color: #00008B;
+}
+
+/* Top and Sub, Selected */
+.zpMenu-contrast_blue .zpMenuContainer .zpMenu-item-selected,
+.zpMenu-contrast_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+	background:  #000099;
+}
+
+/* Sub, Has Sub, NOT Selected */
+.zpMenu-contrast_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed{
+	background-image: url("contrast_blue/arrow.gif");
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+
+/* Sub, Has Sub, Selected */
+.zpMenu-contrast_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-expanded{
+	background: url("contrast_blue/arrow.gif")  #000099 no-repeat right center; 
+}
+
+
+/* Override previously defined background defined in this css for HR */
+.zpMenu-contrast_blue .zpMenuContainer .zpMenu-item-hr,
+.zpMenu-contrast_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	padding:0;
+	margin:0;
+	border:none;
+	background: #00FFFF;
+}

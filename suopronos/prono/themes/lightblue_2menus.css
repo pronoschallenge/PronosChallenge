@@ -1,0 +1,77 @@
+@import url("layout/basic.css");
+
+/* First level border */
+.zpMenu-lightblue .zpMenu-horizontal-mode .zpMenu-item,
+.zpMenu-lightblue .zpMenu-vertical-mode .zpMenu-item,
+.zpMenu-lightblue .zpMenuContainer .zpMenuContainer .zpMenu-item {
+	border: 1px solid #3399FF;
+}
+
+.zpMenu-lightblue .zpMenu-vertical-mode .zpMenu-item {
+	border-bottom: none;
+}
+
+/* first level border */
+.zpMenu-lightblue .zpMenu-vertical-mode .zpMenu-item-last {
+	border-bottom: 1px solid #3399FF;
+}
+
+/* Top horizontal - clip right border so left/right 2px not formed */
+.zpMenu-lightblue .zpMenu-horizontal-mode .zpMenu-item {
+	border-right:none;
+}
+/* Top horizontal - add right most border */
+.zpMenu-lightblue .zpMenu-horizontal-mode .zpMenu-item-last {
+	border-right: 1px solid #3399FF;
+}
+
+/* Sub level borders left and right */
+.zpMenu-lightblue .zpMenuContainer .zpMenuContainer .zpMenu-item {
+	border-top:none;
+}
+
+/* Sub level borders First item - define TOP border */
+.zpMenu-lightblue .zpMenuContainer .zpMenuContainer .zpMenu-item-first {
+	border-top:  1px solid #3399FF;
+}
+
+/* Default Background Color of ALL menu items */
+.zpMenu-lightblue .zpMenuContainer .zpMenu-item {
+	background: RGB(154,200,226);
+}
+
+/* Current selected items in top horizontal menu*/
+.zpMenu-lightblue .zpMenuContainer .zpMenuContainer .zpMenu-item-selected,
+.zpMenu-lightblue .zpMenuContainer .zpMenu-item-selected {
+   background: RGB(252,193,18);
+}
+
+/* All hrefs in the Menu color black */
+.zpMenu-lightblue .zpMenu-top .zpMenu-label, 
+.zpMenu-lightblue .zpMenu-top a{
+	color:#ffffff;
+}
+
+.zpMenu-lightblue .zpMenu-item table.zpMenu-table {
+	font: 12px "Arial", "Verdana", sans-serif;
+}
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenu-lightblue .zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed  {
+	background-image: url("icon/arrow_right_black.gif");
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenu-lightblue .zpMenuContainer .zpMenuContainer .zpMenu-item-expanded  {
+	background: url("icon/arrow_right_black.gif") RGB(252,193,18) no-repeat center right;
+}
+/* Override previously defined background defined in this css for HR */
+.zpMenu-lightblue .zpMenuContainer .zpMenu-item-hr,
+.zpMenu-lightblue .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	padding:0;
+	margin:0;
+	border:none;
+	background:black;
+}

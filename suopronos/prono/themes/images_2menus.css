@@ -1,0 +1,76 @@
+@import url("layout/3d.css");
+
+/* First level border */
+.zpMenu-images .zpMenu-vertical-mode .zpMenu-level-1,
+.zpMenu-images .zpMenu-horizontal-mode .zpMenu-level-1 {
+	border: 1px solid #EEEEE6;
+	border-color: #EEEEE6 #B0B098 #B0B098 #EEEEE6;
+}
+
+
+/* Sub level borders left and right */
+.zpMenu-images .zpMenuContainer .zpMenuContainer .zpMenu-item {
+	border:none; /* Override and default settings */
+	border-right: 1px solid #B0B098;
+	border-left:  1px solid #B0B098;
+}
+
+/* Sub level borders First item - define TOP border */
+.zpMenu-images .zpMenuContainer .zpMenuContainer .zpMenu-item-first {
+	border-top: 1px solid #EEEEE6;
+}
+
+/* Sub level borders First item - define BOTTOM border */
+.zpMenu-images .zpMenuContainer .zpMenuContainer .zpMenu-item-last {
+	border-bottom: 1px solid #EEEEE6;
+	border-color: #EEEEE6 #B0B098 #B0B098 #EEEEE6;
+}
+
+/* Background image */
+/*
+.zpMenu-images .zpMenu .zpMenu .zpMenu-item,
+.zpMenu-images .zpMenu .zpMenu-item {
+	*/
+.zpMenu-images .zpMenuContainer .zpMenuContainer .zpMenu-item,
+.zpMenu-images .zpMenuContainer  .zpMenu-item{
+	background: url("images/bg_menutitle.gif")  transparent 0 0;
+}
+
+/* All labels, top and sub */
+.zpMenu-images .zpMenu-top .zpMenu-label,
+.zpMenu-images .zpMenu-top a{
+	color:#296C8D;
+}
+
+/* General items that's not a top menu */
+/* NOTE: For drop shadow, Must define DIV container size along with item, NOT just item */
+.zpMenu-images .zpMenuContainer .zpMenuContainer,
+/* Override default sub menu item */
+.zpMenu-images .zpMenuContainer .zpMenuContainer .zpMenu-item {
+	margin-top:0px;
+	width: 15em;
+}
+
+/* Current selected items */
+.zpMenu-images .zpMenuContainer .zpMenu-item-selected {
+	background: url("images/bg_menutitle_on.gif")  100% 100%;
+}
+
+/* NOTE: for images, define zpMenu-label and width 100% 
+Original background image will be lost 
+*/
+.zpMenu-images .zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed .zpMenu-label {
+	background: url("icon/arrow_right_black.gif")  no-repeat center right;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenu-images .zpMenuContainer .zpMenuContainer .zpMenu-item-expanded .zpMenu-label {
+	background: url("icon/arrow_right_black.gif")  no-repeat center right;
+}
+
+/* Override previously defined background defined in this css for HR */
+/* Controls the behavior of <hr>  it the menu */
+.zpMenu-images .zpMenuContainer .zpMenu-item-hr,
+.zpMenu-images .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	background:black;
+}

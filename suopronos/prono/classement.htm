@@ -1,0 +1,196 @@
+<style type="text/css">
+#graphique-simplemodal-container {
+	background: none;
+	z-index: 1000;
+}
+
+a.modalCloseImg {
+	background:url(images/x.png) no-repeat;
+	width:25px;
+	height:29px;
+	display:inline;
+	z-index:3200;
+	position:absolute;
+	cursor:pointer;
+	display: none;
+}
+
+#graphique-simplemodal-container a.modalCloseImg {
+	top:-8px;
+	right:-5px;
+}
+
+#profil-simplemodal-container a.modalCloseImg {
+	top:-12px;
+	right:-13px;
+}
+
+#profil-simplemodal-container {
+	height:auto;
+	width:350px;
+	color:#bbb;
+	background-color:#333;
+	border:4px solid #444;
+	padding:12px;
+}
+#profil-simplemodal-container code {
+	background:#141414; 
+	border-left:3px solid #65B43D; 
+	color:#bbb; 
+	display:block; 
+	margin-bottom:12px; 
+	padding:4px 6px 6px;
+}
+#profil-simplemodal-container a {
+	color:#ddd;
+}
+
+
+#simplemodal-overlay {
+	background-color: #000000;
+}
+</style>
+ <br>
+
+	<div class="bloc bloc_classement">
+		<div class="rounded-block-top-left"></div>
+		<div class="rounded-block-top-right"></div>
+		<div class="rounded-outside">
+			<div class="rounded-inside">
+				<div class="bloc_entete">
+					<div class="bloc_icone"></div>
+					<div class="bloc_titre"><?php classement_type ($type);?></div>
+				</div>
+				<div class="bloc_contenu">
+
+<table border="0" cellpadding="0" cellspacing="2" width="90%">
+<tr align="center">
+<td align="center">
+<?
+if($filtre==0)
+{?>
+	<a href="index.php?page=<? echo $page ?>&type=<? echo $type ?>&gr_champ=<? echo $gr_champ ?>&filtre=1"><img src="images/filtre_non_actif.png" align="absmiddle" border="0"></a>
+	&nbsp;
+	<a href="index.php?page=<? echo $page ?>&type=<? echo $type ?>&gr_champ=<? echo $gr_champ ?>&filtre=1" style="color:#000000;">Filtrer le classement </a>
+<?}
+else
+{
+?>
+	<a href="index.php?page=<? echo $page ?>&type=<? echo $type ?>&gr_champ=<? echo $gr_champ ?>&filtre=0"><img src="images/filtre_actif.png" align="absmiddle" border="0"></a>
+	&nbsp;
+	<a href="index.php?page=<? echo $page ?>&type=<? echo $type ?>&gr_champ=<? echo $gr_champ ?>&filtre=0" style="color:#000000;">Ne plus filtrer le classement</a>
+<?
+}
+?>
+</td>
+</tr>
+</table>
+					
+<table id="classement" cellpadding="0" cellspacing="0">
+  <tr>
+<?php
+      	// colonne des évolutions
+      	if($type == null || $type=="general" || $type=="moyenne" || $type=="hourra" || $type=="mixte")
+	{
+?>
+	<th id="progression"></th>
+<?php
+	}
+	
+	// colonne de la place
+?>
+	<th id="place"></th>
+<?php
+      	// colonne des étoiles
+      	if($type == null || $type=="general" || $type=="moyenne" || $type=="hourra")
+	{
+?>	
+    <th id="etoile">
+    	<div><img src="images/etoile-or-petit.png" align="absmiddle" border="0" title="Nombre de victoires à PronosChallenge" alt="Nombre de victoires à PronosChallenge"></div>
+	</th>	
+<?
+	}
+?>
+	<th id="pseudo">
+    	<div>Pronostiqueur</div>
+	</th>
+    <th id="points">
+        <div>
+        	<?php if($type=="moyenne") echo PRONO_CLASSEMENT_REUSSITE; else echo PRONO_CLASSEMENT_POINTS;?>
+        </div>
+    </th>
+    <th id="nbpronos">
+		<div>
+			<?php if($type=="moyenne") echo PRONO_CLASSEMENT_FRACTIONS; else echo PRONO_CLASSEMENT_PARTICIPATIONS; ?>
+        </div>
+    </th>
+<?php 
+	// colonne du lien vers le graphe d'evolution
+	if($type == null || $type=="general" || $type=="derniere_journee" || $type=="moyenne" || $type=="hourra" || $type=="hourra_derniere_journee" || $type=="mixte") 
+	{
+?>          
+	<th id="graphe">
+		<div align="center" class="Style2"></div>
+    </th>          
+<?php 
+	} 
+?>          
+      </tr>
+<?php
+	classement ($gr_champ, $type, $user_id, $user_pseudo, $filtre);
+?>
+    </table>
+			</div>
+		</div>
+	</div>
+	<div class="rounded-block-bottom-left"></div>
+	<div class="rounded-block-bottom-right"></div>
+</div>
+    
+<script type="text/javascript" src="../lib/jquery/plugins/jquery.simplemodal-1.3.3.min.js"></script>
+<script type="text/javascript">
+function showProfil(idMembre) {
+	//var src = "profil_court.php?id_membre=" + idMembre;
+	
+	$.get(
+		"profil_court.php", 
+		{ id_membre: idMembre },
+		function(data){
+			$.modal('<div>'+data+'</div>', {
+				minHeight:100,
+				opacity: 50,
+				containerId: 'profil-simplemodal-container',				
+				overlayClose: true,
+				onOpen: function (dialog) {
+							dialog.overlay.fadeIn('slow', function () {
+								dialog.container.slideDown('slow', function () {
+									dialog.data.slideDown();
+									$(".modalCloseImg").show();
+								});
+							});
+						}
+			});
+		}
+	);	
+}
+function showGraph(type, idMembre) {
+	var src = "graph_pronos.php?gr_champ=<? print $gr_champ ?>&id_membre=" + idMembre + "&type=" + type + "&t=" + (new Date()).getTime();
+	$.modal('<img src="' + src + '" style="border:0">', {
+		containerCss:{
+			height:405,
+			width:705
+		},
+		opacity: 50,
+		containerId: 'graphique-simplemodal-container',		
+		overlayClose:true,
+		onOpen: function (dialog) {
+					dialog.overlay.fadeIn('slow', function () {
+						dialog.container.slideDown('slow', function () {
+							dialog.data.slideDown();
+							$(".modalCloseImg").show();
+						});
+					});
+				}
+	});
+}
+</script>

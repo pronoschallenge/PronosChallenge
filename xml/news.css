@@ -1,0 +1,25 @@
+
+.news_box_title{
+	font-family:Verdana;
+	font-size:9px;
+	font-weight:bold;
+	padding:2px;
+	color:#FFFFFF;
+	background-color:#333333;
+	margin-bottom:2px;
+}
+
+.news_box{
+	margin:9px;
+	border: 1px solid;
+	padding:5px;
+	font-family: Verdana;
+	font-size:13px;
+}
+
+.news_box_date{
+	font-size:9px;
+	font-style:italic;
+	text-align:right;
+	margin-bottom:2px;
+}

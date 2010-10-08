@@ -1,0 +1,6 @@
+Fichiers modifiés :
+- suopronos/prono/menu.identifie.top.htm
+- suopronos/prono/index.php
+- suopronos/prono/strategie.php
+- suopronos/admin_pronos_suo/resultats.php
+- suopronos/admin_pronos_suo/fonctions.php

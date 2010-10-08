@@ -1,0 +1,69 @@
+@import url("layout/2d.css");
+
+
+.zpMenu-csm_winxp .zpMenuContainer {
+    margin: -3px 0px 0px 0px;
+    background: white;
+    border: solid 1px #ACA899;
+    background: white;
+}
+
+
+.zpMenu-csm_winxp .zpMenu-vertical-mode {
+  margin-bottom: 5px;
+}
+
+
+.zpMenu-csm_winxp .zpMenuContainer .zpMenu-item,
+.zpMenu-csm_winxp .zpMenuContainer .zpMenuContainer .zpMenu-item {
+    border: 0px;
+	line-height: 16px;
+    padding: 0;
+    cursor: default;
+    margin-left:2px;
+    margin-right: 2px;
+    background: white;
+}
+
+.zpMenu-csm_winxp .zpMenuContainer .zpMenu-item a {
+    font-family: Arial, Helvetica, Verdana, sans-serif;
+    cursor: default;
+}
+
+.zpMenu-csm_winxp .zpMenuContainer .zpMenu-item-selected,
+.zpMenu-csm_winxp .zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+	background: #316AC5;
+}
+
+.zpMenu-csm_winxp .zpMenuContainer .zpMenu-item-selected .zpMenu-label,
+.zpMenu-csm_winxp .zpMenuContainer .zpMenu-item-selected a{
+    color: white;  
+}
+
+.zpMenu-csm_winxp .zpMenu-vertical-mode .zpMenu-item-first,
+.zpMenu-csm_winxp .zpMenuContainer .zpMenuContainer .zpMenu-item-first {
+    margin-top: 2px;
+}
+
+.zpMenu-csm_winxp .zpMenu-vertical-mode .zpMenu-item-last,
+.zpMenu-csm_winxp .zpMenuContainer .zpMenuContainer .zpMenu-item-last{
+    margin-bottom: 2px;
+}
+
+.zpMenu-csm_winxp .zpMenu-vertical-mode .zpMenu-item-collapsed,
+.zpMenu-csm_winxp .zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed  {
+	background: url("csm_winxp/arrow_w.gif") white no-repeat right center;
+}
+
+.zpMenu-csm_winxp .zpMenu-vertical-mode .zpMenu-item-expanded,
+.zpMenu-csm_winxp .zpMenuContainer .zpMenuContainer .zpMenu-item-expanded  {
+	background: url("csm_winxp/arrow_b.gif") #316AC5 no-repeat right center;
+}
+
+.zpMenu-csm_winxp .zpMenuContainer .zpMenu-item-hr,
+.zpMenu-csm_winxp .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	background: #ACA899;
+	height:1px;
+    padding: 0px;
+	margin: 4px 2px 4px 2px;
+}

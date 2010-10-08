@@ -1,0 +1,22 @@
+<table width="90%" align="center">
+<tr><td width="50%" valign="middle"><div class="bleu">
+<a href="<?PHP print $prec; ?>"><img src="images/prev.jpg" border="0" align="absmiddle"/></a> <a href="<?PHP print $prec; ?>"><?php echo PRONO_GRILLE_PRECEDENT; ?></a></div></td>
+<td width="50%" align="right" valign="middle">
+<div class="bleu"><a href="index.php?page=adminpronos&amp;debut=<? print $fin; ?>&amp;gr_champ=<?php print $gr_champ;?>"><?php echo PRONO_GRILLE_SUIVANT; ?></a> <a href="index.php?page=adminpronos&amp;debut=<? print $fin; ?>&amp;gr_champ=<?php print $gr_champ;?>"><img src="images/next.jpg" border="0" align="absmiddle"/></a></div>
+</td></tr>
+<tr><td width="100%" colspan="2" class="prono1">
+<br>
+<FORM id="matchid" name="matchid" action="index.php?page=adminpronos&amp;gr_champ=<?php print $gr_champ;?>" method="post">
+
+<table border="0" cellspacing="1" width="100%" align="center">
+<tr class="tab_pronos_header"><td width="2%" align="center"><div class="blanc"><b><?php echo ADMIN_COHERENCE_MSG2; ?></b></div></td>
+<td width="8%" align="center"><div class="blanc"><b><?php echo DATE; ?></b></div></td>
+<td width="16%" colspan="2"></td>
+<td width="16%" align="center">
+<div class="blanc"><b><?php echo PRONO_GRILLE_PRONO; ?></b></div></td>
+<td width="16%" colspan="2"></td>
+<td width="12%" align="center">
+<div class="blanc"><b><?php echo PRONO_GRILLE_TEMPS; ?></b></div>
+</td></tr>
+
+

@@ -1,0 +1,1257 @@
+/* --------- Général --------- */
+
+BODY.phpl {
+	background: #404040;
+	/*background: #404349;*/
+	color: #000000;
+	font-size:10pt;
+	font-family: verdana;
+}
+
+#page {
+	width: 980px;
+	/*width: 1086px;*/
+	/*background: #282A2D url(./prono/images/fond-ombre.png) repeat-y;*/
+	margin: 0px auto;
+	/*background-color: #282A2D;*/		
+}
+
+#entete {
+	/*width: 1014px;*/
+	width: 958px;
+	height: 192px;
+	margin: 0px 12px 0px 12px;
+	/*padding: 5px 5px 5px 5px;*/
+	background: transparent url(../prono/images/bandeau.png) no-repeat;
+}
+
+#navigation {
+	width: 980px;
+	height: 43px;
+	/*background: #282A2D url("../prono/images/menu-fond.png") no-repeat;*/
+	background: #66B327 url("../prono/images/menu-fond.png") no-repeat;
+	border-top: 1px solid #FFFFFF;
+}
+
+#contenu {
+	width: 948px;
+	height: 100%;
+	float: none;
+	background: #66B327;
+	/*background: #282A2D;*/
+	margin: 0px 11px 0px 11px;
+	padding: 5px 5px 5px 5px;
+	overflow: hidden;
+	clear: both;
+}
+
+#pied {
+	clear: both;
+	/*width: 1014px;*/
+	width: 980px;
+	height: 116px;
+	background: transparent url(../prono/images/footer.png) no-repeat;
+	margin: 0px 0px 10px 0px;
+}
+
+#contact {
+	font-size: 16px;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 15px;
+}
+
+#contact a {
+	color: #FFFFFF;
+}
+
+.bouton {
+	background: #DDDDDD url(../prono/images/fond-bouton.gif) repeat-x scroll 0 0;
+	border-color: #DDDDDD #DDDDDD #CCCCCC;
+	border-style: solid;
+	border-width: 1px;
+	color: #333333;
+	cursor: pointer;
+	font-size: 10pt;
+	background-position: 0 -200px;
+	line-height: 20px !important;
+	padding: 2px 8px 3px;	
+}
+
+.bouton:hover {
+	background-position: 0 -206px;
+	border-color: #999999 #999999 #888888;
+	color: #000000;
+	text-decoration: none;
+}
+
+
+/* ------------- menu connexion ------------- */
+
+#utilisateur {
+	float: right;
+	padding: 0px 30px 0px 0px;
+	/*
+	background-color: #D0D0D0;
+	padding: 0px 5px 5px 5px;
+	opacity : 0.8;
+    filter : alpha(opacity=80); 
+	overflow:hidden;
+	color: #000000;
+	*/
+}
+
+#connexion {
+	text-align: right;
+	padding: 0px 30px 0px 0px;
+	border-left: 1px solid #8ba1ae;
+}
+
+#connexion #user, #connexion #pass {
+	width: 80px;
+	height: 15px;
+	font-size: 7pt;
+	padding: 2px 0px 0px 2px;
+	margin: 8px 0px 0px 0px;
+}
+
+.inputFlat {
+	font-family: verdana;
+	font-size: 13px;
+	color: #707070;
+	background-color: #FFFFFF;
+	border: 2px solid #C3D1D4;
+}
+
+.inputFlatUpd {
+	font-family: verdana;
+	font-size: 13px;
+	color: #000000;
+	background-color: #FFFFFF;
+	border: 2px solid #ADB8BC;
+}
+
+.inputRadio {
+	font-family: verdana;
+	font-size: 13px;
+	color: #333333;
+	background-color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+}
+
+.bouton_connexion {
+	width: 92px;
+	height: 19px;
+	position: relative;
+	top: 6px;
+}
+
+.bouton_deconnexion {
+	/*width: 92px;*/
+	/*height: 19px;*/
+	margin: 8px 0px 0px 0px;
+	border: 0px;
+}
+
+.bouton_aide {
+	position: relative;
+	top: 6px;
+	border: 0px;
+}
+
+.bouton_option {
+	margin: 0px 0px 0px 0px;
+	border: 0px;
+}
+
+.bouton_email {
+	border: 0px;
+	vertical-align: middle;
+}
+
+#connexion .bouton_email {
+	margin-top: 2px;
+}
+
+#utilisateur .bouton_email {
+	margin-top: -9px;
+}
+
+#clmnt_utilisateur {
+	float: left;
+	padding-right: 5px;
+}
+
+#clmnt_utilisateur table {
+	border: 0px;
+	/*background-color: #BBBCBE;*/
+	background: transparent url(../prono/images/menu-fond-selected.png) repeat-x;
+	text-align: left;
+	color: #FFFFFF;
+}
+
+#clmnt_utilisateur #utilisateur_col_gauche {
+	text-align: center;
+	vertical-align: top;
+	padding-left: 3px;
+	padding-right: 10px;
+}
+
+#clmnt_utilisateur #pseudo {
+	width:100%;
+	text-align:left;
+	font-weight: bold;
+	padding-left: 1px;
+}
+
+#clmnt_utilisateur #clmnt_utilisateur_mixte,
+#clmnt_utilisateur #clmnt_utilisateur_general,
+#clmnt_utilisateur #clmnt_utilisateur_hourra {
+	font-size: 7pt;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#clmnt_utilisateur .nom_clmnt_utilisateur {
+	text-align: left;
+	padding-right: 4px;
+}
+
+#clmnt_utilisateur .place_clmnt_utilisateur {
+	text-align: right;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+table.clmnt_utilisateur td {
+	width: 50%;
+	border: 0px;
+	cursor: pointer;
+}
+
+/* --------- Blocs --------- */
+
+.bloc {
+	background-color: #FFFFFF;
+	/*border: 5px solid #D8D9DB;*/
+	font-size: 9pt;
+	/*margin-bottom: 5px;*/
+}
+
+div.rounded-outside, div.rounded-inside {
+	background:transparent url(../prono/images/rounded-block-inner.png) repeat-y scroll right center;
+	padding-right:8px;
+}
+
+div.rounded-inside {
+	background-position:left center;
+	padding:0 0 0 8px;
+	overflow: hidden;
+}
+
+div.rounded-block-top-left, div.rounded-block-top-right, div.rounded-block-bottom-left, div.rounded-block-bottom-right {
+	background:transparent url(../prono/images/rounded-block.png) no-repeat scroll 0 0;
+	font-size:2px;
+	height:9px;
+}
+
+div.rounded-block-top-left, div.rounded-block-bottom-left {
+	margin-right:9px;
+}
+
+div.rounded-block-bottom-left {
+	background-position:0 -9px;
+}
+
+div.rounded-block-top-right, div.rounded-block-bottom-right {
+	margin-left:9px;
+	margin-top:-9px;
+}
+
+div.rounded-block-top-right {
+	background-position:100% 0;
+}
+
+div.rounded-block-bottom-right {
+	background-position:100% -9px;
+}
+
+div.rounded-block-top-right, div.rounded-block-bottom-right {
+	/*margin-left:9px;*/
+	width: 9px;
+	float: right;
+}
+
+.bloc_entete {
+	background: transparent url(../prono/images/titre-soulignes.gif) repeat-x bottom left;
+	color: #000000;
+	font-size: 11pt;
+	font-weight: bold;
+	text-align: left;
+	margin: 0px 4px 3px 4px;
+	padding: 0px 0px 5px 0px;
+}
+
+.bloc_icone {
+	float: left;
+}
+
+.bloc_titre {
+	text-align: right;
+	margin: 0px 4px 0px 4px;
+	padding: 3px 0px 1px 0px;	
+}
+
+.bloc_entete img {
+	vertical-align: middle;
+}
+
+.bloc_contenu * {
+	font-size:8pt;
+}
+
+.ligne_impaire {
+	background-color:#F4EC99;	
+}
+
+.ligne_paire {
+	background-color:#FFF0D3;
+}
+
+
+/* --------- Page d'accueil --------- */
+
+#colonne1 {
+	float: left;
+	width: 250px;
+	margin-right: 0px;
+}
+
+#colonne2 {
+	float: right;
+	width: 250px;
+	margin-left: 0px;
+}
+
+#colonne3 {
+	/*width: 504px;*/
+	/*overflow: hidden;*/
+	/*width: 100%;*/
+	margin-left: 255px;
+	margin-right: 255px;
+	text-align: left;
+}
+
+.accueil_pronos #clubdom_prono_accueil {
+	text-align: right;
+}
+
+.accueil_pronos #img1n2_prono_accueil {
+	width: 75px;
+	text-align: center;
+}
+
+.accueil_news {
+}
+
+.accueil_news td {
+	vertical-align: top;
+}
+
+.news_date {
+	width: 39px;
+	height: 50px;
+	background: transparent url(../prono/images/fond-date.png) no-repeat 2px 1px;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-align: center;
+}
+
+.news_date_jour {
+	font-size: 15pt;
+}
+
+.news_texte {
+	text-align: left;
+	padding-left: 5px;
+}
+
+.accueil_top5 {
+}
+
+.accueil_top5 table {
+	width: 100%;
+}
+
+.accueil_top5 #top5_general {
+	float: left;
+	width: 140px;
+	background-color:#FFF0D3;
+}
+
+.accueil_top5 #top5_hourra {
+	float: right;
+	width: 140px;
+	background-color:#FFF0D3;
+}
+
+.accueil_top5 #top5_mixte {
+	margin-left: 145px;
+	margin-right: 145px;
+	background-color:#F4EC99;
+}
+
+.accueil_top5 #top5_general table caption, .accueil_top5 #top5_hourra table caption, .accueil_top5 #top5_mixte table caption {
+	font-weight: bold;
+}
+
+.accueil_topflop {
+}
+
+.accueil_gazouillis {
+	clear: both;
+}
+
+.accueil_gazouillis .gazouillis_pied {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.gazouilli {
+	border-top: 1px solid #E0E0E0;
+	padding: 3px 0px 3px 0px;
+	text-align: left;
+	overflow: hidden;
+}
+
+.premier_gazouilli {
+	border-top: 0px;
+	padding: 3px 0px 3px 0px;
+	text-align: left;
+	overflow: hidden;
+}
+
+.gazouilleur_avatar {
+	float: left;
+	width: 40px;
+	margin-right: 3px;
+}
+
+.gazouilleur {
+	float: left;
+	font-weight: bold;
+	color: #FF8200;
+	margin-right: 5px;
+}
+
+.contenu_gazouilli {	
+	margin-left: 43px;
+}
+
+.date_gazouilli {
+	font-size: 10px;
+	color: #999999;
+}
+
+/* --------- Page des gazouillis --------- */
+
+.bloc_gazouillis {
+	width: 600px;
+}
+
+.bloc_gazouillis .gazouilli_form {
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.bloc_gazouillis .gazouilli_bouton_submit {
+	text-align: right;
+	margin-right: 5px;
+}
+
+.bloc_gazouillis .gazouilli_cars_restants {
+	float: left;
+	text-align: left;
+	color: #CCCCCC;
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.bloc_gazouillis .bouton_plus {
+	font-weight: bold;
+	margin-top: 8px;
+}
+
+/* --------- Page d'authentification --------- */
+
+.login {
+	width: 400px;
+	margin: 30px 0px 50px 0px;
+}
+
+.login #login_icone {
+	float: left;
+	margin-top: 10px;
+	background: #FFFFFF;
+}
+
+.login .bloc_contenu {
+	height: 118px;
+}
+
+.login #login_form {
+	padding: 12px 0px;
+}
+
+.login #identifiant, .login #motdepasse {
+	width: 300px;
+	padding: 7px 0px 0px 20px;
+}
+
+.login #libelle_identifiant, .login #libelle_motdepasse {
+	float: left;
+	width: 100px;
+	height: 20px;
+	vertical-align: middle;	
+	text-align: left;
+	font-weight: bold;
+	white-space: nowrap;
+}
+
+.login #input_identifiant, .login #input_motdepasse {
+	width: 130px;
+	text-align: right;
+}
+
+.login #input_motdepasse a {
+	font-size: 8pt;
+}
+
+div#erreur_login {
+	width: 380px;
+	height: 30px;
+	margin-top:20px;
+	border: 1px solid;
+	padding-top: 5px;
+	background-color: #FFBABA;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #DB260D;
+}
+
+div#erreur_login img {
+	vertical-align: middle;
+	padding-right: 10px;
+}
+
+/* --------- Page des pronos --------- */
+
+.bloc_pronos {
+	/*width: 560px;*/
+	margin-left: 190px;
+	margin-right: 190px;
+	/*overflow:hidden;*/
+}
+
+.bloc_pronos_classement {
+	float: left;
+	width: 190px;
+}
+
+.bloc_pronos_classement .bloc_contenu {
+}
+
+.bloc_pronos_journees {
+	float: right;
+	width: 190px;
+}
+
+.bloc_pronos_journees table caption a {
+	cursor: pointer;
+}
+
+.bloc_pronos div#pronos_pagination {
+	width: 95%;
+	float: none;
+}
+
+.bloc_pronos div#matchs_precedents {
+	float: left;
+}
+
+.bloc_pronos div#matchs_suivants {
+	float: right;
+}
+
+.bloc_pronos div#pronos_message_confirmation {
+	clear: both;
+	color: green; 
+	font-size: 10pt;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.bloc_pronos div#pronos {
+	clear: both;
+}
+
+.bloc_pronos div#pronos table {
+	/*border-left: 1px solid #686868;*/
+	/*border-right: 1px solid #686868;*/
+	border-bottom: 1px solid #686868;
+}
+
+.bloc_pronos div#pronos table th {
+	height: 25px;
+	background: #333 url(../prono/images/fond-entete-tableau.gif) repeat-x;
+	color: #fff;
+}
+
+.bloc_pronos td {
+	border-bottom: 1px solid #686868;
+	text-align: center;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.bloc_pronos td.pronos_journee {
+	width: 40px;
+}
+
+.bloc_pronos td.pronos_date {
+	width: 100px;
+}
+
+.bloc_pronos td.pronos_seriedom {
+	width: 150px;
+	text-align: center;
+}
+
+.bloc_pronos td.pronos_clubdom {
+	width: 150px;
+	text-align: right;
+}
+
+.bloc_pronos td.pronos_prono {
+	width: 120px;
+}
+
+.bloc_pronos td.pronos_clubext {
+	width: 150px;
+	text-align: left;
+}
+
+.bloc_pronos td.pronos_serieext {
+	width: 150px;
+	text-align: center;
+}
+
+.bloc_pronos td.pronos_expire {
+	width: 100px;
+}
+
+.bloc_pronos_classement #tablePronosClassementL1 {
+	padding-top: 4px;
+}
+
+.bloc_pronos_classement #tablePronosClassementL1 th {
+	background-color: #202020;
+	color: #FFFFFF;
+	padding: 1px 4px 1px 4px;
+}
+
+.bloc_pronos_classement #tablePronosClassementL1 .accession {
+	background-color: #90EE90;
+}
+
+.bloc_pronos_classement #tablePronosClassementL1 .barrage {
+	background-color: #66CCFF;
+}
+
+.bloc_pronos_classement #tablePronosClassementL1 .relegation {
+	background-color: #FF6561;
+}
+
+.bloc_pronos_classement #tablePronosClassementL1 tr.l1LignePaire {
+	background-color: #FFFFFF;
+}
+
+.bloc_pronos_classement #tablePronosClassementL1 tr.l1LigneImpaire {
+	background-color: #D0D0D0;
+}
+
+.bloc_pronos_journees #tablePronosCalendrierL1 td {
+	padding: 2px 4px 2px 4px;
+}
+
+.bloc_pronos_journees #tablePronosCalendrierL1 tr.date {
+	background-color: #202020;
+}
+
+.bloc_pronos_journees #tablePronosCalendrierL1 tr.l1LignePaire {
+	background-color: #FFFFFF;
+}
+
+.bloc_pronos_journees #tablePronosCalendrierL1 tr.l1LignePaire {
+	background-color: #D0D0D0;
+}
+
+/* --------- Page des derniers pronos --------- */
+
+.bloc_derniers_pronos {
+	width: 95%;
+}
+
+.bloc_derniers_pronos div#pronos_pagination {
+	width: 800px;
+	float: none;
+}
+
+.bloc_derniers_pronos div#matchs_precedents {
+	float: left;
+}
+
+.bloc_derniers_pronos div#matchs_suivants {
+	float: right;
+}
+
+.bloc_derniers_pronos div#pronos {
+	width: 800px;
+	clear: both;
+}
+
+.bloc_derniers_pronos div#pronos table {
+	border-left: 1px solid #686868;
+	border-right: 1px solid #686868;
+	border-bottom: 1px solid #686868;
+}
+
+.bloc_derniers_pronos div#pronos table th {
+	height: 25px;
+	background: #333 url(../prono/images/fond-entete-tableau.gif) repeat-x;
+	color: #fff;
+}
+
+.bloc_derniers_pronos td {
+	border-bottom: 1px solid #686868;
+	text-align: center;
+}
+
+.bloc_derniers_pronos td.derniers_pronos_journee {
+	width: 40px;
+}
+
+.bloc_derniers_pronos td.derniers_pronos_date {
+	width: 100px;
+}
+
+.bloc_derniers_pronos td.derniers_pronos_clubdom {
+	width: 150px;
+	text-align: right;
+}
+
+.bloc_derniers_pronos td.derniers_pronos_prono {
+	width: 120px;
+}
+
+.bloc_derniers_pronos td.derniers_pronos_clubext {
+	width: 150px;
+	text-align: left;
+}
+
+.bloc_derniers_pronos td.derniers_pronos_score {
+	width: 100px;
+}
+
+.bloc_derniers_pronos td.derniers_pronos_picto {
+	width: 60px;
+}
+
+.bloc_derniers_pronos td.derniers_pronos_points {
+	width: 60px;
+}
+
+/* --------- Page des classements --------- */
+
+.bloc_classement {
+	width: 95%;
+}
+
+#classement {
+	width: 90%;
+	border-left: 1px solid #686868;
+	border-right: 1px solid #686868;
+	border-bottom: 1px solid #686868;
+	color: #333;	
+}
+
+#classement tr {
+	cursor: pointer;
+}
+
+#classement th {
+	height: 25px;
+	background: #333 url(../prono/images/fond-entete-tableau.gif) repeat-x;
+	color: #fff;
+}
+
+#classement th#progression {
+	width: 60px;
+}
+
+#classement th#place {
+	width: 45px;
+}
+
+#classement th#etoile {
+	width: 60px;
+}
+
+#classement th#pseudo {
+	width: *;
+}
+
+#classement th#points {
+	width: 100px;
+}
+
+#classement th#nbpronos {
+	width: 80px;
+}
+
+#classement th#graphe {
+	width: 45px;
+}
+
+#classement .utilisateur_connecte {
+	font-weight: bold;
+}
+
+#classement tr:hover {
+	background-color: #E0E0E0;
+}
+
+/* --------- Page des tendances --------- */
+
+.bloc_tendances {
+	width: 95%;
+}
+
+.tendance1 {
+	text-align: center;
+	font-weight: bold;
+	height: 20px;
+	background: transparent url(../prono/images/tendance_rouge.gif) repeat-x;
+}
+
+.tendanceN {
+	text-align: center;
+	font-weight: bold;
+	height: 20px;
+	background: transparent url(../prono/images/tendance_orange.gif) repeat-x;
+}
+
+.tendance2 {
+	text-align: center;
+	font-weight: bold;
+	height: 20px;
+	background: transparent url(../prono/images/tendance_vert.gif) repeat-x;
+}
+
+#tooltip {
+	position: absolute;
+	z-index: 3000;	
+	border: 1px solid #111;
+	background-color: #eee;
+	padding: 3px;
+	opacity: 0.85;
+}
+
+#tooltip h3, #tooltip div { 
+	margin: 0;
+	font-size: 9pt;
+}
+
+/* --------- Page des stats --------- */
+
+.bloc_stats {
+	width: 95%;
+}
+
+#stats_table_series .encours {
+	color: blue;
+}
+
+div#cotes_pronos {
+	clear: both;
+}
+
+/* --------- Page des cotes --------- */
+
+.bloc_cotes {
+	width: 95%;
+}
+
+.bloc_cotes div#matchs_precedents {
+	float: left;
+}
+
+.bloc_cotes div#matchs_suivants {
+	float: right;
+}
+
+.bloc_cotes div#cotes_pronos {
+	clear: both;
+}
+
+.bloc_cotes div#cotes_pronos table {
+	border-left: 1px solid #686868;
+	border-right: 1px solid #686868;
+	border-bottom: 1px solid #686868;
+}
+
+.bloc_cotes div#cotes_pronos table th {
+	height: 25px;
+	background: #333 url(../prono/images/fond-entete-tableau.gif) repeat-x;
+	color: #fff;
+}
+
+.bloc_cotes div#cotes_pronos tr {
+	height: 25px;
+}
+
+.bloc_cotes div#cotes_pronos td {
+	border-bottom: 1px solid #686868;
+	text-align: center;	
+}
+
+.bloc_cotes div#cotes_pronos td.cotes_journee {
+	width: 60px;
+}
+
+.bloc_cotes div#cotes_pronos td.cotes_clubdom {
+	width: 150px;
+	text-align: right;
+}
+
+.bloc_cotes div#cotes_pronos td.cotes_prono1 {
+	width: 80px;
+}
+
+.bloc_cotes div#cotes_pronos td.cotes_pronoN {
+	width: 80px;
+}
+
+.bloc_cotes div#cotes_pronos td.cotes_prono2 {
+	width: 80px;
+}
+
+.bloc_cotes div#cotes_pronos td.cotes_clubext {
+	width: 150px;
+	text-align: left;
+}
+
+.bloc_cotes div#cotes_pronos td.cotes_parieurs {
+	width: 60px;
+}
+
+.bloc_cotes div.cotes_pronoutilisateur {
+	margin: 0px auto;
+	width: 17px;
+	height: 16px;
+	font-weight: bold;
+	background: transparent url(../prono/images/croissant.gif) no-repeat;
+}
+
+/* --------- Page du mot de passe oublié --------- */
+
+.bloc_motdepasseoublie {
+	width: 95%;
+}
+
+/* --------- Page du compte --------- */
+
+.bloc_compte {
+	width: 95%;
+}
+
+.bloc_compte table {
+	width: 55%;
+}
+
+.bloc_compte #formProfil td {
+	width: 50%;
+	vertical-align: top;
+	text-align: left;
+}
+
+.bloc_compte #bouton_valider_compte {
+	text-align: center;
+}
+
+.bloc_compte #tableFiltre {
+	width: 70%;
+	border-left: 1px solid #686868;
+	border-right: 1px solid #686868;
+	border-bottom: 1px solid #686868;
+}
+
+.bloc_compte #tableFiltre th {
+	height: 25px;
+	background: #333 url(../prono/images/fond-entete-tableau.gif) repeat-x;
+	color: #fff;
+}
+
+.bloc_compte #tableFiltre .filtreLignePaire {
+	background-color: #FFFFFF;
+}
+
+.bloc_compte #tableFiltre .filtreLigneImpaire {
+	background-color: #D0D0D0;
+}
+
+.bloc_compte #tableFiltre td {
+	text-align: center;
+}
+
+/* --------- Page du classement Ligue 1 --------- */
+
+.bloc_classement_ligue1 {
+	width: 95%;
+}
+
+.bloc_classement_ligue1 #tableClassementL1 {
+	width: 60%;
+	border-left: 1px solid #686868;
+	border-right: 1px solid #686868;
+	border-bottom: 1px solid #686868;
+}
+
+.bloc_classement_ligue1 #tableClassementL1 th {
+	height: 25px;
+	background: #333 url(../prono/images/fond-entete-tableau.gif) repeat-x;
+	color: #fff;
+}
+
+.bloc_classement_ligue1 #tableClassementL1 .accession {
+	background-color: #90EE90;
+}
+
+.bloc_classement_ligue1 #tableClassementL1 .barrage {
+	background-color: #66CCFF;
+}
+
+.bloc_classement_ligue1 #tableClassementL1 .relegation {
+	background-color: #FF6561;
+}
+
+.bloc_classement_ligue1 #tableClassementL1 tr.l1LignePaire {
+	background-color: #FFFFFF;
+}
+
+.bloc_classement_ligue1 #tableClassementL1 tr.l1LigneImpaire {
+	background-color: #D0D0D0;
+}
+
+.bloc_classement_ligue1 #tableClassementL1 td {
+	text-align: center;
+}
+
+/* --------- Page du détail Ligue 1 --------- */
+
+.bloc_detail_ligue1 {
+	width: 95%;
+}
+
+.bloc_detail_ligue1 #tableDetailEquipeL1 {
+	width: 80%;
+	border-left: 1px solid #686868;
+	border-right: 1px solid #686868;
+	border-bottom: 1px solid #686868;
+}
+
+.bloc_detail_ligue1 #tableDetailEquipeL1 th {
+	height: 25px;
+	background: #333 url(../prono/images/fond-entete-tableau.gif) repeat-x;
+	color: #fff;
+}
+
+.bloc_detail_ligue1 #tableDetailEquipeL1 tr.l1LignePaire {
+	background-color: #FFFFFF;
+}
+
+.bloc_detail_ligue1 #tableDetailEquipeL1 tr.l1LigneImpaire {
+	background-color: #D0D0D0;
+}
+
+/* --------- Page des lots --------- */
+
+.bloc_lots {
+	width: 95%;
+}
+
+.bloc_lots table {
+	border-left: 1px solid #686868;
+	border-right: 1px solid #686868;
+	border-bottom: 1px solid #686868;
+}
+
+.bloc_lots table th {
+	height: 25px;
+	background: #333 url(../prono/images/fond-entete-tableau.gif) repeat-x;
+	color: #fff;
+}
+
+.bloc_lots table td {
+	border-bottom: 1px solid #686868;
+	text-align: center;
+	vertical-align: top;
+}
+
+.bloc_lots .tableCriteres {
+	border: 0px;
+}
+
+.bloc_lots .tableCriteres td {
+	border: 0px;
+	text-align: left;
+	padding-left: 10px;
+}
+
+/* --------- Page du réglement --------- */
+
+.bloc_reglement {
+	width: 95%;
+}
+
+.bloc_reglement table {
+	border-left: 1px solid #686868;
+	border-right: 1px solid #686868;
+	border-bottom: 1px solid #686868;
+}
+
+.bloc_reglement table th {
+	height: 25px;
+	background: #333 url(../prono/images/fond-entete-tableau.gif) repeat-x;
+	color: #fff;
+}
+
+.bloc_reglement table td {
+	border-bottom: 1px solid #686868;
+	text-align: center;
+	vertical-align: top;
+}
+
+/* --------- couleurs des liens --------- */
+
+a:visited {
+	color: #000000; text-decoration:none;
+}
+a:active {
+	color: #000000; text-decoration:none;
+}
+A:hover {
+	color:#000000; text-decoration:underline;
+}
+A {
+	color: #000000; text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+/*
+------------------------------------
+----------- classement -------------
+------------------------------------
+*/
+
+/* --------- tableau journée --------- */
+
+TR.date {color: #FFFFFF; background: #202020} /* date des rencontres*/
+
+/* --------- calendrier ---------- */
+
+font.victoire {color: #339933} /* couleur du texte désignant une victoire */
+font.nul {color: #ff9933} /* couleur du texte désignant un nul */
+font.defaite {color: #FF3300} /* couleur du texte désignant une défaite */
+td.cld1 {text-align:right; width:40%} /* cellule gauche tableau */
+td.cld2 {text-align:left; width:40%} /* cellule droite tableau */
+
+
+/* -------- autres ----------- */
+
+TR.trphpl {font-size: 8pt}
+TR.trphpl2 {
+	background: #F5F5F5 ; 
+	vertical-align: top; 
+	font-size: 8pt
+	
+}
+/* titre dans les tableaux */
+TR.trphpl3 {
+	background: #FF6600 ;
+	color: #FFFFFF; 
+	font-size: 8pt;
+} 
+TD.petitcar {font-size: 7pt;}
+h1, h2, h3, h4, h5, h6, h7 {
+	font-family: verdana;
+}
+
+
+DIV.infosUser {
+	display:none;
+	position:absolute;
+	/*background-color: #F5F5F5;*/
+	background-color: White;
+	border-width: 1px;
+	border-style: solid;
+	font-size: 8pt;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+DIV.infosUser td {
+	vertical-align: middle;
+}
+
+DIV.palmaresUser {
+	display:none;
+	position:absolute;
+	/*background-color: #F5F5F5;*/
+	background-color: White;
+	border-width: 1px;
+	border-style: solid;
+	font-size: 8pt;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding:3px 3px 3px 3px;
+}
+
+/*
+------------------------------------
+----------- Pronostics ------------
+------------------------------------
+*/
+
+
+td.menu {background: #808080; color: #FFFFFF; font-family:verdana} /* menu */
+
+.jaune {font-size:10pt; color: #FFFF00; font-family: verdana;} /* titre page d'accueil */
+.blanc {font-size:9pt; color: #FFFFFF; font-family: verdana;} /* texte */
+.gris {font-size:10pt; color: #000000; background: #EFEFEF; font-family: verdana;} /* texte */
+.vert1 {font-size:9pt; color: #000000; background: #7CDB77; font-family: verdana;} /* texte */
+.vert2 {font-size:9pt; color: #000000; background: #ABE8A8; font-family: verdana;} /* texte */
+.vert3 {font-size:9pt; color: #000000; background: #DBF3DA; font-family: verdana;} /* texte */
+.rouge {font-size:9pt; color: #000000; background: #FFD7D7; font-family: verdana;} /* texte */
+.noir {font-size:10pt; color: #000000; background: #FFFFFF; font-family: verdana;} /* autre texte */
+.blanctitre {font-size:12pt; color: #000000; font-family: verdana;} /* titre en haut de pages */
+
+.bleu {font-size:8pt; color: #000000; font-family: verdana;} /* autre texte */
+

@@ -1,0 +1,56 @@
+@import url("layout/2d.css");
+
+/* Default Border for top and sub menus */
+.zpMenu-office_gray .zpMenuContainer {
+	border: 1px solid #002C94;
+}
+
+/* Default Background Color of ALL menu items */
+.zpMenu-office_gray .zpMenuContainer .zpMenu-item {
+	background-color: #DEDBE7;
+}
+
+
+/* TOP Menu - covers icons also */
+.zpMenu-office_gray .zpMenuContainer .zpMenu-item-selected {
+	background: url("office_gray/bg_top_on.gif") repeat 100% 100%; 
+}
+
+/* SUB Menu - NOT Top menu */
+/* Sub, Selected, Background for icons */
+.zpMenu-office_gray .zpMenuContainer .zpMenuContainer .zpMenu-item-selected .icon,
+/* Sub, Selected, Background for menu label */
+.zpMenu-office_gray .zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+	background: #FFEFC6; 
+}
+
+/* Sub, Has Sub Arrow, NOT Selected */
+.zpMenu-office_gray .zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed {
+	background-image: url("icon/arrow_right_black.gif");
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+/* Sub, Has Sub Arrow, Selected */
+.zpMenu-office_gray .zpMenuContainer .zpMenuContainer .zpMenu-item-expanded {
+	background: url("icon/arrow_right_black.gif") #FFEFC6 no-repeat center right;
+}
+
+/* Sub, Left ICON */
+.zpMenu-office_gray .zpMenuContainer .zpMenuContainer  .icon {
+	background: url("office_gray/bg_left.gif") #DEDBE7  repeat-y left center;
+}
+
+/* Override previously defined background defined in this css for HR */
+.zpMenu-office_gray .zpMenuContainer .zpMenu-item-hr,
+.zpMenu-office_gray .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	padding:0;
+	margin:0;
+	border:none;
+	background:black;
+}
+
+.zpMenu-office_gray .zpMenuContainer .zpMenuContainer .zpMenu-noicon {
+	width: 0px;
+	padding: 0px 13px;
+}

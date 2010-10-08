@@ -1,0 +1,152 @@
+@import url("layout/3d.css");
+/* top level, vertical and horizontal */
+
+/* Start - ICON Alignment */
+/* with NO icon sub-menu */
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-noicon {
+	padding-left:32px;
+}
+
+/* Controls the behavior of ALL left icons */
+.zpMenu-csm_office_blue .zpMenuContainer .icon,
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .icon {
+	width: 32px;
+}
+
+.zpMenu-csm_office_blue .zpMenuContainer{
+    background: url('csm_office_blue/tab.jpg') repeat-y 2px #F6F6F6;
+    cursor: default;
+    border: solid 1px #002D96;
+}
+
+.zpMenu-csm_office_blue .zpMenu-horizontal-mode{
+  background: #F6F6F6;
+}
+
+
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenu-item {
+	padding:0;
+	margin-top:0px;
+   margin-right: 1px;
+	margin-bottom: 0px;
+   margin-left: 1px;
+   border: none;
+   background: transparent;
+}
+
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-first,
+.zpMenu-csm_office_blue .zpMenu-vertical-mode .zpMenu-item-first,
+.zpMenu-csm_office_blue .zpMenu-horizontal-mode .zpMenu-item{
+    margin-top: 1px;
+}
+
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-last,
+.zpMenu-csm_office_blue .zpMenu-vertical-mode .zpMenu-item-last,
+.zpMenu-csm_office_blue .zpMenu-horizontal-mode .zpMenu-item {
+    margin-bottom: 1px;
+}
+
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenu-item-selected {
+    background: #FFEEC2;
+	 /* No border for top selected items */
+	 border:none;
+	 margin:0;
+    cursor: default;
+    padding: 0;
+}
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenu-csm_office_blue .zpMenu-vertical-mode .zpMenu-item-collapsed,
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed {
+    background: url('icon/arrow_right_black.gif') no-repeat right transparent;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenu-csm_office_blue .zpMenu-vertical-mode .zpMenu-item-expanded,
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-expanded {
+    background: url('icon/arrow_right_black.gif') no-repeat right #FFEEC2;
+}
+
+.zpMenu-csm_office_blue .zpMenu-top .zpMenu-item-selected a,
+.zpMenu-csm_office_blue .zpMenu-top .zpMenu-item-selected .zpMenu-label,
+.zpMenu-csm_office_blue .zpMenuContainer a,
+.zpMenu-csm_office_blue .zpMenuContainer span,
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenu-label,
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer a,
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer span,
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-label {
+	font-family: Verdana,  Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 18px;
+   cursor: default;
+}
+
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer {
+	margin-top:0px;
+	margin-left:0px;
+   border: solid 1px #002D96;
+   background: url('csm_office_blue/tab.jpg') repeat-y 2px #F6F6F6;
+   cursor: default;
+}
+
+/* General items that's not a top menu */
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item,
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer {
+    cursor: default;
+}
+
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenu-item,
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item {
+	margin-top:0px;
+	padding-top: 0px;
+	margin-left:0px;
+	margin-bottom: 0px;
+	background-position:right;
+   padding: 1px;
+   margin-left: 1px;
+   margin-right: 1px;
+}
+
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-first {
+    margin-top: 1px;
+}
+
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-last {
+    margin-bottom: 1px;
+}
+
+/* Current selected items in vertical menu*/
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+    background: #FFEEC2;
+    border: none;
+	 padding-top:1px;
+	 padding-bottom:1px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-selected .icon {
+    background: #FFEEC2;
+}
+
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed {
+    background: url('icon/arrow_right_black.gif') no-repeat right transparent;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-expanded {
+    background: url('icon/arrow_right_black.gif') no-repeat right #FFEEC2;
+}
+
+/* Controls the behavior of <hr>  it the menu */
+.zpMenu-csm_office_blue .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	border:none;
+	margin:0;
+	background:#98BCD5;
+	height: 1px;
+	padding: 0px 0px 0px 0px;
+   margin: 2px 0px 2px 0px;
+}
+

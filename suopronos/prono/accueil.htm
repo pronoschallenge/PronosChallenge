@@ -1,0 +1,47 @@
+<TABLE width="90%" align="center" cellspacing="0" cellpadding="0">
+        <TBODY>
+        <TR>
+          <TD>
+            <TABLE cellSpacing="0" cellPadding="0" width="100%"
+            align="center" class="prono" border="0">
+              <TBODY>
+              <TR>
+                <TD>
+                  <TABLE width="80%" align="center" class="prono">
+                    <TBODY>
+                    <TR>
+                      <TD colSpan="6">
+                    <TR>
+                      <TD align="center" colSpan="6"><div class="jaune"><STRONG><?php echo PRONO_MENU_PROCHAINE_GRILLE; ?></STRONG></div>
+                    </TD></TR>
+                    <TR>
+                      <TD colSpan=6>&nbsp; </TD></TR>
+                    <TR>
+                      <TD align="center" colSpan="6"><div class="blanc"><STRONG>- <?php pseudo_admin ($gr_champ);  echo " ".PRONO_ACCUEIL_PRESENTATION; ?> -</STRONG></div> </TD></TR>
+                    <TR>
+                      <TD colSpan="6">&nbsp; </TD></TR>
+                    <TR>                                                 
+                      <TD width="13%"><div class="blanc"><?php echo ADMIN_COHERENCE_MSG2; ?></div>
+                      <TD width="13%"><div class="blanc"><?php echo DATE; ?></div> </TD>
+                      <TD width="16%"></TD>
+                      <TD width="16%" align="center"><div class="blanc"><?php echo PRONO_GRILLE_PRONO; ?></div></TD>
+                      <TD width="16%"></TD>
+                      <TD width="26%" align="center"><div class="blanc"><?php echo PRONO_GRILLE_TEMPS; ?></div></TD></TR>
+                    <TR>
+                      <TD colSpan="6">
+                    <? grille_admin ($gr_champ) ?>
+                    </TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD>&nbsp;</TD></TR>
+        <TR>
+          <TD width="100%">
+            <TABLE cellSpacing="0" cellPadding="0" width="100%"
+            align="left" border="0">
+              <TBODY>
+              <TR>
+                <TD align="center" width="32%">&nbsp; </TD>
+                <TD align="center" width="36%" class="prono1" height="160"><div class="jaune"><B><?php echo PRONO_CLASSEMENT_GENERAL; ?><br /></B><br>
+                  <?php classement_general ($gr_champ, $user_pseudo); ?>
+                  </div></TD>
+                <TD align="center" width="32%">&nbsp;
+        </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>

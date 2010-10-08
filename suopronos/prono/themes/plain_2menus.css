@@ -1,0 +1,45 @@
+@import url("layout/2d.css");
+
+/* Applies to submenus */
+
+.zpMenu-plain .zpMenu-item table.zpMenu-table {
+ font: 11px "Tahoma", "Verdana", sans-serif;
+ border: 1px solid black;
+ background: #EEE;
+}
+.zpMenu-plain .zpMenu-item table.zpMenu-table td.zpMenu-label {
+ padding: 3px;
+ border: 1px solid black;
+ background: #EEE;
+}
+
+.zpMenu-plain .zpMenu-item-selected td {
+ background: Highlight;
+}
+.zpMenu-plain .zpMenu-item-selected a {
+ color: HighlightText;
+}
+
+
+/* Icons */
+
+.zpMenu-plain .zpMenu .zpMenu .zpMenu .zpMenu-item{
+	padding-left:5px;
+}
+
+.zpMenu-plain .zpMenu-top {
+	margin-bottom:5px;
+}
+
+/* hrefs in the Menu */
+.zpMenu-plain .zpMenu .zpMenu-item table.zpMenu-table td.zpMenu-label a {
+text-decoration: none;
+}
+
+/* Current selected items href*/
+
+.zpMenu-plain .zpMenu-item-selected table.zpMenu-table td.zpMenu-label { 
+	background-color: 
+	Highlight; color: 
+	HighlightText; 
+}

@@ -1,0 +1,58 @@
+@import url("layout/basic.css");
+
+/* Menu */
+
+.zpMenu-top .zpMenu-label,
+.zpMenu-top a {
+	color: #3A3A3A;
+}
+
+.zpMenuContainer {
+	background: url("osx/gray_bg.gif");
+	border-width: 1px 1px 2px 1px;
+	border-style: solid;
+	border-color: #7A7A7A #7A7A7A #6D6D6D #7A7A7A;
+}
+
+.zpMenuContainer .zpMenuContainer .zpMenu {
+	opacity: 0.85;
+	-moz-opacity: 0.85;
+	filter: alpha(opacity=85);
+}
+
+/* Current selected items in top horizontal menu*/
+.zpMenu-top .zpMenu-item-selected .zpMenu-label,
+.zpMenu-top .zpMenu-item-selected a {
+	color: #FFF;
+	text-decoration: none;
+}
+
+.zpMenu .zpMenu-item-selected {
+	border: 0;
+	background: #2465B3;
+}
+
+/* Current selected items in vertical menu*/
+.zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+	border: 0;
+	background: #2465B3;
+}
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed .zpMenu-label {
+	background: url("osx/arrow_gray.gif") no-repeat right center;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenuContainer .zpMenuContainer .zpMenu-item-expanded .zpMenu-label {
+	background: url("osx/arrow_white.gif") #2465B3 no-repeat right center;
+}
+
+/* Override previously defined background defined in this css for HR */
+.zpMenuContainer .zpMenu-item-hr,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	padding:0;
+	margin:0;
+	border:none;
+	background:black;
+}

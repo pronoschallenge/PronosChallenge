@@ -1,0 +1,69 @@
+@import url("layout/2d.css");
+
+
+.zpMenuContainer {
+    margin: -3px 0px 0px 0px;
+    background: white;
+    border: solid 1px #ACA899;
+    background: white;
+}
+
+
+.zpMenu-vertical-mode {
+  margin-bottom: 5px;
+}
+
+
+.zpMenuContainer .zpMenu-item,
+.zpMenuContainer .zpMenuContainer .zpMenu-item {
+    border: 0px;
+	line-height: 16px;
+    padding: 0;
+    cursor: default;
+    margin-left:2px;
+    margin-right: 2px;
+    background: white;
+}
+
+.zpMenuContainer .zpMenu-item a {
+    font-family: Arial, Helvetica, Verdana, sans-serif;
+    cursor: default;
+}
+
+.zpMenuContainer .zpMenu-item-selected,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+	background: #316AC5;
+}
+
+.zpMenuContainer .zpMenu-item-selected .zpMenu-label,
+.zpMenuContainer .zpMenu-item-selected a{
+    color: white;  
+}
+
+.zpMenu-vertical-mode .zpMenu-item-first,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-first {
+    margin-top: 2px;
+}
+
+.zpMenu-vertical-mode .zpMenu-item-last,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-last{
+    margin-bottom: 2px;
+}
+
+.zpMenu-vertical-mode .zpMenu-item-collapsed,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed  {
+	background: url("csm_winxp/arrow_w.gif") white no-repeat right center;
+}
+
+.zpMenu-vertical-mode .zpMenu-item-expanded,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-expanded  {
+	background: url("csm_winxp/arrow_b.gif") #316AC5 no-repeat right center;
+}
+
+.zpMenuContainer .zpMenu-item-hr,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	background: #ACA899;
+	height:1px;
+    padding: 0px;
+	margin: 4px 2px 4px 2px;
+}

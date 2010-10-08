@@ -1,0 +1,228 @@
+<script type="text/javascript">
+function VerifForm(){
+	var pseudo = document.inscription.pseudo.value;
+        var mail = document.inscription.mail.value;
+        var mdp = document.inscription.mdp.value;
+        var mdp2 = document.inscription.mdp2.value;
+        var nom = document.inscription.nom.value;
+        var prenom = document.inscription.prenom.value;
+        var adresse1 = document.inscription.adresse1.value;
+        var code_postal = document.inscription.code_postal.value;
+        var ville = document.inscription.ville.value;
+        var pays = document.inscription.pays.value;
+        var jour = document.inscription.jour.value;
+        var mois = document.inscription.mois.value;
+        var annee = document.inscription.annee.value;
+        var profession = document.inscription.profession.value;
+        var mobile1 = document.inscription.mobile1.value;
+        var mobile2 = document.inscription.mobile2.value;
+        var mobile3 = document.inscription.mobile3.value;
+        var mobile4 = document.inscription.mobile4.value;
+        var mobile5 = document.inscription.mobile5.value;
+
+	if (!pseudo){
+		alert("Veuillez indiquer votre pseudo !");
+		return false
+	}
+	if (!mail){
+		alert("Veuillez indiquer votre adresse email !");
+		return false
+	}
+	
+
+
+        if (!mdp){
+		alert("Veuillez indiquer deux fois votre mot de passe !");
+		return false
+	}
+
+        if (!mdp2){
+		alert("Veuillez indiquer deux fois votre mot de passe !");
+		return false
+	}
+	
+	if (  mdp != mdp2){
+                alert("ATTENTION, vos mots de passe sont différents !");
+                return false
+
+        }
+        if (!nom){
+		alert("Veuillez indiquer votre nom !");
+		return false
+	}
+	
+	if (!prenom){
+		alert("Veuillez indiquer votre prénom !");
+		return false
+	}
+
+	if (!adresse1){
+		alert("Veuillez indiquer votre adresse !");
+		return false
+	}
+	
+	if (!code_postal){
+		alert("Veuillez indiquer votre code postal !");
+		return false
+	}
+	
+	if (!ville){
+		alert("Veuillez indiquer votre ville !");
+		return false
+	}
+	
+	if (!pays){
+		alert("Veuillez indiquer votre pays !");
+		return false
+	}
+
+	if (!jour){
+		alert("Veuillez indiquer votre jour de naissance !");
+		return false
+	}
+	
+	if (!mois){
+		alert("Veuillez indiquer votre mois de naissance !");
+		return false
+	}
+	
+	if (!annee){
+		alert("Veuillez indiquer votre année de naissance !");
+		return false
+	}
+	
+	if (!profession){
+		alert("Veuillez indiquer votre profession !");
+		return false
+	}
+	
+	if (!mobile1){
+		alert("Veuillez indiquer votre numéros de mobile !");
+		return false
+	}
+
+         if (!mobile2){
+		alert("Veuillez indiquer votre numéros de mobile !");
+		return false
+	}
+
+	if (!mobile3){
+		alert("Veuillez indiquer votre numéros de mobile !");
+		return false
+	}
+
+	if (!mobile4){
+		alert("Veuillez indiquer votre numéros de mobile !");
+		return false
+	}
+
+	if (!mobile5){
+		alert("Veuillez indiquer votre numéros de mobile !");
+		return false
+	}
+
+	
+        adresse = document.inscription.mail.value;
+	var place = adresse.indexOf("@",1);
+	var point = adresse.indexOf(".",place+1);
+	if ((place > -1)&&(adresse.length >2)&&(point > 1))
+		{
+		return true
+		}
+	else
+		{
+		alert('Entrez une adresse e-mail valide !');
+		return false
+		}
+
+
+
+
+	
+
+
+
+}
+</script>
+<table width="90%" align = "center">
+<tr>
+<td colspan="2">
+<table cellSpacing="0" cellPadding="0" width="100%" align="center" border="1"  bgColor="#3b487f">
+<tr><td>
+
+
+<form action="?page=inscription" method=post target="_self" name="inscription" onsubmit="javascript:return VerifForm()">
+<table align="center">
+
+<tr><td colspan="2" align="center"><font face="Verdana, Arial, Helvetica, sans-serif" color="#ffffff"><strong>Inscription</strong></font></td></tr>
+
+<tr><td colspan="2" align="center"><font face="Verdana, Arial, Helvetica, sans-serif" color="#ffffff"><strong>Compte</strong></font></td></tr>
+
+
+
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Pseudo :</font></td>
+<td><input type="text" name="pseudo" maxlength="30"></td></tr>
+
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">E-mail :</font></td>
+<td><input type="text" name="mail" maxlength="40"></td></tr>
+
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Mot de passe :</font></td>
+<td><input type="password" name="mdp" maxlength="20"></td></tr>
+
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Saisissez à nouveau votre mot de passe :</font></td>
+<td><input type="password" name="mdp2" maxlength="20"></td></tr>
+
+
+<tr><td width="50%" align="right"><br /></td>
+<td></td></tr>
+
+<tr><td colspan="2" align="center"><font face="Verdana, Arial, Helvetica, sans-serif" color="#ffffff"><strong>Coordonnées</strong></font></td></tr>
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Nom :</font></td>
+<td><input type="text" name="nom" maxlength="50"></td></tr>
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Prénom :</font></td>
+<td><input type="text" name="prenom" maxlength="50"></td></tr>
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Adresse :</font></td>
+<td><input type="text" name="adresse1" maxlength="50" size="40"></td></tr>
+<tr><td></td><td><input type="text" name="adresse2" maxlength="50" size="40"></td></tr>
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Code postal :</font></td>
+<td><input type="text" name="code_postal" maxlength="5" size="5"></td></tr>
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Ville :</font></td>
+<td><input type="text" name="ville" maxlength="200"></td></tr>
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Pays :</font></td>
+<td><input type="text" name="pays" maxlength="200"></td></tr>
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Date de naissance :</font></td>
+<td>
+<select size="1" name="jour"><option value=""></option>
+<?
+date_form_inscription ();
+?>
+
+</td></tr>
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">Profession :</font></td>
+<td><input type="text" name="profession" maxlength="200"></td></tr>
+
+
+<tr><td width="50%" align="right"><font face="Verdana" color="#ffffff" size="1">N° de mobile :</font></td>
+<td><input type="text" name="mobile1" maxlength="2" size="2">
+<input type="text" name="mobile2" maxlength="2" size="2"> 
+<input type="text" name="mobile3" maxlength="2" size="2"> 
+<input type="text" name="mobile4" maxlength="2" size="2"> 
+<input type="text" name="mobile5" maxlength="2" size="2"> 
+</td></tr>
+
+<input type="hidden" name="go" value="1">
+
+<tr><td colspan="2"><div align=\"center\"><br /><INPUT TYPE="submit" VALUE="Envoyer"></div></td></tr></form></table>
+</tr></table></tr></table>

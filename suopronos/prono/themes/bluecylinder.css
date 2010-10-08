@@ -1,0 +1,90 @@
+@import url("layout/basic.css");
+/* Menus */
+
+
+/* override basic.css */
+.zpMenuContainer {
+	padding:0px 0px 0px 0px;
+   margin: 0px 0px 0px 0px; /* Margin between top menu and sub-menu */
+}
+
+.zpMenu-horizontal-mode .zpMenu-level-1 {
+	border: 1px solid black;
+	border-right: none;
+}
+.zpMenu-horizontal-mode .zpMenu-item-last {
+	border-right: 1px solid black;
+}
+
+.zpMenu-vertical-mode .zpMenu-level-1, 
+.zpMenu-level-1, 
+.zpMenu {
+	background: url("bluecylinder/bg_blue_v.jpg") repeat 0 0;
+}
+
+.zpMenuContainer .zpMenuContainer .zpMenu-item {
+	background: url("bluecylinder/bg_blue_v.jpg") repeat 0 0;
+}
+
+/* All Labels and hrefs in the menu color White */
+.zpMenu-top .zpMenu-label, 
+.zpMenu-top a{
+	color:#FFFFFF;
+}
+
+/* Container around the whole sub-menu */
+.zpMenuContainer .zpMenuContainer {
+	padding:0px 0px 0px 0px;
+   margin: 0px 0px 0px 0px; /* Margin between top menu and sub-menu */
+}
+
+/* override basic.css - no margin left - was clipping left border */
+.zpMenu-item {
+	margin-left: 0px;
+}
+/* Each item in a sub-menu */
+.zpMenuContainer .zpMenuContainer .zpMenu-item {
+	border-bottom: 1px solid black;
+	border-right:  1px solid black;
+	border-left:   1px solid black;
+}
+
+/* First sub menu item has TOP border */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-first {
+	border-top: 1px solid black;
+}
+
+.zpMenu-item table.zpMenu-table {
+	font-size: 12px; 
+}
+
+/* Current selected items in vertical menu*/
+.zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+	margin-top:0px;
+	background: url("bluecylinder/bg_blue.jpg") repeat 0 0;
+	color: RGB(243,237,49);
+}
+
+.zpMenuContainer .zpMenu-item-selected .zpMenu-label,
+.zpMenuContainer .zpMenu-item-selected .zpMenu-label a{
+	color: RGB(243,237,49);
+}
+
+.zpMenuContainer .zpMenu-item-selected a{
+	color: RGB(243,237,49);
+}
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed .zpMenu-label{
+	background: url("images/arrowRightWhite.gif")  no-repeat right center;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenuContainer .zpMenuContainer .zpMenu-item-expanded .zpMenu-label{
+	background: url("images/arrowRightWhite.gif")  no-repeat right center;
+}
+.zpMenuContainer .zpMenu-item-hr,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	background:yellow;
+	border-top:2px solid yellow;
+}

@@ -1,0 +1,31 @@
+/* --------- Couleur des liens ------------ */
+
+a:link {color: #3b487f; text-decoration:underline;}
+a:visited {color: #3b487f; text-decoration:underline;}
+a:active {color: #3b487f; text-decoration:none;}
+A:hover {color:#3b487f; text-decoration:none;}
+A {color: #3b487f; text-decoration: underline;}
+
+/* ----------- Général ------------ */
+
+BODY.phpl {color: #000000;  font-size:10pt; font-family:  arial leftmargin:"2"}
+
+
+/* ----------- Tableau pronostique ------------*/
+
+table.prono {background: #3b487f} /* fond du tableau */
+td.prono1 {background: #3b487f} /* fond du tableau */
+
+.jaune {font-size:10pt; color: #FFFF00; font-family: arial;} /* titre page d'accueil */
+.blanc {font-size:9pt; color: #FFFFFF; font-family: arial;} /* texte */
+.noir {font-size:10pt; color: #000000; font-family: arial;} /* autre texte */
+.blanctitre {font-size:12pt; color: #FFFFFF; font-family: arial;} /* titre en haut de pages */
+
+.bleu {font-size:8pt; color: #3b487f; font-family: verdana;} /* autre texte */
+
+
+/* ------------- menu connexion ------------- */
+
+.menu1 {font-size:8pt; color: #FFFFFF; font-family: verdana;} /* rubriques (compte, classement, pronostique...) */
+.menu2 {font-size:8pt; color: #000000; font-family: verdana;} /* sous rubriques */
+.pseudo {font-size:10pt; color: #000000; font-family: verdana;} /* texte : bienvenue pseudo */

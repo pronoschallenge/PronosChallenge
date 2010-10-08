@@ -1,0 +1,65 @@
+<record>
+	<!-- resource manager options -->
+
+	<!-- dont preload anything in this folder -->
+	<boolean id="preload" value="false"/>
+
+	<!-- turn off auto mapping -->
+	<boolean id="amap" value="false"/>
+	
+	<!-- logo mappings -->
+	<!-- the following XML maps pictures inside this folder into other positions
+		 in the resource system, which allows this folder to be dropped into any
+		 place in the graphics folder and still have the game pick up the graphics
+		 files from the correct places
+	-->
+	
+	<list id="maps">
+	
+		<!-- ligue 1 -->
+		<record from="ligue 1/auxerre" to="graphics/pictures/club/824/icon"/>
+		<record from="ligue 1/bordeaux" to="graphics/pictures/club/851/icon"/>
+		<record from="ligue 1/lemans" to="graphics/pictures/club/857/icon"/>
+		<record from="ligue 1/lens" to="graphics/pictures/club/871/icon"/>
+		<record from="ligue 1/lille" to="graphics/pictures/club/858/icon"/>
+		<record from="ligue 1/lorient" to="graphics/pictures/club/2005/icon"/>
+		<record from="ligue 1/lyon" to="graphics/pictures/club/865/icon"/>
+		<record from="ligue 1/marseille" to="graphics/pictures/club/866/icon"/>
+		<record from="ligue 1/monaco" to="graphics/pictures/club/826/icon"/>
+		<record from="ligue 1/nancy" to="graphics/pictures/club/827/icon"/>
+		<record from="ligue 1/nantes" to="graphics/pictures/club/846/icon"/>
+		<record from="ligue 1/nice" to="graphics/pictures/club/862/icon"/>
+		<record from="ligue 1/paris" to="graphics/pictures/club/868/icon"/>
+		<record from="ligue 1/rennes" to="graphics/pictures/club/884/icon"/>
+		<record from="ligue 1/sedan" to="graphics/pictures/club/880/icon"/>
+		<record from="ligue 1/sochaux" to="graphics/pictures/club/2009/icon"/>
+		<record from="ligue 1/stetienne" to="graphics/pictures/club/828/icon"/>
+		<record from="ligue 1/toulouse" to="graphics/pictures/club/886/icon"/>
+		<record from="ligue 1/troyes" to="graphics/pictures/club/1971/icon"/>
+		<record from="ligue 1/valenciennes" to="graphics/pictures/club/888/icon"/>
+		
+		<!-- ligue 2 -->
+		<record from="ligue 2/ajaccio" to="graphics/pictures/club/400362/icon"/>
+		<record from="ligue 2/amiens" to="graphics/pictures/club/831/icon"/>
+		<record from="ligue 2/bastia" to="graphics/pictures/club/876/icon"/>
+		<record from="ligue 2/brest" to="graphics/pictures/club/2061/icon"/>
+		<record from="ligue 2/caen" to="graphics/pictures/club/877/icon"/>
+		<record from="ligue 2/chateauroux" to="graphics/pictures/club/855/icon"/>
+		<record from="ligue 2/creteil" to="graphics/pictures/club/2069/icon"/>
+		<record from="ligue 2/dijon" to="graphics/pictures/club/839/icon"/>
+		<record from="ligue 2/grenoble" to="graphics/pictures/club/852/icon"/>
+		<record from="ligue 2/gueugnon" to="graphics/pictures/club/842/icon"/>
+		<record from="ligue 2/guingamp" to="graphics/pictures/club/840/icon"/>
+		<record from="ligue 2/istres" to="graphics/pictures/club/854/icon"/>
+		<record from="ligue 2/lehavre" to="graphics/pictures/club/856/icon"/>
+		<record from="ligue 2/libourne" to="graphics/pictures/club/2025/icon"/>
+		<record from="ligue 2/metz" to="graphics/pictures/club/844/icon"/>
+		<record from="ligue 2/montpellier" to="graphics/pictures/club/859/icon"/>
+		<record from="ligue 2/niort" to="graphics/pictures/club/838/icon"/>
+		<record from="ligue 2/reims" to="graphics/pictures/club/2047/icon"/>
+		<record from="ligue 2/strasbourg" to="graphics/pictures/club/872/icon"/>
+		<record from="ligue 2/tours" to="graphics/pictures/club/2010/icon"/>
+		
+		
+	</list>
+</record>

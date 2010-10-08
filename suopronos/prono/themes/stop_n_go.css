@@ -1,0 +1,73 @@
+@import url("layout/3d.css");
+/* Trees */
+
+.zpMenuContainer {
+   background: RGB(200,200,200);
+	padding-left: 1px;
+	padding-top: 2px;
+	padding-right: 0px;
+	padding-bottom: 2px;
+}
+
+/* All hrefs in the tree color black */
+.zpMenu-top .zpMenu-label, 
+.zpMenu-top a{
+	color: RGB (255,255,255);
+}
+
+.zpMenuContainer .zpMenuContainer .zpMenu-item {
+   background: RGB(200,200,200);
+}
+
+.zpMenuContainer .zpMenuContainer {
+	position: absolute;
+	margin-top:6px;
+	margin-left: 1px;
+}
+
+/* General items that's not a top menu */
+.zpMenuContainer .zpMenuContainer .zpMenu-item {
+	padding-top:0px;
+	padding-bottom:0px; 
+}
+
+/* Current selected items in top horizontal menu*/
+.zpMenuContainer .zpMenuContainer .zpMenu-item-selected,
+.zpMenuContainer .zpMenu-item-selected {
+	background: RGB(154,154,154);
+}
+
+.zpMenuContainer .zpMenu-item-selected .zpMenu-label,
+.zpMenuContainer .zpMenu-item-selected a{
+	color: RGB(0,255,0);
+}
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed{
+	background-image: url("stop_n_go/red_right.gif");
+	background-repeat: no-repeat;
+	background-position: 95% 50%;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenuContainer .zpMenuContainer .zpMenu-item-expanded {
+	background: url("stop_n_go/green_right.gif") RGB(154,154,154) no-repeat 95% 50%; 
+}
+
+.zpMenuContainer .zpMenu-item-collapsed {
+	background-image: url("stop_n_go/red_down.gif");
+	background-repeat: no-repeat;
+	background-position: 95% 50%;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenuContainer .zpMenu-item-expanded {
+	background: url("stop_n_go/green_down.gif") RGB(154,154,154) no-repeat 95% 50%; 
+}
+
+.zpMenuContainer .zpMenu-item-hr,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	border:none;
+	background: red;
+	border-top:1px solid red;
+}

@@ -1,0 +1,118 @@
+@import url("layout/3d.css");
+
+
+/* Top and Sub menus */
+.zpMenu-zebra_red .zpMenu a,
+.zpMenu-zebra_red .zpMenu .zpMenu-label {
+    font-family: Arial, Heltvetica, Verdana, sans-serif;
+	color:  #ffcccc;
+	font-weight: normal;
+    font-size: 11px;
+
+}
+
+.zpMenu-zebra_red .zpMenuContainer .zpMenu-item {
+  background: url("zebra_red/bg2.gif");
+    height:20px
+}
+
+
+/* Top and Sub menus */
+.zpMenu-zebra_red .zpMenu .zpMenu-item-selected .zpMenu-label,
+.zpMenu-zebra_red .zpMenu .zpMenu-item-selected a {
+    color: #ffffff;
+/*    text-decoration: underline;  */
+}
+
+
+/* Vertical border, 1st level */
+.zpMenu-zebra_red .zpMenu-vertical-mode .zpMenu-level-1 {
+  background: url("zebra_red/bg2.gif");
+}
+
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenuContainer{
+    margin-top: 0px;
+    margin-left:1px;
+}
+
+/* Sub menu */
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item {
+	margin-top:0px;
+	padding-top: 0px;
+/*	border-bottom: 1px solid rgb(104,104,104);
+	border-right: 1px solid rgb(104,104,104);    */
+	padding:0px;
+	color: #00008B;
+    width: 12.5em;
+}
+
+/* Odd item */
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-odd {
+  background: url("zebra_red/bg1.gif") repeat-x 100%;
+}
+
+/* Even item */
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-even {
+  background: url("zebra_red/bg2.gif") repeat-x 100%;
+}
+
+
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-even a,
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-even .zpMenu-label {
+    color: ffffff;
+}
+
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-odd a,
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-odd .zpMenu-label {
+    color: ff0000;
+}
+
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-selected a,
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-selected .zpMenu-label {
+    color: black;
+}
+
+
+.zpMenu-zebra_red .zpMenu .zpMenu-item-selected .zpMenu-label,
+.zpMenu-zebra_red .zpMenu .zpMenu-item-selected a {
+    color: #ffffff;
+/*    text-decoration: underline;  */
+}
+
+
+
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer {
+    margin-top: 1px;
+    width: 12.5em;
+}
+
+.zpMenu-zebra_red .zpMenu-vertical-mode .zpMenuContainer {
+    margin-top: 0px;
+}
+
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed .zpMenu-label{
+	background: url("zebra_red/arrow1.gif")  transparent no-repeat right center;
+}
+
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-expanded .zpMenu-label{
+	background: url("zebra_red/arrow1.gif")  transparent no-repeat right center;
+}
+
+/* Sub, HR */
+.zpMenu-zebra_red .zpMenuContainer .zpMenu-item-hr,
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	background: #ffaaaa;
+	margin:0;
+	padding:0;
+	border:none;
+	height:3px
+}
+
+.zpMenu-zebra_red .zpMenuContainer .zpMenu-item-hr {
+   width: 10em;
+	padding-right:5px;
+}
+.zpMenu-zebra_red .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+   width: 12.5em;
+	padding-right:0;
+}

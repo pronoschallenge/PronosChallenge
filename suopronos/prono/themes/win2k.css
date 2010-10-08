@@ -1,0 +1,66 @@
+@import url("layout/2d.css");
+
+
+/* Default Border */
+.zpMenuContainer {
+	border-top:    2px solid #F8F8EF;
+	border-right:  2px solid #404040;
+	border-bottom: 2px solid #404040;
+	border-left:   2px solid #B0B098;
+}
+
+/* Top Background Color */
+.zpMenuContainer .zpMenu-item {
+	background-color:#c0c0c0;
+}
+
+/* properties of a drop down menu */
+.zpMenu-vertical-mode .zpMenu-level-1, 
+.zpMenu-horizontal-mode .zpMenu-level-1 
+{
+	border:2px solid #c0c0c0; /* Match the border when selected */
+}
+
+
+/* Sub, Background */
+.zpMenuContainer .zpMenuContainer .zpMenu-item {
+	background: #c0c0c0;
+}
+
+/* Top, Selected */
+.zpMenuContainer .zpMenu-item-selected {
+	border-top:    2px solid #808080;
+	border-right:  2px solid #ffffff;
+	border-bottom: 2px solid #ffffff;
+	border-left:   2px solid #808080;
+ 	background:    #c0c0c0;
+}
+
+
+/* Sub, Selected */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+	background: #BDCFFD repeat; 
+	color: #ffffff;
+	border:0px none #000000;
+}
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed {
+	background-image: url("icon/arrow_right_black.gif");
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenuContainer .zpMenuContainer .zpMenu-item-expanded {
+	background: url("icon/arrow_right_black.gif") #BDCFFD no-repeat center right;
+}
+
+/* Override previously defined background defined in this css for HR */
+.zpMenuContainer .zpMenu-item-hr,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	padding:0;
+	margin:0;
+	border:none;
+	background:black;
+}

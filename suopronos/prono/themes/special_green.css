@@ -1,0 +1,97 @@
+@import url("layout/3d.css");
+
+/* Top and Sub menus */
+.zpMenu {
+/*	background:  rgb(65,172,210); */
+/* 	border: 1px solid blue; */
+}
+
+/* Top and Sub menus */
+.zpMenu a,
+.zpMenu .zpMenu-label {
+    font-family: Verdana, Arial, Tahoma, sans-serif;
+	color: rgb(104,114,114);
+	font-weight: normal;
+    font-size: 11px;
+}
+
+
+.zpMenuContainer .zpMenuContainer .zpMenuContainer{
+    margin-left:2px;
+    margin-top: 0px;
+}
+
+.zpMenuContainer .zpMenu-item {
+    height: 20px;
+    border: solid 1px rgb(188,210,195);
+    border-left: 6px solid rgb(188,210,195);
+    background-color:  rgb(227,232,204);
+}
+
+/* Sub menu */
+.zpMenuContainer .zpMenuContainer .zpMenu-item {
+	margin-top:0px;
+	padding-top: 0px;
+    border: 0px;
+    border-left: 6px solid rgb(188,210,195);
+    background-color:  rgb(227,232,204);
+    padding:0px;
+	color: #0066CC;
+    margin-top:0px;
+	width: 15em;
+}
+
+
+/* Top Selected */
+.zpMenuContainer .zpMenu-item-selected {
+      border-left: 6px solid rgb(258,210,195);
+}
+
+/* Sub, Has Sub, NOT Selected */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed{
+	background: url("special_green/arrow.gif") rgb(227,232,204) no-repeat right center;
+}
+
+/* Sub, Has Sub, Selected */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-expanded{
+	background: url("special_green/arrow.gif") rgb(188,210,195) no-repeat right center;
+}
+
+/* Sub, Selected */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+  	  background-color: rgb(188,210,195);
+      border-left: 6px solid rgb(258,210,195);
+}
+
+/* Sub, HR */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-hr,
+.zpMenuContainer .zpMenu-item-hr {
+	background:#AA7755;
+	border:none;
+   border-left: 6px solid rgb(188,210,195);
+   height:2px
+}
+
+.zpMenuContainer .zpMenu-item-hr {
+	/* clips right side overlow on firefox */
+	padding-right:6px;
+	width:10em;
+}
+.zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	padding-right:0;
+   width: 15em;
+}
+
+.zpMenuContainer .zpMenuContainer .zpMenu{
+    opacity = 0.85;
+    filter : alpha(opacity:85);
+    KHTMLOpacity = 0.85;
+    MozOpacity = 0.85;
+    -moz-opacity: 0.85;
+}
+
+.zpMenuContainer .zpMenuContainer{
+    margin-top: 1px;
+    width: 15em;
+    border: solid 1px rgb(188,210,195);
+}

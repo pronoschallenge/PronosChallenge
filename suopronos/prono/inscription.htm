@@ -1,0 +1,179 @@
+<script type="text/javascript">
+function VerifForm(){
+	var pseudo = document.inscription.pseudo.value;
+        var mail = document.inscription.mail.value;
+        var mdp = document.inscription.mdp.value;
+        var mdp2 = document.inscription.mdp2.value;
+        var nom = document.inscription.nom.value;
+        var prenom = document.inscription.prenom.value;
+        var adresse1 = document.inscription.adresse1.value;
+        var code_postal = document.inscription.code_postal.value;
+        var ville = document.inscription.ville.value;
+        var pays = document.inscription.pays.value;
+        var jour = document.inscription.jour.value;
+        var mois = document.inscription.mois.value;
+        var annee = document.inscription.annee.value;
+        var profession = document.inscription.profession.value;
+        var mobile1 = document.inscription.mobile1.value;
+        var mobile2 = document.inscription.mobile2.value;
+        var mobile3 = document.inscription.mobile3.value;
+        var mobile4 = document.inscription.mobile4.value;
+        var mobile5 = document.inscription.mobile5.value;
+
+	if (!pseudo){
+		alert("<?php echo PRONO_INSCRIPTION_JS_PSEUDO; ?>");
+		return false
+	}
+	if (!mail){
+		alert("<?php echo PRONO_INSCRIPTION_JS_MAIL; ?>");
+		return false
+	}
+	
+
+
+        if (!mdp){
+		alert("<?php echo PRONO_INSCRIPTION_JS_MDP; ?>");
+		return false
+	}
+
+        if (!mdp2){
+		alert("<?php echo PRONO_INSCRIPTION_JS_MDP; ?>");
+		return false
+	}
+	
+	if (  mdp != mdp2){
+                alert("<?php echo PRONO_INSCRIPTION_JS_DIFF; ?>");
+                return false
+
+        }
+        if (!nom){
+		alert("<?php echo PRONO_INSCRIPTION_JS_NOM; ?>");
+		return false
+	}
+	
+	if (!prenom){
+		alert("<?php echo PRONO_INSCRIPTION_JS_PRENOM; ?>");
+		return false
+	}
+
+	if (!adresse1){
+		alert("<?php echo PRONO_INSCRIPTION_JS_ADRESSE; ?>");
+		return false
+	}
+
+	if (!code_postal){
+		alert("<?php echo PRONO_INSCRIPTION_JS_POSTAL; ?>");
+		return false
+	}
+
+	if (!ville){
+		alert("<?php echo PRONO_INSCRIPTION_JS_VILLE; ?>");
+		return false
+	}
+
+	if (!pays){
+		alert("<?php echo PRONO_INSCRIPTION_JS_PAYS; ?>");
+		return false
+	}
+
+	if (!jour){
+		alert("<?php echo PRONO_INSCRIPTION_JS_NAISS_JOUR; ?>");
+		return false
+	}
+
+	if (!mois){
+		alert("<?php echo PRONO_INSCRIPTION_JS_NAISS_MOIS; ?>");
+		return false
+	}
+
+	if (!annee){
+		alert("<?php echo PRONO_INSCRIPTION_JS_NAISS_ANNEE; ?>");
+		return false
+	}
+
+	if (!profession){
+		alert("<?php echo PRONO_INSCRIPTION_JS_PROF; ?>");
+		return false
+	}
+
+	if (!mobile1){
+		alert("<?php echo PRONO_INSCRIPTION_JS_TEL; ?>Veuillez indiquer votre numeros de mobile !");
+		return false
+	}
+
+         if (!mobile2){
+		alert("<?php echo PRONO_INSCRIPTION_JS_TEL; ?>Veuillez indiquer votre numeros de mobile !");
+		return false
+	}
+
+	if (!mobile3){
+		alert("<?php echo PRONO_INSCRIPTION_JS_TEL; ?>Veuillez indiquer votre numeros de mobile !");
+		return false
+	}
+
+	if (!mobile4){
+		alert("<?php echo PRONO_INSCRIPTION_JS_TEL; ?>Veuillez indiquer votre numeros de mobile !");
+		return false
+	}
+
+	if (!mobile5){
+		alert("<?php echo PRONO_INSCRIPTION_JS_TEL; ?>Veuillez indiquer votre numeros de mobile !");
+		return false
+	}
+
+
+        adresse = document.inscription.mail.value;
+	var place = adresse.indexOf("@",1);
+	var point = adresse.indexOf(".",place+1);
+	if ((place > -1)&&(adresse.length >2)&&(point > 1))
+		{
+		return true
+		}
+	else
+		{
+		alert('<?php echo PRONO_INSCRIPTION_JS_MAILVALID; ?>');
+		return false
+		}
+
+
+
+
+
+
+
+
+}
+</script>
+<table width="90%" align = "center">
+<tr>
+<td colspan="2">
+<table cellSpacing="0" cellPadding="0" width="100%" align="center" border="1"  class="prono">
+<tr><td>
+
+
+<form action="?page=inscription" method="post" target="_self" name="inscription" onsubmit="javascript:return VerifForm()">
+<table align="center">
+
+<tr><td colspan="2" align="center"><div class="blanctitre"><strong><?php echo PRONO_INSCRIPTION_TITRE; ?></strong><br><br></div></td></tr>
+<tr><td width="50%" align="right"><div class="blanc"><?php echo PRONO_CLASSEMENT_PSEUDO; ?> :</div></td>
+<td><input type="text" name="pseudo" maxlength="20"></td></tr>
+
+
+<tr><td width="50%" align="right"><div class="blanc"><?php echo SETUP_MAIL; ?> :</div></td>
+<td><input type="text" name="mail" maxlength="40"></td></tr>
+
+
+<tr><td width="50%" align="right"><div class="blanc"><?php echo SETUP_PASSWORD; ?> :</div></td>
+<td><input type="password" name="mdp" maxlength="20" size="20"></td></tr>
+
+
+<tr><td width="50%" align="right"><div class="blanc"><?php echo PRONO_INSCRIPTION_MDP; ?> :</div></td>
+<td><input type="password" name="mdp2" maxlength="20"></td></tr>
+
+
+<tr><td width="50%" align="right"><br /></td>
+<td></td></tr>
+
+
+<tr><td colspan="2"><input type="hidden" name="go" value="1"><div align="center"><br /><INPUT TYPE="submit" VALUE="<?php echo ENVOI; ?>"></div></td></tr></table></form></table>
+</tr></table>

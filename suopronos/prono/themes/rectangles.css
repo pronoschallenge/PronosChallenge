@@ -1,0 +1,104 @@
+@import url("layout/2d.css");
+
+/* properties a drop down menu */
+/* NOTE: If vertical:true then this class is NOT rendered */
+.zpMenu-horizontal-mode .zpMenu-level-1 {
+	background: url("rectangles/arrow_right.gif")  no-repeat right center;
+}
+/* Current selected items in top horizontal menu*/
+.zpMenu-horizontal-mode .zpMenu-level-1 .zpMenu-item-selected {
+	background: url("rectangles/arrow_down.gif") rgb(236,231,219)  no-repeat 0 50%; 
+}
+
+/* ALL menu items have this border and background color */
+.zpMenuContainer .zpMenu-item {
+	border: 1px solid gray;
+	background-color: rgb(236,231,219);
+}
+
+/* ALL Anchors have NO decorations, all menu item font color */
+.zpMenu-top a, .zpMenu-top .zpMenu-label {
+	text-decoration:none;
+	color:rgb(122,90,89);
+}
+
+/* Top menu LABEL */
+.zpMenu .zpMenu-label {
+	font-weight: bold;
+}
+
+/* SUB menu LABEL */
+.zpMenu .zpMenu .zpMenu-label {
+	font-weight: normal;
+}
+
+/* All menu items in the tree */
+.zpMenuContainer .zpMenu-item {
+	color:rgb(122,90,89);
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	padding-left:0.5em;
+	padding-right:2em;
+	margin-left: 5px;
+}
+
+
+.zpMenuContainer .zpMenuContainer {
+	border: 1px solid gray;
+	width: 15em;
+}
+
+.zpMenuContainer .zpMenuContainer .zpMenu-item,
+.zpMenuContainer .zpMenuContainer {
+	/* override top menu padding and margin */
+	padding: 1px 1px 1px 1px;
+	margin: 1px 1px 1px 1px;
+	border: 1px solid gray;
+	width: 15em;
+	background: rgb(236,231,219);
+}
+
+/* All others */
+.zpMenu-horizontal-mode .zpMenu .zpMenu .zpMenu-item {
+	background:  white;
+}
+
+
+/* SUB align the borders on selected items */
+/* must override any other settings below for expand/collapse */
+.zpMenuContainer .zpMenu-item-selected,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+	background-color: white;
+}
+
+
+/* SUB menu selected items, labels (no anchor), anchor */
+.zpMenu-item-selected .zpMenu-label,
+.zpMenu-item-selected a {
+	color: #000000;
+	font-weight: bold;
+}
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed  {
+	background-image: url("rectangles/arrow_right.gif");
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenuContainer .zpMenuContainer .zpMenu-item-expanded  {
+	background: url("rectangles/arrow_right.gif")  white no-repeat right center;
+}
+
+.zpMenuContainer .zpMenu-item-hr,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	background:brown;
+	height:3px;
+	/* widith defined in basic.css for non-hr items, must define again */
+	width: 10em;
+}
+.zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	width: 15em;
+}
+

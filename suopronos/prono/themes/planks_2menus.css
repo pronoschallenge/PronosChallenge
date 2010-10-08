@@ -1,0 +1,56 @@
+@import url("layout/3d.css");
+
+/* top menu has outside border */
+.zpMenu-planks .zpMenuContainer {
+	border: 1px solid #000000;
+}
+
+/* Top menu background color */
+.zpMenu-planks .zpMenu-level-1 {
+	background: RGB(204,204,204);
+}
+
+/* vertical menu has width based on widest element */
+.zpMenu-planks .zpMenu-vertical-mode .zpMenu-level-1 {
+	padding-right:3px;
+	border: 1px solid black;
+	background: RGB(204,204,204);
+}
+
+
+/* sub-menu has NO border */
+.zpMenu-planks .zpMenuContainer .zpMenuContainer {
+	border: none;
+}
+
+/* General items that's not a top menu */
+.zpMenu-planks .zpMenuContainer .zpMenuContainer .zpMenu-item {
+	margin-top:0px;
+	background-position:top;
+	width: 170px;
+	height: 20px;
+	background: url("planks/meniu1.gif") no-repeat 0 0;
+}
+
+
+/* Current selected items in top horizontal menu*/
+.zpMenu-planks .zpMenu .zpMenu-item-selected {
+	background: RGB(153,255,153);    
+}
+
+/* Current selected items in vertical menu*/
+.zpMenu-planks .zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+	margin-top:0px;
+	background-position:top left;
+	background: url("planks/meniu2.gif") no-repeat 0 0;
+}
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenu-planks .zpMenuContainer .zpMenuContainer .zpMenu-item-expanded .zpMenu-label,
+.zpMenu-planks .zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed .zpMenu-label {
+	background: url("icon/arrow_right_black.gif")  no-repeat right center;
+}
+/* Override previously defined background defined in this css for HR */
+.zpMenu-planks .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	border:none;
+}

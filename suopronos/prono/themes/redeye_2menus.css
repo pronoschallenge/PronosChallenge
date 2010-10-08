@@ -1,0 +1,44 @@
+@import url("layout/3d.css");
+
+.zpMenu-redeye .zpMenuContainer .zpMenu-item {
+	background-color: RGB(154,154,154);
+}
+
+/* All hrefs in the tree color black */
+.zpMenu-redeye .zpMenu-top .zpMenu-label, 
+.zpMenu-redeye .zpMenu-top a{
+	color:white;
+}
+
+/* ALL Selected font color */
+.zpMenu-redeye .zpMenu .zpMenu-item-selected .zpMenu-label, 
+.zpMenu-redeye .zpMenu .zpMenu-item-selected a {
+	color: RGB(255,0,0);
+}
+
+/* Current selected items in vertical menu*/
+.zpMenu-redeye .zpMenu-item-selected {
+	background: url("redeye/theme6_over.jpg") repeat right center;
+}
+
+.zpMenu-redeye .zpMenu-item-collapsed {
+	background: url("redeye/theme6_link.jpg") no-repeat right center;
+}
+
+.zpMenu-redeye .zpMenu-item-selected-collapsed {
+	background: url("redeye/theme6_link_selected.gif") no-repeat right center;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenu-redeye .zpMenu-item-expanded {
+	background: url("redeye/theme6_link_over.gif") repeat right center;
+}
+
+/* Override previously defined background defined in this css for HR */
+.zpMenu-redeye .zpMenuContainer .zpMenu-item-hr,
+.zpMenu-redeye .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	padding:0;
+	margin:0;
+	border:none;
+	background:black;
+}

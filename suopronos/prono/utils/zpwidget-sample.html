@@ -1,0 +1,92 @@
+<html>
+<head>
+<script type="text/javascript" src="utils.js"></script>
+<script type="text/javascript" src="transport.js"></script>
+<script type="text/javascript" src="zpwidget.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+
+///////////////////////////////////////////////////
+// See description of base Widget class at       //
+// http://trac.zapatec.com:8000/trac/wiki/Widget //
+///////////////////////////////////////////////////
+
+////////////////////////////
+// ChildWidget Definition //
+////////////////////////////
+
+/**
+ * Constructor.
+ *
+ * \param objArgs [object] object properies.
+ */
+Zapatec.ChildWidget = function(objArgs) {
+  // User configuration
+  this.config = {};
+  // Initialize object
+  if (arguments.length > 0) this.init(objArgs);
+};
+
+// Inherit base Widget class
+Zapatec.ChildWidget.prototype = new Zapatec.Widget();
+Zapatec.ChildWidget.SUPERclass = Zapatec.Widget.prototype;
+
+/**
+ * Initializes object.
+ *
+ * \param objArgs [string] user configuration.
+ */
+Zapatec.ChildWidget.prototype.init = function(objArgs) {
+  // Define config options
+  this.config.option1 = 'default value';
+  this.config.option2 = 'default value';
+  // Call parent init
+  Zapatec.ChildWidget.SUPERclass.init.call(this, objArgs);
+  // Continue initialization
+  // ...
+  // Call parent method to load data from the specified source
+  this.loadData();
+  // ...
+};
+
+/**
+ * \internal Loads data from the HTML source. Transforms input data from
+ * the HTMLElement object. If needed, loadDataHtmlText, loadDataJson and
+ * loadDataXml methods can be implemented as well.
+ *
+ * \param objSource [object] HTMLElement object.
+ */
+Zapatec.ChildWidget.prototype.loadDataHtml = function(objSource) {
+  // Parse source
+  var objChild = objSource.firstChild;
+  while (objChild) {
+    // Do something with child element
+    // ...
+    // Go to next element
+    objChild = objChild.nextSibling;
+  }
+};
+
+///////////////////////////////
+// Sample of ChildWidget use //
+///////////////////////////////
+
+// Source object
+var objSource = {
+  // Data in JSON format
+};
+
+// Initialize ChildWidget
+var myWidget = new Zapatec.ChildWidget({
+  source: objSource,
+  sourceType: 'json',
+  option1: 'new value'
+});
+
+// Test
+alert(myWidget.config.option1 + '\n' + myWidget.config.option2);
+
+</script>
+</body>
+</html>

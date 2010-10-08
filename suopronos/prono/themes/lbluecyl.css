@@ -1,0 +1,48 @@
+@import url("layout/3d.css");
+
+.zpMenu-vertical-mode .zpMenu-level-1, 
+.zpMenu-level-1, 
+.zpMenuContainer .zpMenuContainer .zpMenu-item {
+	border: 1px solid #6688bb;
+	background: url("lbluecyl/bg_menutitle.jpg")  repeat 100% 100%;
+}
+
+.zpMenuContainer .zpMenuContainer .zpMenu-item {
+	border-bottom: 1px solid #6688bb;
+}
+
+.zpMenu-top a, .zpMenu-top .zpMenu-label {
+	color:#296C8D;
+}
+
+.zpMenuContainer .zpMenu-item-selected .zpMenu-label,
+.zpMenuContainer .zpMenu-item-selected a {
+	color: rgb(214,122,0);
+}
+
+.zpMenuContainer .zpMenuContainer {
+	margin-top:1px;
+}
+
+/* Current selected items in top horizontal menu*/
+.zpMenuContainer .zpMenu-item-selected, 
+.zpMenuContainer .zpMenuContainer .zpMenu-item-selected {
+	background: url(lbluecyl/bg_menutitle_on.jpg) 100% 100%;
+}
+
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed .zpMenu-label {
+	background: url("lbluecyl/arrow_right_blue.gif")  no-repeat right center; 
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenuContainer .zpMenuContainer .zpMenu-item-expanded .zpMenu-label {
+	background: url("lbluecyl/arrow_right_blue.gif")  no-repeat right center; 
+}
+
+.zpMenuContainer .zpMenu-item-hr,
+.zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	background:rgb(214,122,0);
+	border-top:1px solid rgb(214,122,0);
+}

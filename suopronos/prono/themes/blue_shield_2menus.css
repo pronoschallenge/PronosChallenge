@@ -1,0 +1,51 @@
+@import url("layout/3d.css");
+.zpMenu-blue_shield .zpMenu {
+	background: RGB(220,220,220);
+}
+
+/* All hrefs in the tree color black */
+.zpMenu-blue_shield .zpMenu-top .zpMenu-label,
+.zpMenu-blue_shield .zpMenu-top a  {
+	color:blue;
+}
+
+.zpMenu-blue_shield .zpMenu-horizontal-mode .zpMenu-level-1 {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.zpMenu-blue_shield .zpMenu-item table.zpMenu-table {
+	font: 11px "Comic Sans MS";
+}
+
+/* Selected background */
+.zpMenu-blue_shield .zpMenu-item-selected {
+	background-color: blue;
+}
+
+/* ALL Selected - font color */
+.zpMenu-blue_shield .zpMenu .zpMenu-item-selected .zpMenu-label,
+.zpMenu-blue_shield .zpMenu .zpMenu-item-selected a{
+	color: white;
+}
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenu-blue_shield .zpMenu-item-collapsed {
+	background-image: url("blue_shield/icon_collapse.gif");
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenu-blue_shield .zpMenu-item-expanded {
+	background: url("blue_shield/icon_expand.gif") blue no-repeat center right;
+}
+
+/* Override previously defined background defined in this css for HR */
+.zpMenu-blue_shield .zpMenuContainer .zpMenu-item-hr,
+.zpMenu-blue_shield .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	padding:0;
+	margin:0;
+	border:none;
+	background:black;
+}

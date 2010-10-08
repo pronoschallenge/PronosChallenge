@@ -1,0 +1,34 @@
+
+_______________________________________________________________________
+_______________________________________________________________________
+
+FOOTMANAGER.NET ----- http://www.footmanager.net
+
+Version Football Manager : 2007
+NOm du fichier : LOGOS PACK LIGUE 1,2 ORANGE
+Date de création : 25 decembre 2006
+Auteur : Babos
+
+_______________________________________________________________________
+_______________________________________________________________________
+
+PROCEDURE D'INSTALLATION :
+
+1. Dézippez le fichier à cet endroit :
+C:\Program Files\Sports Interactive\Football Manager 2007\data\graphics\pictures\logos
+
+2. Lancez FM 2007 et assurez-vous d'avoir bien décocher "Utliser cache skin" dans :
+Préférences>Affichage & son
+
+3. Quittez puis relancez FM 2007
+
+4. Enjoy!
+
+_______________________________________________________________________
+_______________________________________________________________________
+
+Merci de nous demander la permission si vous voulez mettre en téléchargement ce fichier sur votre site ou votre forum.
+
+-----------------------------------------------------------------------
+
+A bientôt sur www.FootManager.net 

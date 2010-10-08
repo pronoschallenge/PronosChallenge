@@ -1,0 +1,191 @@
+/* version verte
+.menu {
+	height: 32px;
+	background: #67B428;
+	padding: 0px 0px 0px 0px;
+	margin: 0 auto;
+	border-top: 1px solid #FFFFFF;
+	font-size: 12pt;
+}
+
+.menu ul {
+	margin: 0;
+ 	padding: 0;
+ 	list-style-type: none;
+ 	text-align: center;
+}
+.menu li {
+	float: left;
+ 	margin: auto;
+ 	width: 196px;
+ 	margin: 0;
+ 	font-weight: bold;
+}
+.menu li a {
+ 	display: block;
+ 	color: #FFFFFF;
+ 	text-decoration: none;
+ 	padding: 5px;
+}
+.menu li.selected, .menu li.active {
+	background-color:#FFB91B;
+}
+.menu ul li ul {
+	position:absolute;
+ 	display:none;
+}
+.menu li ul li {
+ 	background-color: #67B428;
+ 	text-align: left;
+ 	width: 186px;
+ 	padding: 0px 5px 0px 5px;
+}
+.menu li ul li img {
+	border: 0px;
+	padding-right: 3px;
+}
+.menu li:hover ul li {
+	float:none;
+}
+.menu li:hover ul li.liWithChildren {
+	background-image:url("../images/menuArrow.gif");
+	background-repeat:no-repeat;
+	background-position:right;
+}
+.menu li ul li ul {
+	position: absolute;
+	left: 196px;
+	margin-top: -31px;
+}
+*/
+
+
+
+/* version grise */
+.menu {
+	float: left;
+	padding: 0px 0px 0px 0px;
+	margin: 0 auto;
+	font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; 
+	font-size: 14pt;
+}
+
+.menu ul {
+	margin: 0;
+ 	padding: 0px 0px 0px 10px;
+ 	list-style-type: none;
+ 	text-align: center;
+ 	z-index: 1000;
+}
+.menu li {
+	float: left;
+	height: 43px;
+ 	padding: 0px 15px 0px 15px;
+ 	margin: 0;
+}
+.menu li a {
+ 	display: block;
+ 	color: #50518F;
+ 	text-decoration: none;
+ 	padding: 9px 5px 5px 5px;
+}
+.menu li.selected, .menu li.active {
+	background: transparent url("../images/menu-fond-selected.png") repeat-x;
+}
+.menu li.selected a, .menu li.active a {
+	color: #A90827
+}
+.menu ul li ul {
+	position:absolute;
+ 	display:none;
+ 	margin-top: 2px;
+ 	margin-left: -25px;
+}
+.menu li ul li {
+ 	background-color: #FFC43C;
+ 	text-align: left;
+ 	/*min-width: 150px;*/
+ 	height: 30px;
+ 	font-size: 12pt;
+ 	padding: 0px 5px 0px 5px;
+}
+.menu li ul li a {
+ 	padding: 5px 5px 5px 5px;
+ 	/* Astuce pour ajouter le hasLayout aux liens du menu et ainsi 
+ 	 * éviter les espaces entre les éléments du menu sous IE. 
+ 	 * Pas d'effet indésirable sur les autres navigateurs.*/
+ 	height: 0%;
+}
+.menu li ul li img {
+	border: 0px;
+	padding-right: 3px;
+}
+.menu li:hover ul li {
+	float:none;
+}
+.menu li ul li.selected {
+	background: #FEB300;
+}
+.menu li:hover ul li.liWithChildren {
+	background-image:url("../images/menuArrow.gif");
+	background-repeat:no-repeat;
+	background-position:right;
+}
+.menu li ul li ul {
+	position: absolute;
+	left: 185px;
+	margin-top: -10px;
+}
+
+
+
+/* version onglets noir et orange
+.menu ul {
+	list-style-type:none;
+	padding: 0;
+	margin: 0;
+}
+
+.menu ul li {
+	display: inline;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 30px 0px 30px;
+}
+
+.menu ul li ul {
+	position: absolute;
+	list-style-image:none;
+	list-style-type:none;
+	z-index: 500;
+}
+
+.menu ul li ul li {
+	display: block;
+	margin:auto;
+	padding:0;
+}
+
+.menu .separator{
+	background-color:#999;
+	height:1px;
+}
+
+.menu .selected td{
+	background-color:#F0F0F0;
+	background-image:url("../images/bgnd_sel_2.jpg")
+}
+.menu .selected td a{
+	color:#000;
+}
+
+.menu .subMenuOpener{
+	background-image:url("../images/menuArrow_w.gif");
+	background-repeat:no-repeat;
+	background-position:right;
+}
+.menu .selected .subMenuOpener{
+	background-image:url("../images/menuArrow.gif");
+	background-repeat:no-repeat;
+	background-position:right;
+}
+* */

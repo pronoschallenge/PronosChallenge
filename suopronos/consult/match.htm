@@ -1,0 +1,44 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title><?php echo "$row[0] $row[1]"; ?></title>
+<link rel="stylesheet" type="text/css" href="../league.css">
+</head>
+
+<body>
+
+<p>&nbsp;</p>
+
+<table width="90%" cellspacing="0" cellpadding="0" class="tablephpl2" height="92">
+  <tr>
+    <td width="300" height="21" bgcolor="#FFFFFF" colspan="5">
+      <p align="center"><font color="#000000"><?php print $date;?></font></td>
+  </tr>
+
+  <tr><td><div align="center"><img src="<?php print $logo_dom; ?>"></div></td><td></td><td><div align="center"><img src="<?php print $logo_ext; ?>"></div></td></tr>
+  
+  <tr class="trphpl3">
+    <td width="150" height="21">
+      <p align="center"><b><font color="#FFFFFF"><?php print $row[0]; ?></font></b></td>
+    <td width="10%" height="21">
+      <p align="center"><b><font color="#FFFFFF"><?php echo "$row[4] - $row[5]"; ?></font></b></td>
+    <td width="150" height="21">
+      <p align="center"><b><font color="#FFFFFF"><?php print $row[1]; ?></font></b></td>
+  </tr>
+  <tr>
+    <td width="150" height="50" valign="top">
+   <p align="center"><?php print $buteur_dom; ?></p>
+    </td>
+    <td width="5%" height="50"></td>
+    <td width="150" height="50" valign="top">
+      <p align="center"><?php print $buteur_ext; ?></td>
+  </tr>
+</table>
+
+</body>
+
+</html>

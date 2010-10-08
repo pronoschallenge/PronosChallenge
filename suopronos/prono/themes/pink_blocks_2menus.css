@@ -1,0 +1,99 @@
+@import url("layout/basic.css");
+
+.zpMenu-pink_blocks .zpMenu-vertical-mode .zpMenu-level-1 {
+	width:100px;
+	border: 1px solid gray;
+	background-color: rgb(236,229,232);
+}
+
+/* ALL Anchors have NO decorations, all menu item font color */
+.zpMenu-pink_blocks .zpMenu-top a, .zpMenu-top .zpMenu-label {
+	text-decoration:none;
+	color:rgb(161,73,90);
+}
+
+/* Top menu LABEL */
+.zpMenu-pink_blocks .zpMenuContainer .zpMenu-label {
+	font-weight: bold;
+}
+
+/* SUB menu LABEL */
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer .zpMenu-label {
+	font-weight: normal;
+}
+
+/* All menu items in the tree */
+.zpMenu-pink_blocks .zpMenuContainer .zpMenu-item {
+	color:rgb(161,73,90);
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	padding-left:0.5em;
+	padding-right:2em;
+	margin-left: 5px;
+	height:20px;
+	width:100px;
+}
+
+
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer .zpMenu-item, 
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer {
+	/* override top menu padding and margin */
+	width: 200px;
+}
+
+/* properties a drop down menu */
+.zpMenu-pink_blocks .zpMenu-horizontal-mode .zpMenu-level-1 {
+	float: left;
+	border: 1px solid gray;
+	padding-top: 2px;
+	background: url("pink_blocks/arrow_right.gif") rgb(236,229,232) no-repeat right center;
+	margin-left:5px;
+}
+
+/* General items that's not a top menu */
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer .zpMenu-item {
+  background: rgb(236,229,232);
+	padding-top: 2px;
+	margin-left:0px;
+	margin-right: 0px;
+	margin-top:0px;
+	margin-bottom:1px;
+	border: 1px solid gray;
+}
+
+/* Current selected items in top horizontal menu*/
+.zpMenu-pink_blocks .zpMenuContainer .zpMenu-item-selected {
+	border: 1px solid gray;
+	background: url("pink_blocks/arrow_down.gif") rgb(220,195,202)  no-repeat right center;
+}
+
+
+/* SUB menu selected items, labels (no anchor), anchor */
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer .zpMenu-item-selected,
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer .zpMenu-item-selected .zpMenu-label, 
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer .zpMenu-item-selected a {
+	color: #000000;
+	background-color:rgb(220,195,202);
+}
+
+/* The arrow that shows up when there's a sub-menu */
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer .zpMenu-item-collapsed .zpMenu-label {
+	background: url("pink_blocks/arrow_right.gif")  no-repeat right center;
+}
+
+/* The arrow that shows up when there's a sub-menu and the item is hovered*/
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer .zpMenu-item-expanded .zpMenu-label {
+	background: url("pink_blocks/arrow_right.gif")  no-repeat right center;
+}
+
+.zpMenu-pink_blocks .zpMenuContainer .zpMenu-item-hr,
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	background:pink;
+	height:3px;
+}
+.zpMenu-pink_blocks .zpMenuContainer .zpMenu-item-hr {
+	width: 100px;
+}
+.zpMenu-pink_blocks .zpMenuContainer .zpMenuContainer .zpMenu-item-hr {
+	width: 200px;
+}

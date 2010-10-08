@@ -1,0 +1,51 @@
+a:link {color: #006000; text-decoration:underline;}
+a:visited {color: #006000; text-decoration:underline;}
+a:active {color: #009900; text-decoration:none;}
+A:hover {color:#009900; text-decoration:none;}
+A {color: #006000; text-decoration: underline;}
+
+BODY.phpl {scrollbar-face-color: #006a36; scrollbar-shadow-color: #000000;
+scrollbar-highlight-color: #FFFFFF; scrollbar-3dlight-color: #000000;
+scrollbar-darkshadow-color: #000000; scrollbar-track-color: #FFFFFF;
+scrollbar-arrow-color: #FFFFFF;color: #000000;  font-size:10pt; font-family:  Arial, verdana, Garamond, Times New Roman, Times, topmargin=:"0"; leftmargin:"2"; font-size:8pt }
+TABLE.phpl { font-family:  Arial, verdana, Garamond, Times New Roman, Times; font-size: 10pt;}
+TABLE.phpl2 { border-style: solid; border-color:#006a36; width: 90%;  bordercolorlight: #006a36; bordercolordark: #006a36;  border-width: 2;font-size: 9pt}
+TABLE.phpl3 { valign:top; align:center; width:100%; font-size: 9pt}
+TABLE.phpl4 { font-size: 9pt}
+TABLE.phpl5 { border-style: solid; border-color:#006a36;   bordercolorlight: #006a36; bordercolordark: #006a36;  border-width: 2;font-size: 9pt}
+TD.phpl {color: #000000; font-size: 10pt; vertical-align: top; align: left; font-family: Arial, verdana, Garamond, 'Times New Roman', Times; padding-right: 8 }
+TH.phpl {background: #006a36; color: #ffffff; text-align: left; font-size: 9pt; font-family:  Arial, verdana, Garamond, Times New Roman, Times;}
+TR.phpl { vertical-align: top; text-align: right;font-family:  Arial, verdana, Garamond, Times New Roman, Times;}
+TR.phpl2 {background: #F5F5F5 ; vertical-align: top; text-align: right;font-family:  Arial, verdana, Garamond, Times New Roman, Times;}
+TR.phpl3 {background: #006a36 ; vertical-align: top; text-align: center; font-family:  Arial, verdana, Garamond, Times New Roman, Times; color: #FFFFFF}
+TR.phpl4 {background: #006a36 ; vertical-align: top;  font-family:  Arial, verdana, Garamond, Times New Roman, Times; color: #FFFFFF}
+TR.phpl5 {background: #F5F5F5 ; vertical-align: top; text-align: left;font-family:  Arial, verdana, Garamond, Times New Roman, Times;}
+
+ /* ligne grise du classement */
+TR.ligne1 {
+	background: #E5E5E5;
+}
+/* ligne blanche du classement */
+TR.ligne2 {
+	background: #FFFFFF;
+} 
+
+
+h1, h2, h3, h4, h5, h6, h7 {font-family: Arial, Verdana, Arial, Helvetica;}
+h1.phpl      { color: #000000; font-size: 12pt; font-family:
+               Arial, verdana, Garamond, 'Times New Roman', Times }
+h2.phpl      { color: #006A36; font-size: 3pt; font-family:
+               Arial, verdana, Garamond, 'Times New Roman', Times }
+h3.phpl      { color: #000000; font-size: 9pt; font-family: 
+               Arial, verdana, Garamond, 'Times New Roman', Times }
+h4.phpl      { color: #000000; font-size: 9pt; font-family: 
+               Arial, verdana, Garamond, 'Times New Roman', Times }
+h5.phpl      { color: #000000; font-size: 9pt; font-family: 
+               Arial, verdana, Garamond, 'Times New Roman', Times }
+h6.phpl      { color: #000000; font-size: 9pt; font-family:
+               Arial, verdana, Garamond, 'Times New Roman', Times }
+h7.phpl      { color: #006a36; font-size: 9pt; font-family:
+               Arial, verdana, Garamond, 'Times New Roman', Times }
+
+
+.popper { POSITION: center; VISIBILITY: hidden }
