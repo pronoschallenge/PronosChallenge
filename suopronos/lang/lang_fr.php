@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 // ADMINISTRATION
 
@@ -543,7 +543,6 @@ define("PRONO_INC_COMPLET","Complet");
 define("PRONO_INC_MOYENNE","Moyenne");
 define("PRONO_INC_MIXTE","Mixte");
 define("PRONO_INC_HOURRA","Hourra !");
-define("PRONO_INC_MIXTE","Mixte");
 
 // DECONNEXION
 define("DECONNEXION","Déconnexion en cours...");
