@@ -35,6 +35,7 @@ $connecte = false;
 if (isset($_COOKIE['user'])) {$user_pseudo=$_COOKIE['user'];} else {$user_pseudo='';}
 if (isset($_COOKIE['mot_de_passe'])) {$user_mdp=$_COOKIE['mot_de_passe'];} else {$user_mdp='';}
 
+$user_id="";
 if (VerifSession ($user_pseudo,$user_mdp)=="1")
 {
 	$requete= "SELECT pseudo, id_prono FROM phpl_membres WHERE pseudo='$user_pseudo'";
