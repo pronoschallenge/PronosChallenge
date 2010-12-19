@@ -16,11 +16,11 @@ class CompteResource extends Resource {
 
 		if (VerifSession ($username,$password)=="1")
 		{
-			$response->body = "ok";
+			$response->body = json_encode(array("compte" => "ok"));
 		}
 		else
 		{
-			$response->body = "ko";
+			$response->body = json_encode(array("compte" => "ko"));
 		}
 		
 		return $response;        
