@@ -79,6 +79,7 @@ while ($fin<=$max)
 			FROM phpl_membres, phpl_pronostics, phpl_matchs, phpl_journees
 			WHERE phpl_pronostics.id_champ='$gr_champ' 
 			AND id_membre=phpl_membres.id
+			AND phpl_membres.actif='1'
 			AND phpl_pronostics.id_match=phpl_matchs.id
 			AND phpl_journees.id=phpl_matchs.id_journee			
 			AND phpl_journees.id_champ='$champ'
@@ -203,6 +204,7 @@ if($hourra_activated)
 				FROM phpl_membres, phpl_pronostics, phpl_matchs, phpl_journees
 				WHERE phpl_pronostics.id_champ='$gr_champ' 
 				AND id_membre=phpl_membres.id
+				AND phpl_membres.actif='1'
 				AND phpl_pronostics.id_match=phpl_matchs.id
 				AND phpl_journees.id=phpl_matchs.id_journee			
 				AND phpl_journees.id_champ='$champ'
@@ -385,6 +387,7 @@ while ($fin<=$max)
 			FROM phpl_membres, phpl_pronostics, phpl_matchs, phpl_journees
 			WHERE phpl_pronostics.id_champ='$gr_champ' 
 			AND id_membre=phpl_membres.id
+			AND phpl_membres.actif='1'
 			AND phpl_pronostics.id_match=phpl_matchs.id
 			AND phpl_journees.id=phpl_matchs.id_journee			
 			AND phpl_journees.id_champ='$champ'
@@ -464,6 +467,7 @@ if($hourra_activated)
 				FROM phpl_membres, phpl_pronostics, phpl_matchs, phpl_journees
 				WHERE phpl_pronostics.id_champ='$gr_champ' 
 				AND id_membre=phpl_membres.id
+				AND phpl_membres.actif='1'
 				AND phpl_pronostics.id_match=phpl_matchs.id
 				AND phpl_journees.id=phpl_matchs.id_journee			
 				AND phpl_journees.id_champ='$champ'
@@ -542,6 +546,7 @@ while ($fin<=$max)
 			FROM phpl_membres, phpl_pronostics, phpl_matchs, phpl_journees
 			WHERE phpl_pronostics.id_champ='$gr_champ' 
 			AND id_membre=phpl_membres.id
+			AND phpl_membres.actif='1'
 			AND phpl_pronostics.id_match=phpl_matchs.id
 			AND phpl_journees.id=phpl_matchs.id_journee			
 			AND phpl_journees.id_champ='$champ'
@@ -595,6 +600,7 @@ $query="SELECT id_membre, pseudo, sum(points) as total, sum(participation) as pa
 FROM phpl_membres, phpl_pronostics, phpl_matchs
 WHERE id_champ='$gr_champ'
 AND id_membre=phpl_membres.id
+AND phpl_membres.actif='1'
 AND phpl_matchs.id=id_match
 AND phpl_matchs.buts_dom is not null
 AND phpl_matchs.buts_ext is not null
@@ -629,6 +635,7 @@ if($hourra_activated)
 				FROM phpl_membres, phpl_pronostics, phpl_matchs, phpl_journees
 				WHERE phpl_pronostics.id_champ='$gr_champ' 
 				AND id_membre=phpl_membres.id
+				AND phpl_membres.actif='1'
 				AND phpl_pronostics.id_match=phpl_matchs.id
 				AND phpl_journees.id=phpl_matchs.id_journee			
 				AND phpl_journees.id_champ='$champ'
