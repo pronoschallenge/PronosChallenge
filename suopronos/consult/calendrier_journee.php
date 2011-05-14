@@ -103,30 +103,6 @@ else
         $clubs_nom1 = stripslashes($row[1]);
         $domproba= $row[2];
         $extproba= $row[3];
-        if ($row['buts_dom']=='' and $row['buts_ext']=='' and $proba==1 and $numero>=4)
-        {
-        	$query2="SELECT DOMBUTSPOUR, DOMG, DOMN, DOMP, DOMBUTSCONTRE FROM phpl_clmnt_cache WHERE ID_EQUIPE='$row[eqdom]'";
-        	$result2=mysql_query($query2);
-        	while ($row2=mysql_fetch_array($result2))
-            { 
-		  		$dom_buts=($row2['DOMBUTSPOUR']);
-		  		$dom_joues=($row2['DOMG']+$row2['DOMN']+$row2['DOMP']);
-		  		$ext_buts=($row2['DOMBUTSCONTRE']);
-		  		$ext_joues=($row2['DOMG']+$row2['DOMN']+$row2['DOMP']);
-		  	}
-
-            $query2="SELECT EXTG, EXTN, EXTP, EXTBUTSCONTRE, EXTBUTSPOUR FROM phpl_clmnt_cache WHERE ID_EQUIPE='$row[eqext]'";
-            $result2=mysql_query($query2);
-            while ($row2=mysql_fetch_array($result2))
-            {
-            	$dom_joues+=($row2['EXTG']+$row2['EXTN']+$row2['EXTP']);
-                $ext_joues+=$row2['EXTG']+$row2['EXTN']+$row2['EXTP'];
-                $dom_buts+=($row2['EXTBUTSCONTRE']);
-                $ext_buts+=($row2['EXTBUTSPOUR']);
-                $dom_buts=intval((($dom_buts)/$dom_joues));
-                $ext_buts=intval((($ext_buts)/$ext_joues));
-            }
-        }
 
         if ($x==1)
         {
@@ -164,9 +140,31 @@ else
 
 			echo "<tr class=\"date\"><td colspan=\"5\">";
 
-			echo ereg_replace('é','&eacute;',ereg_replace('û','&ucirc;',strftime("%A %d %B ",$t)));
+			echo preg_replace('@é@','&eacute;',preg_replace('@û@','&ucirc;',strftime("%A %d %B ",$t)));
 			//echo strftime("- %Hh%M",$t);
 			echo "</td></tr>";
+		}
+
+		if ($row['eqdom']==$id_equipe_fetiche )
+		{
+			$DebMarqueur1 = "<b>";
+			$FinMarqueur1 = "</b>";
+		}
+		else
+		{
+			$DebMarqueur1 = "";
+			$FinMarqueur1 = "";
+		}
+
+		if ($row['eqext']==$id_equipe_fetiche )
+		{
+			$DebMarqueur2 = "<b>";
+			$FinMarqueur2 = "</b>";
+		}
+		else
+		{
+			$DebMarqueur2 = "";
+			$FinMarqueur2 = "";
 		}
 
 		echo "<tr class=\"$classe\">";
