@@ -14,6 +14,8 @@ function affiche_points ($user_id, $gr_champ)
 // fonction permettant de récupérer la classement général de l'utilisateur pour le championnat donné
 function getClmntUtilisateur ($user_id, $gr_champ, $type)
 {
+	$clmnt = 0;
+	
 	$queryscore="SELECT points FROM phpl_clmnt_pronos, phpl_membres WHERE phpl_membres.id=phpl_clmnt_pronos.id_membre AND id_champ='$gr_champ' AND type='$type' AND id_prono='$user_id'";
 	$resultscore=mysql_query($queryscore) or die (mysql_error());
 	while ($row=mysql_fetch_array($resultscore))
