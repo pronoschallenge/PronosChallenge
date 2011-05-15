@@ -35,17 +35,33 @@ $result=mysql_query($query);
 $row=mysql_fetch_array($result);
 $champ=$row[0];
 
+$journeeDepart=1;
+
+if(isset($_GET['mode']) && $_GET['mode']=='delta') {
+	// Récupération de la dernière journée mise à jour
+	$query="SELECT phpl_journees.numero
+			FROM phpl_journees, phpl_matchs 
+			WHERE phpl_journees.id=phpl_matchs.id_journee 
+			AND buts_dom is not NULL 
+			AND phpl_journees.id_champ='$champ'
+			ORDER BY phpl_matchs.date_reelle DESC
+			LIMIT 1";
+			
+	$result=mysql_query ($query);
+	$row=mysql_fetch_array($result);
+	$journeeDepart=$row[0];
+}
+
 // Réinitialisation de la table des graphiques des pronos
-mysql_query("DELETE FROM phpl_pronos_graph WHERE id_gr_champ='$gr_champ'") or die (mysql_error());
+mysql_query("DELETE FROM phpl_pronos_graph WHERE id_gr_champ='$gr_champ' AND fin >= $journeeDepart") or die (mysql_error());
 
 // Réinitialisation de la table des classements des pronos pour le groupe de championnat
 mysql_query("DELETE FROM phpl_clmnt_pronos WHERE id_champ='$gr_champ'") or die (mysql_error());
 
 $debut=0;
-$fin=1;
 
 // Récupération du nombre de journées jouées
-$legende=CONSULT_CLMNT_MSG4.$debut.CONSULT_CLMNT_MSG5.$fin;
+$legende=CONSULT_CLMNT_MSG4.$debut.CONSULT_CLMNT_MSG5.$journee;
 $query="SELECT max(phpl_journees.numero) 
 		FROM phpl_journees, phpl_matchs 
 		WHERE phpl_journees.id=phpl_matchs.id_journee 
@@ -67,14 +83,15 @@ $arrayClmnt["hourra"] = array();
 echo "<ul>";
 
 /********** CLASSEMENT GENERAL **************/
-                           
-while ($fin<=$max)
-{        
+       
+$journee = $journeeDepart;                    
+while ($journee<=$max)
+{ 
 	// suppression des classements de type général
 	mysql_query("DELETE FROM phpl_clmnt_pronos WHERE id_champ='$gr_champ' AND type='general'") or die (mysql_error());
 
 	// récupération du total des points du classement général pour tous les utilisateurs
-	// depuis le début du championnat jusqu'à la journée $fin
+	// depuis le début du championnat jusqu'à la journée $journee
 	$query="SELECT id_membre, pseudo, sum(points) as total, sum(participation) as participations 
 			FROM phpl_membres, phpl_pronostics, phpl_matchs, phpl_journees
 			WHERE phpl_pronostics.id_champ='$gr_champ' 
@@ -84,7 +101,7 @@ while ($fin<=$max)
 			AND phpl_journees.id=phpl_matchs.id_journee			
 			AND phpl_journees.id_champ='$champ'
 			AND phpl_journees.numero>='$debut'
-			AND phpl_journees.numero<='$fin'			
+			AND phpl_journees.numero<='$journee'			
 			GROUP by pseudo
 			ORDER by total, participations";			
 	
@@ -93,10 +110,10 @@ while ($fin<=$max)
 	// pour chaque utilisateur...
 	while ($row=mysql_fetch_array($result))
 	{	
-		// on insère son classement pour la journée $fin
+		// on insère son classement pour la journée $journee
 		
 		// cette insertion est temporaire et servira pour la suite.
-		// les données sont écrasées à chaque itération de la boucle pour contenir le classement de la journée $fin
+		// les données sont écrasées à chaque itération de la boucle pour contenir le classement de la journée $journee
 		// la dernière itération correspond au classement actuel (dernière journée jouée)
 		mysql_query("INSERT INTO phpl_clmnt_pronos (id_champ, id_membre, pseudo, points, participation, type) values ('$gr_champ', '$row[0]', '$row[1]', '$row[2]', '$row[3]', 'general')") or die (mysql_error());
 	}	
@@ -112,7 +129,7 @@ while ($fin<=$max)
 	$i=0;
 	$points_precedents="";
 	
-	$arrayClmnt["general"][$fin] = array();
+	$arrayClmnt["general"][$journee] = array();
 	
 	while ($row=mysql_fetch_array($result))
 	{   
@@ -127,13 +144,13 @@ while ($fin<=$max)
 			$points_precedents=$points; 
 		} 	
 			
-		$arrayClmnt["general"][$fin][$id_membre] = $pl;
+		$arrayClmnt["general"][$journee][$id_membre] = $pl;
 			
-		$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ', '$fin', '$pl', 'general', '$points', '$participations')" ;
+		$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ', '$journee', '$pl', 'general', '$points', '$participations')" ;
 		mysql_query($query); 	                 
 	}
 	
-	$fin++;
+	$journee++;
 }
 // On génére le classement général une derniere fois en prenant en compte toutes les journées
 // -> ces données seront utilisées pour l'affichage du classement général actuel
@@ -193,10 +210,10 @@ if ($row=mysql_fetch_array($result))
 if($hourra_activated)
 {
 	$debut=0;
-	$fin=1;
+	$journee=$journeeDepart;
                    
-	while ($fin<=$max)
-	{        
+	while ($journee<=$max)
+	{       
 		mysql_query("DELETE FROM phpl_clmnt_pronos WHERE id_champ='$gr_champ' AND type='hourra'") or die (mysql_error());
 
 		// Regénération du classement hourra
@@ -209,7 +226,7 @@ if($hourra_activated)
 				AND phpl_journees.id=phpl_matchs.id_journee			
 				AND phpl_journees.id_champ='$champ'
 				AND phpl_journees.numero>='$debut'
-				AND phpl_journees.numero<='$fin'			
+				AND phpl_journees.numero<='$journee'			
 				GROUP by pseudo
 				ORDER by total, participations";			
 	
@@ -230,7 +247,7 @@ if($hourra_activated)
 		$i=0;
 		$points_precedents="";
 		
-		$arrayClmnt["hourra"][$fin] = array();
+		$arrayClmnt["hourra"][$journee] = array();
 		
 		while ($row=mysql_fetch_array($result))
 		{   
@@ -245,13 +262,13 @@ if($hourra_activated)
 				$points_precedents=$points; 
 			} 	
 			
-			$arrayClmnt["hourra"][$fin][$id_membre] = $pl;
+			$arrayClmnt["hourra"][$journee][$id_membre] = $pl;
 				
-			$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ', '$fin', '$pl', 'hourra', '$points', '$participations')" ;
+			$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ', '$journee', '$pl', 'hourra', '$points', '$participations')" ;
 			mysql_query($query); 		                 
 		}
 		
-		$fin++;
+		$journee++;
 	}
 	// On génére le classement hourra une derniere fois en prenant en compte toutes les journées
 	mysql_query("DELETE FROM phpl_clmnt_pronos WHERE id_champ='$gr_champ' AND type='hourra'") or die (mysql_error());
@@ -376,9 +393,9 @@ while ($row=mysql_fetch_array($resultat))
 // Regénération du classement dernière journée
 
 $debut=0;
-$fin=1;
+$journee=$journeeDepart;
 
-while ($fin<=$max)
+while ($journee<=$max)
 {          
 	mysql_query("DELETE FROM phpl_clmnt_pronos WHERE id_champ='$gr_champ' AND type='derniere_journee'") or die (mysql_error());
 
@@ -391,7 +408,7 @@ while ($fin<=$max)
 			AND phpl_pronostics.id_match=phpl_matchs.id
 			AND phpl_journees.id=phpl_matchs.id_journee			
 			AND phpl_journees.id_champ='$champ'
-			AND phpl_journees.numero='$fin'			
+			AND phpl_journees.numero='$journee'			
 			GROUP by pseudo
 			ORDER by total DESC, participations ASC, pseudo";			
 	
@@ -438,11 +455,11 @@ while ($fin<=$max)
 			$points_precedents=$points; 
 		} 	
 		
-		$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ', '$fin', '$pl', 'derniere_journee', '$points', '$participations')" ;
+		$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ', '$journee', '$pl', 'derniere_journee', '$points', '$participations')" ;
 		mysql_query($query); 		                 
 	}
 	
-	$fin++;
+	$journee++;
 }
 
 echo "<li>Graphiques et classement générés pour le classement général dernière journée</li>";
@@ -456,9 +473,9 @@ echo "<li>Graphiques et classement générés pour le classement général dernière j
 if($hourra_activated)
 {
 	$debut=0;
-	$fin=1;
+	$journee=$journeeDepart;
 
-	while ($fin<=$max)
+	while ($journee<=$max)
 	{          
 		mysql_query("DELETE FROM phpl_clmnt_pronos WHERE id_champ='$gr_champ' AND type='hourra_derniere_journee'") or die (mysql_error());
 
@@ -471,7 +488,7 @@ if($hourra_activated)
 				AND phpl_pronostics.id_match=phpl_matchs.id
 				AND phpl_journees.id=phpl_matchs.id_journee			
 				AND phpl_journees.id_champ='$champ'
-				AND phpl_journees.numero='$fin'			
+				AND phpl_journees.numero='$journee'			
 				GROUP by pseudo
 				ORDER by total DESC, participations ASC, pseudo";			
 		
@@ -518,11 +535,11 @@ if($hourra_activated)
 				$points_precedents=$points; 
 			} 	
 				
-			$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ','$fin', '$pl', 'hourra_derniere_journee', '$points', '$participations')" ;
+			$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ','$journee', '$pl', 'hourra_derniere_journee', '$points', '$participations')" ;
 			mysql_query($query); 		                 
 		}
 		
-		$fin++;
+		$journee++;
 	}
 	
 	echo "<li>Graphiques et classement générés pour le classement général dernière journée</li>";
@@ -531,12 +548,12 @@ if($hourra_activated)
 /************************/
 
 /********** CLASSEMENT MOYENNE **************/
-
+/*
 $debut=0;
-$fin=1;
+$journee=$journeeDepart;
 
 // Regénération du classement moyenne
-while ($fin<=$max)
+while ($journee<=$max)
 {          
 	// pas utile, on efface déjà tout avant 
 	//mysql_query("DELETE FROM phpl_clmnt_pronos WHERE id_champ='$gr_champ' AND type='moyenne'") or die (mysql_error());
@@ -551,7 +568,7 @@ while ($fin<=$max)
 			AND phpl_journees.id=phpl_matchs.id_journee			
 			AND phpl_journees.id_champ='$champ'
 			AND phpl_journees.numero>='$debut'
-			AND phpl_journees.numero<='$fin'	
+			AND phpl_journees.numero<='$journee'	
 			AND phpl_matchs.buts_dom is not null
 			AND phpl_matchs.buts_ext is not null					
 			GROUP by pseudo
@@ -588,11 +605,11 @@ while ($fin<=$max)
 			$points_precedents=$points; 
 		} 	
 			
-		$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ', '$fin', '$pl', 'moyenne', '$points', '$participations')" ;
+		$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ', '$journee', '$pl', 'moyenne', '$points', '$participations')" ;
 		mysql_query($query); 		                 
 	}
 	
-	$fin++;
+	$journee++;
 }
 // On génére le classement moyenne une derniere fois en prenant en compte toutes les journées
 mysql_query("DELETE FROM phpl_clmnt_pronos WHERE id_champ='$gr_champ' AND type='moyenne'") or die (mysql_error());
@@ -615,7 +632,7 @@ while ($row=mysql_fetch_array($result))
 
 
 echo "<li>Graphiques et classement générés pour le classement moyenne</li>";
-
+*/
 /************************/
 
 /********** CLASSEMENT MIXTE **************/
@@ -623,9 +640,9 @@ echo "<li>Graphiques et classement générés pour le classement moyenne</li>";
 if($hourra_activated)
 {
 	$debut=0;
-	$fin=1;                    
+	$journee=$journeeDepart;                    
                            
-	while ($fin<=$max)
+	while ($journee<=$max)
 	{        
 		// pas utile, on efface déjà tout avant  
 		mysql_query("DELETE FROM phpl_clmnt_pronos WHERE id_champ='$gr_champ' AND type='mixte'") or die (mysql_error());
@@ -640,7 +657,7 @@ if($hourra_activated)
 				AND phpl_journees.id=phpl_matchs.id_journee			
 				AND phpl_journees.id_champ='$champ'
 				AND phpl_journees.numero>='$debut'
-				AND phpl_journees.numero<='$fin'			
+				AND phpl_journees.numero<='$journee'			
 				GROUP by pseudo
 				ORDER by total, participations";			
 		
@@ -668,7 +685,7 @@ if($hourra_activated)
 		while ($row=mysql_fetch_array($result))
 		{	
 			
-			$pts_mixte = ($row["total"]/$total_max)*25 + ($row["total_hourra"]/$total_hourra_max)*25 + (($nb_users-$arrayClmnt["general"][$fin][$row[0]]+1)/$nb_users)*25 + (($nb_users-$arrayClmnt["hourra"][$fin][$row[0]]+1)/$nb_users)*25;
+			$pts_mixte = ($row["total"]/$total_max)*25 + ($row["total_hourra"]/$total_hourra_max)*25 + (($nb_users-$arrayClmnt["general"][$journee][$row[0]]+1)/$nb_users)*25 + (($nb_users-$arrayClmnt["hourra"][$journee][$row[0]]+1)/$nb_users)*25;
 			mysql_query("INSERT INTO phpl_clmnt_pronos (id_champ, id_membre, pseudo, points, participation, type) values ('$gr_champ', '$row[0]', '$row[1]', '".$pts_mixte."', '$row[4]', 'mixte')") or die (mysql_error());
 		}	
 		                   
@@ -695,11 +712,11 @@ if($hourra_activated)
 				$points_precedents=$points; 
 			} 		
 				
-			$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ', '$fin', '$pl', 'mixte', '$points', '$participations')" ;
+			$query="INSERT INTO phpl_pronos_graph (id_membre, id_gr_champ, fin, classement, type, points, participations) VALUES ('$id_membre', '$gr_champ', '$journee', '$pl', 'mixte', '$points', '$participations')" ;
 			mysql_query($query); 	                 
 		}
 		
-		$fin++;
+		$journee++;
 	}
 	// On génére le classement général une derniere fois en prenant en compte toutes les journées
 	// -> ces données seront utilisées pour l'affichage du classement général actuel
@@ -729,7 +746,7 @@ if($hourra_activated)
 	
 	while ($row=mysql_fetch_array($result))
 	{	
-		$pts_mixte = ($row["total"]/$total_max)*25 + ($row["total_hourra"]/$total_hourra_max)*25 + (($nb_users-$arrayClmnt["general"][$fin-1][$row[0]]+1)/$nb_users)*25 + (($nb_users-$arrayClmnt["hourra"][$fin-1][$row[0]]+1)/$nb_users)*25;
+		$pts_mixte = ($row["total"]/$total_max)*25 + ($row["total_hourra"]/$total_hourra_max)*25 + (($nb_users-$arrayClmnt["general"][$journee-1][$row[0]]+1)/$nb_users)*25 + (($nb_users-$arrayClmnt["hourra"][$journee-1][$row[0]]+1)/$nb_users)*25;
 		mysql_query("INSERT INTO phpl_clmnt_pronos (id_champ, id_membre, pseudo, points, participation, type) values ('$gr_champ', '$row[0]', '$row[1]', '".$pts_mixte."', '$row[4]', 'mixte')") or die (mysql_error());
 	}
 	
@@ -758,7 +775,7 @@ if($hourra_activated)
 			
 	echo "<li>Graphiques et classement générés pour le classement mixte</li>";
 }
-	
+
 /************************/
 
 echo "</ul>";
