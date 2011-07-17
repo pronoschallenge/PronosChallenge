@@ -1,8 +1,22 @@
 <?php
+/*
+ * This file is part of the Tonic.
+ * (c) Paul James <paul@peej.co.uk>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/* Turn on namespace in PHP5.3 if you have namespace collisions from the Tonic classnames
+namespace Tonic;
+use \ReflectionClass as ReflectionClass;
+use \ReflectionMethod as ReflectionMethod;
+use \Exception as Exception;
+//*/
 
 /**
  * Model the data of the incoming HTTP request
- * @package Tonic/Lib
+ * @namespace Tonic\Lib
  */
 class Request {
     
@@ -10,117 +24,132 @@ class Request {
      * The requested URI
      * @var str
      */
-    var $uri;
+    public $uri;
+    
+    /**
+     * The URI where the front controller is positioned in the server URI-space
+     * @var str
+     */
+    public $baseUri = '';
     
     /**
      * Array of possible URIs based upon accept and accept-language request headers in order of preference
      * @var str[]
      */
-    var $negotiatedUris = array();
+    public $negotiatedUris = array();
     
     /**
      * Array of possible URIs based upon accept request headers in order of preference
      * @var str[]
      */
-    var $formatNegotiatedUris = array();
+    public $formatNegotiatedUris = array();
     
     /**
      * Array of possible URIs based upon accept-language request headers in order of preference
      * @var str[]
      */
-    var $languageNegotiatedUris = array();
+    public $languageNegotiatedUris = array();
     
     /**
      * Array of accept headers in order of preference
      * @var str[][]
      */
-    var $accept = array();
+    public $accept = array();
     
     /**
      * Array of accept-language headers in order of preference
      * @var str[][]
      */
-    var $acceptLang = array();
+    public $acceptLang = array();
     
     /**
      * Array of accept-encoding headers in order of preference
      * @var str[]
      */
-    var $acceptEncoding = array();
+    public $acceptEncoding = array();
     
     /**
      * Map of file/URI extensions to mimetypes
      * @var str[]
      */
-    var $mimetypes = array(
-            'html' => 'text/html',
-            'txt' => 'text/plain',
-            'php' => 'application/php',
-            'css' => 'text/css',
-            'js' => 'application/javascript',
-            'json' => 'application/json',
-            'xml' => 'text/xml',
-            'rss' => 'application/rss+xml',
-            'atom' => 'application/atom+xml',
-            'gz' => 'application/x-gzip',
-            'tar' => 'application/x-tar',
-            'zip' => 'application/zip',
-            'gif' => 'image/gif',
-            'png' => 'image/png',
-            'jpg' => 'image/jpeg',
-            'ico' => 'image/x-icon',
-            'swf' => 'application/x-shockwave-flash',
-            'flv' => 'video/x-flv',
-            'avi' => 'video/mpeg',
-            'mpeg' => 'video/mpeg',
-            'mpg' => 'video/mpeg',
-            'mov' => 'video/quicktime',
-            'mp3' => 'audio/mpeg'
-        );
-        
+    public $mimetypes = array(
+        'html' => 'text/html',
+        'txt' => 'text/plain',
+        'php' => 'application/php',
+        'css' => 'text/css',
+        'js' => 'application/javascript',
+        'json' => 'application/json',
+        'xml' => 'text/xml',
+        'rss' => 'application/rss+xml',
+        'atom' => 'application/atom+xml',
+        'gz' => 'application/x-gzip',
+        'tar' => 'application/x-tar',
+        'zip' => 'application/zip',
+        'gif' => 'image/gif',
+        'png' => 'image/png',
+        'jpg' => 'image/jpeg',
+        'ico' => 'image/x-icon',
+        'swf' => 'application/x-shockwave-flash',
+        'flv' => 'video/x-flv',
+        'avi' => 'video/mpeg',
+        'mpeg' => 'video/mpeg',
+        'mpg' => 'video/mpeg',
+        'mov' => 'video/quicktime',
+        'mp3' => 'audio/mpeg'
+    );
+    
+    /**
+     * Supported HTTP methods
+     * @var str[]
+     */
+    public $HTTPMethods = array(
+        'GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS'
+    );
+    
     /**
      * HTTP request method of incoming request
      * @var str
      */
-    var $method = 'GET';
+    public $method = 'GET';
     
     /**
      * Body data of incoming request
      * @var str
      */
-    var $data;
+    public $data;
     
     /**
      * Array of if-match etags
      * @var str[]
      */
-    var $ifMatch = array();
+    public $ifMatch = array();
     
     /**
      * Array of if-none-match etags
      * @var str[]
      */
-    var $ifNoneMatch = array();
-    
-    /**
-     * Name of resource class to use for when nothing is found
-     * @var str
-     */
-    var $noResource = 'NoResource';
+    public $ifNoneMatch = array();
     
     /**
      * The resource classes loaded and how they are wired to URIs
      * @var str[]
      */
-    var $resources = array();
+    public $resources = array();
+    
+    /**
+     * A list of URL to namespace/package mappings for routing requests to a
+     * group of resources that are wired into a different URL-space
+     * @var str[]
+     */
+    public $mounts = array();
     
     /**
      * Set a default configuration option
      */
-    private function getConfig($config, $configVar, $serverVar = NULL, $default = NULL) {
+    protected function getConfig($config, $configVar, $serverVar = NULL, $default = NULL) {
         if (isset($config[$configVar])) {
             return $config[$configVar];
-        } elseif (isset($_SERVER[$serverVar])) {
+        } elseif (isset($_SERVER[$serverVar]) && $_SERVER[$serverVar] != '') {
             return $_SERVER[$serverVar];
         } else {
             return $default;
@@ -143,6 +172,10 @@ class Request {
      * <dt>ifNoneMatch</dt> <dd>An if-none-match header</dd>
      * <dt>mimetypes</dt> <dd>A map of file/URI extenstions to mimetypes, these
      * will be added to the default map of mimetypes</dd>
+     * <dt>baseUri</dt> <dd>The base relative URI to use when dispatcher isn't
+     * at the root of the domain. Do not put a trailing slash</dd>
+     * <dt>mounts</dt> <dd>an array of namespace to baseUri prefix mappings</dd>
+     * <dt>HTTPMethods</dt> <dd>an array of HTTP methods to support</dd>
      * </dl>
      *
      * @param mixed[] config Configuration options
@@ -150,7 +183,8 @@ class Request {
     function __construct($config = array()) {
         
         // set defaults
-        $config['uri'] = $this->getConfig($config, 'uri', 'REDIRECT_URL');
+        $config['uri'] = parse_url($this->getConfig($config, 'uri', 'REQUEST_URI'), PHP_URL_PATH);
+        $config['baseUri'] = $this->getConfig($config, 'baseUri', '');
         $config['accept'] = $this->getConfig($config, 'accept', 'HTTP_ACCEPT');
         $config['acceptLang'] = $this->getConfig($config, 'acceptLang', 'HTTP_ACCEPT_LANGUAGE');
         $config['acceptEncoding'] = $this->getConfig($config, 'acceptEncoding', 'HTTP_ACCEPT_ENCODING');
@@ -163,6 +197,9 @@ class Request {
             }
         }
         
+        // set baseUri
+        $this->baseUri = $config['baseUri'];
+        
         // get request URI
         $parts = explode('/', $config['uri']);
         $lastPart = array_pop($parts);
@@ -170,6 +207,10 @@ class Request {
         
         $parts = explode('.', $lastPart);
         $this->uri .= '/'.$parts[0];
+        
+        if ($this->uri != '/' && substr($this->uri, -1, 1) == '/') { // remove trailing slash problem
+            $this->uri = substr($this->uri, 0, -1);
+        }
         
         array_shift($parts);
         foreach ($parts as $part) {
@@ -207,11 +248,11 @@ class Request {
         krsort($this->acceptLang);
         
         // get encoding accept headers
-		if ($config['acceptEncoding']) {
+        if ($config['acceptEncoding']) {
             foreach (explode(',', $config['acceptEncoding']) as $key => $accept) {
-				$this->acceptEncoding[$key] = trim($accept);
+                $this->acceptEncoding[$key] = trim($accept);
             }
-		}
+        }
         
         // create negotiated URI lists from accept headers and request URI
         foreach ($this->accept as $typeOrder) {
@@ -245,17 +286,13 @@ class Request {
         $this->formatNegotiatedUris = array_values(array_unique($this->formatNegotiatedUris));
         $this->languageNegotiatedUris = array_values(array_unique($this->languageNegotiatedUris));
         
+        $this->HTTPMethods = $this->getConfig($config, 'HTTPMethods', NULL, $this->HTTPMethods);
+        
         // get HTTP method
         $this->method = strtoupper($this->getConfig($config, 'method', 'REQUEST_METHOD', $this->method));
         
         // get HTTP request data
-        if (isset($config['data'])) {
-            $this->data = $config['data'];
-        } elseif ($this->method == 'GET') {
-            $this->data = $_SERVER['QUERY_STRING'];
-        } else {
-            $this->data = file_get_contents("php://input");
-        }
+        $this->data = $this->getConfig($config, 'data', NULL, file_get_contents("php://input"));
         
         // conditional requests
         if ($config['ifMatch']) {
@@ -271,32 +308,46 @@ class Request {
             }
         }
         
-        // 404 resource
-        if (isset($config['404'])) {
-            if (is_subclass_of($config['404'], 'NoResource')) {
-                $this->noResource = $config['404'];
-            } else {
-                throw new Exception('404 resource "'.$config['404'].'" must be a subclass of "NoResource"');
+        // mounts
+        if (isset($config['mount']) && is_array($config['mount'])) {
+            $this->mounts = $config['mount'];
+        }
+        
+        // prime named resources for autoloading
+        if (isset($config['autoload']) && is_array($config['autoload'])) {
+            foreach ($config['autoload'] as $uri => $className) {
+                $this->resources[$uri] = array(
+                    'class' => $className,
+                    'loaded' => FALSE
+                );
             }
         }
         
-        // resource classes
+        // load definitions of already loaded resource classes
         foreach (get_declared_classes() as $className) {
-            if (is_subclass_of($className, 'Resource')) {
-                $resourceReflector = new ReflectionClass($className);
-                $comment = $resourceReflector->getDocComment();
-                preg_match_all('/@uri\s+([^\s]+)(?:\s([0-9]+))?/', $comment, $annotations);
-                if (isset($annotations[1])) {
+            $resourceClassName = class_exists('Tonic\\Resource') ? 'Tonic\\Resource' : 'Resource';
+            if (is_subclass_of($className, $resourceClassName)) {
+                
+                $resourceDetails = $this->getResourceClassDetails($className);
+                
+                preg_match_all('/@uri\s+([^\s]+)(?:\s([0-9]+))?/', $resourceDetails['comment'], $annotations);
+                if (isset($annotations[1]) && $annotations[1]) {
                     $uris = $annotations[1];
                 } else {
-                    $uris = array('/');
+                    $uris = array();
                 }
+                
                 foreach ($uris as $index => $uri) {
-                    $this->resources[$uri] = array(
-                        'class' => $className,
-                        'filename' => $resourceReflector->getFileName(),
-                        'line' => $resourceReflector->getStartLine(),
-                        'priority' => isset($annotations[2][$index]) && is_numeric($annotations[2][$index]) ? intval($annotations[2][$index]) : 0
+                    if ($uri != '/' && substr($uri, -1, 1) == '/') { // remove trailing slash problem
+                        $uri = substr($uri, 0, -1);
+                    }
+                    $this->resources[$resourceDetails['mountPoint'].$uri] = array(
+                        'namespace' => $resourceDetails['namespaceName'],
+                        'class' => $resourceDetails['className'],
+                        'filename' => $resourceDetails['filename'],
+                        'line' => $resourceDetails['line'],
+                        'priority' => isset($annotations[2][$index]) && is_numeric($annotations[2][$index]) ? intval($annotations[2][$index]) : 0,
+                        'loaded' => TRUE
                     );
                 }
             }
@@ -305,8 +356,53 @@ class Request {
     }
     
     /**
+     * Get the details of a Resource class by reflection
+     * @param str className
+     * @return str[]
+     */
+    protected function getResourceClassDetails($className) {
+        
+        $resourceReflector = new ReflectionClass($className);
+        $comment = $resourceReflector->getDocComment();
+        
+        $className = $resourceReflector->getName();
+        if (method_exists($resourceReflector, 'getNamespaceName')) {
+            $namespaceName = $resourceReflector->getNamespaceName();
+        } else {
+            // @codeCoverageIgnoreStart
+            $namespaceName = FALSE;
+            // @codeCoverageIgnoreEnd
+        }
+        
+        if (!$namespaceName) {
+            preg_match('/@(?:package|namespace)\s+([^\s]+)/', $comment, $package);
+            if (isset($package[1])) {
+                $namespaceName = $package[1];
+            }
+        }
+        
+        // adjust URI for mountpoint
+        if (isset($this->mounts[$namespaceName])) {
+            $mountPoint = $this->mounts[$namespaceName];
+        } else {
+            $mountPoint = '';
+        }
+        
+        return array(
+            'comment' => $comment,
+            'className' => $className,
+            'namespaceName' => $namespaceName,
+            'filename' => $resourceReflector->getFileName(),
+            'line' => $resourceReflector->getStartLine(),
+            'mountPoint' => $mountPoint
+        );
+    
+    }
+    
+    /**
      * Convert the object into a string suitable for printing
      * @return str
+     * @codeCoverageIgnore
      */
     function __toString() {
         $str = 'URI: '.$this->uri."\n";
@@ -343,8 +439,11 @@ class Request {
         $str .= 'Loaded Resources:'."\n";
         foreach ($this->resources as $uri => $resource) {
             $str .= "\t".$uri."\n";
-            $str .= "\t\t".$resource['class']."\n";
-            $str .= "\t\t".$resource['filename'].'#'.$resource['line']."\n";
+            if (isset($resource['namespace']) && $resource['namespace']) $str .= "\t\tNamespace: ".$resource['namespace']."\n";
+            $str .= "\t\tClass: ".$resource['class']."\n";
+            $str .= "\t\tFile: ".$resource['filename'];
+            if (isset($resource['line']) && $resource['line']) $str .= '#'.$resource['line'];
+            $str .= "\n";
         }
         return $str;
     }
@@ -352,26 +451,69 @@ class Request {
     /**
      * Instantiate the resource class that matches the request URI the best
      * @return Resource
+     * @throws ResponseException If the resource does not exist, a 404 exception is thrown
      */
     function loadResource() {
         
         $uriMatches = array();
         foreach ($this->resources as $uri => $resource) {
-            if (preg_match('|^'.str_replace('|', '\|', $uri).'$|', $this->uri, $matches)) {
+            
+            preg_match_all('#(:[^/]+|{[^0-9][^}]*}|\(.+?\))#', $uri, $params, PREG_PATTERN_ORDER);
+            
+            $uri = $this->baseUri.$uri;
+            if ($uri != '/' && substr($uri, -1, 1) == '/') { // remove trailing slash problem
+                $uri = substr($uri, 0, -1);
+            }
+            $uriRegex = preg_replace('#(:[^(/]+|{[^0-9][^}]*})#', '(.+)', $uri);
+            
+            if (preg_match('#^'.$uriRegex.'$#', $this->uri, $matches)) {
                 array_shift($matches);
-                $uriMatches[$resource['priority']] = array(
-                    $resource['class'],
+                
+                if (isset($params[1])) {
+                    foreach ($params[1] as $index => $param) {
+                        if (isset($matches[$index])) {
+                            if (substr($param, 0, 1) == ':') {
+                                $matches[substr($param, 1)] = $matches[$index];
+                                unset($matches[$index]);
+                            } elseif (substr($param, 0, 1) == '{' && substr($param, -1, 1) == '}') {
+                                $matches[substr($param, 1, -1)] = $matches[$index];
+                                unset($matches[$index]);
+                            }
+                        }
+                    }
+                }
+                
+                $uriMatches[isset($resource['priority']) ? $resource['priority'] : 0] = array(
+                    $uri,
+                    $resource,
                     $matches
                 );
+                
             }
         }
         ksort($uriMatches);
         
         if ($uriMatches) {
-            $resourceDetails = array_shift($uriMatches);
-            return new $resourceDetails[0]($resourceDetails[1]);
+            list($uri, $resource, $parameters) = array_shift($uriMatches);
+            if (!$resource['loaded']) { // autoload
+                if (!class_exists($resource['class'])) {
+                    throw new Exception('Unable to load resource');
+                }
+                $resourceDetails = $this->getResourceClassDetails($resource['class']);
+                $resource = $this->resources[$uri] = array(
+                    'namespace' => $resourceDetails['namespaceName'],
+                    'class' => $resourceDetails['className'],
+                    'filename' => $resourceDetails['filename'],
+                    'line' => $resourceDetails['line'],
+                    'priority' => 0,
+                    'loaded' => TRUE
+                );
+            }
+            return new $resource['class']($parameters);
         }
-        return new $this->noResource();
+        
+        // no resource found, throw response exception
+        throw new ResponseException('A resource matching URI "'.$this->uri.'" was not found', Response::NOTFOUND);
         
     }
     
@@ -403,46 +545,76 @@ class Request {
 
 /**
  * Base resource class
- * @package Tonic/Lib
+ * @namespace Tonic\Lib
  */
 class Resource {
     
-    var $parameters = array();
+    private $parameters;
     
     /**
      * Resource constructor
      * @param str[] parameters Parameters passed in from the URL as matched from the URI regex
      */
-    function resource($parameters = array()) {
+    function  __construct($parameters) {
         $this->parameters = $parameters;
     }
     
     /**
+     * Convert the object into a string suitable for printing
+     * @return str
+     * @codeCoverageIgnore
+     */
+    function __toString() {
+        $str = get_class($this);
+        foreach ($this->parameters as $name => $value) {
+            $str .= "\n".$name.': '.$value;
+        }
+        return $str;
+    }
+    
+    /**
      * Execute a request on this resource.
-     * @param Request request
+     * @param Request request The request to execute the resource in the context of
      * @return Response
+     * @throws ResponseException If the HTTP method is not allowed on the resource, a 405 exception is thrown
      */
     function exec($request) {
         
-        if (method_exists($this, $request->method)) {
+        if (
+            in_array(strtoupper($request->method), $request->HTTPMethods) &&
+            method_exists($this, $request->method)
+        ) {
             
-            $parameters = $this->parameters;
-            array_unshift($parameters, $request);
+            $method = new ReflectionMethod($this, $request->method);
+            $parameters = array();
+            foreach ($method->getParameters() as $param) {
+                if ($param->name == 'request') {
+                    $parameters[] = $request;
+                } elseif (isset($this->parameters[$param->name])) {
+                    $parameters[] = $this->parameters[$param->name];
+                    unset($this->parameters[$param->name]);
+                } else {
+                    $parameters[] = reset($this->parameters);
+                    array_shift($this->parameters);
+                }
+            }
             
             $response = call_user_func_array(
                 array($this, $request->method),
                 $parameters
             );
             
+            $responseClassName = class_exists('Tonic\\Response') ? 'Tonic\\Response' : 'Response';
+            if (!$response || !is_a($response, $responseClassName)) {
+                throw new Exception('Method '.$request->method.' of '.get_class($this).' did not return a Response object');
+            }
+            
         } else {
             
             // send 405 method not allowed
-            $response = new Response($request);
-            $response->code = Response::METHODNOTALLOWED;
-            $response->body = sprintf(
-                'The HTTP method "%s" used for the request is not allowed for the resource "%s".',
-                $request->method,
-                $request->uri
+            throw new ResponseException(
+                'The HTTP method "'.$request->method.'" is not allowed for the resource "'.$request->uri.'".',
+                Response::METHODNOTALLOWED
             );
             
         }
@@ -457,34 +629,8 @@ class Resource {
 }
 
 /**
- * 404 resource class
- * @package Tonic/Lib
- */
-class NoResource extends Resource {
-    
-    /**
-     * Always return a 404 response.
-     * @param Request request
-     * @return Response
-     */
-    function exec($request) {
-        
-        // send 404 not found
-        $response = new Response($request);
-        $response->code = Response::NOTFOUND;
-        $response->body = sprintf(
-            'Nothing was found for the resource "%s".',
-            $request->uri
-        );
-        return $response;
-        
-    }
-    
-}
-
-/**
  * Model the data of the outgoing HTTP response
- * @package Tonic/Lib
+ * @namespace Tonic\Lib
  */
 class Response {
     
@@ -515,25 +661,25 @@ class Response {
      * The request object generating this response
      * @var Request
      */
-    var $request;
+    public $request;
     
     /**
      * The HTTP response code to send
      * @var int
      */
-    var $code = Response::OK;
+    public $code = Response::OK;
     
     /**
      * The HTTP headers to send
      * @var str[]
      */
-    var $headers = array();
+    public $headers = array();
     
     /**
      * The HTTP response body to send
      * @var str
      */
-    var $body;
+    public $body;
     
     /**
      * Create a response object.
@@ -555,6 +701,7 @@ class Response {
     /**
      * Convert the object into a string suitable for printing
      * @return str
+     * @codeCoverageIgnore
      */
     function __toString() {
         $str = 'HTTP/1.1 '.$this->code;
@@ -571,35 +718,6 @@ class Response {
      */
     function addHeader($header, $value) {
         $this->headers[$header] = $value;
-    }
-    
-    /**
-     * Add content encoding headers and encode the response body
-     */
-    function doContentEncoding() {
-        if (ini_get('zlib.output_compression') == 0) { // do nothing if PHP will do the compression for us
-            foreach ($this->request->acceptEncoding as $encoding) {
-                switch($encoding) {
-                case 'gzip':
-                    $this->addHeader('Content-Encoding', 'gzip');
-                    $this->addVary('Accept-Encoding');
-                    $this->body = gzencode($this->body);
-                    return;
-                case 'deflate':
-                    $this->addHeader('Content-Encoding', 'deflate');
-                    $this->addVary('Accept-Encoding');
-                    $this->body = gzdeflate($this->body);
-                    return;
-                case 'compress':
-                    $this->addHeader('Content-Encoding', 'compress');
-                    $this->addVary('Accept-Encoding');
-                    $this->body = gzcompress($this->body);
-                    return;
-                case 'identity':
-                    return;
-                }
-            }
-        }
     }
     
     /**
@@ -630,14 +748,13 @@ class Response {
         }
     }
     
+    /**
+     * Output the response
+     * @codeCoverageIgnore
+     */
     function output() {
         
         if (php_sapi_name() != 'cli' && !headers_sent()) {
-            
-            if ($this->body) {
-                $this->doContentEncoding();
-                $this->addHeader('Content-Length', strlen($this->body));
-            }
             
             header('HTTP/1.1 '.$this->code);
             foreach ($this->headers as $header => $value) {
@@ -647,6 +764,26 @@ class Response {
         
         echo $this->body;
         
+    }
+    
+}
+
+/**
+ * Exception class for HTTP response errors
+ * @namespace Tonic\Lib
+ */
+class ResponseException extends Exception {
+    
+    /**
+     * Generate a default response for this exception
+     * @param Request request
+     * @return Response
+     */
+    function response($request) {
+        $response = new Response($request);
+        $response->code = $this->code;
+        $response->body = $this->message;
+        return $response;
     }
     
 }
