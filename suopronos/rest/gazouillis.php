@@ -15,12 +15,12 @@ class GazouillisResource extends Resource {
         $data = array();
 
 		ouverture ();
-echo "debut:".$debut;
+
 		if($debut == null)
 		{
 			$debut = 0;
 		}
-echo "limit:".$limit;
+
 		if($limit == null)
 		{
 			$limit = 10;
