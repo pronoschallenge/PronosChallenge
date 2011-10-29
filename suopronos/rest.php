@@ -7,6 +7,7 @@ require_once './lib/tonic/tonic.php';
 require_once './rest/classement.php';
 require_once './rest/compte.php';
 require_once './rest/pronos.php';
+require_once './rest/gazouillis.php';
 
 
 $uri = $_SERVER['REQUEST_URI'];
