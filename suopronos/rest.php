@@ -8,6 +8,7 @@ require_once './rest/classement.php';
 require_once './rest/compte.php';
 require_once './rest/pronos.php';
 require_once './rest/gazouillis.php';
+require_once './rest/gazouilli.php';
 
 
 $uri = $_SERVER['REQUEST_URI'];

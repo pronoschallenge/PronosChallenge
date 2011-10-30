@@ -42,11 +42,8 @@ class GazouillisResource extends Resource {
 			{
 				$url_avatar = "http://".$_SERVER['SERVER_NAME']."/suopronos/prono/images/avatars/no_avatar.png";
 			}
-			
 
-			//date("d/m H:i", strtotime($row["date_creation"]))
-
-       		array_push($data, array("id_membre" => $row["id_membre"], "pseudo" => $row["pseudo"], "url_avatar" => $url_avatar, "contenu" => $row["contenu"], "date" => $row["date_creation"]));
+       		array_push($data, array("id_membre" => $row["id_membre"], "pseudo" => $row["pseudo"], "url_avatar" => $url_avatar, "contenu" => utf8_encode($row["contenu"]), "date" => $row["date_creation"]));
 
 		}
 
