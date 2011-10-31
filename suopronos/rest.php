@@ -9,6 +9,7 @@ require_once './rest/compte.php';
 require_once './rest/pronos.php';
 require_once './rest/gazouillis.php';
 require_once './rest/gazouilli.php';
+require_once './rest/profil.php';
 
 
 $uri = $_SERVER['REQUEST_URI'];
