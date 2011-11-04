@@ -97,7 +97,7 @@ else
       
       if($nbJrs==1)
       {
-        $mailBody .= "<br><br>Vous avez jusqu'� demain pour le faire !";
+        $mailBody .= "<br><br>Vous avez jusqu'à demain pour le faire !";
       }
       else
       {
@@ -121,16 +121,15 @@ else
         $message = $mailBody;
         //$message = "Bon comme vous l'aurez surement compris, c'�tait encore juste un test. Normalement c'est le dernier, donc le prochain que vous recevrez devra etre pris en compte ;)<br>�a ne vous empeche bien sur pas de faire vos pronos maintenant :)";
         $headers = "From: pronoschallenge.info@online.fr\n";
-        $headers .= "Bcc: pronoschallenge.info@online.fr"."\r\n";
         $headers .= "MIME-version: 1.0\n";
         $headers .= "Content-type: text/html; charset= iso-8859-1\n";
         if(mail($email,$sujet,$message,$headers))
         {
-          echo "<br>Email envoy� � ".$rowUsers[1];
+          echo "<br>Email envoyé à ".$rowUsers[1];
         }
         else
         {
-          echo "<br>Erreur lors de l'envoi du mail � ".$rowUsers[1];
+          echo "<br>Erreur lors de l'envoi du mail à ".$rowUsers[1];
         }
         sleep(2);
       }      
@@ -201,3 +200,4 @@ else {echo ADMIN_GRAPH_4;}
 ?>
 </body>
 </td></tr></table>
+
