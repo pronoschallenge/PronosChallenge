@@ -59,7 +59,7 @@ class ProfilResource extends Resource {
 			$data["prenom"] = $rowInfosUser["prenom"];
 			$data["ville"] = $rowInfosUser["ville"];
 			$data["departement"] = $rowInfosUser["departement"];
-			$data["url_logo"] = "http://".$_SERVER['SERVER_NAME']."/suopronos/prono/images/clubs/".$rowInfosUser["url_logo"];
+			$data["url_logo"] = "http://".$_SERVER['SERVER_NAME']."/suopronos/prono/images/clubs/".rawurlencode($rowInfosUser["url_logo"]);
 			$data["club_favori"] = $rowInfosUser["nom_club"];
 		}
 
