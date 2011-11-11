@@ -11,6 +11,7 @@ require_once './rest/gazouillis.php';
 require_once './rest/gazouilli.php';
 require_once './rest/profil.php';
 require_once './rest/strategie.php';
+require_once './rest/palmares.php';
 
 
 $uri = $_SERVER['REQUEST_URI'];
