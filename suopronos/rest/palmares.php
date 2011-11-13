@@ -22,14 +22,14 @@ class PalmaresResource extends Resource {
 		$row = mysql_fetch_array($resultat);
 		$idUser = $row[0];
 		
-		// palmarès de l'utilisateur
-		$queryPalmares = "SELECT clmnt.id_champ, clmnt.place, clmnt.type, groupes.nom
-							FROM phpl_clmnt_pronos clmnt
-							JOIN phpl_gr_championnats groupes On groupes.id = clmnt.id_champ
-															 AND groupes.activ_prono = '0'
-							WHERE clmnt.id_membre = $idUser
-								AND clmnt.type IN ('general', 'hourra', 'mixte')
-							ORDER BY clmnt.id_champ DESC, clmnt.type ASC";
+		// Saison en cours de l'utilisateur + palmarès de l'utilisateur
+		$queryPalmares =   "SELECT classement.id_champ, classement.place, classement.type, 
+								case when groupes.activ_prono = '0' then groupes.nom else 'Saison en cours' end as nom
+							FROM phpl_clmnt_pronos classement
+							JOIN phpl_gr_championnats groupes ON groupes.id = classement.id_champ
+							WHERE classement.id_membre = $idUser
+								AND classement.type IN ('general', 'hourra', 'mixte')
+							ORDER BY classement.id_champ DESC, classement.type ASC";
 		$resultat = mysql_query ($queryPalmares) or die ("probleme " .mysql_error());
 
 		// Remplissage du tableau avec le palmarès de l'utilisateur

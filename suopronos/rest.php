@@ -12,6 +12,7 @@ require_once './rest/gazouilli.php';
 require_once './rest/profil.php';
 require_once './rest/strategie.php';
 require_once './rest/palmares.php';
+require_once './rest/evolutionClassement.php';
 
 
 $uri = $_SERVER['REQUEST_URI'];
