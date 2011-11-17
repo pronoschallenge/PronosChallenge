@@ -33,7 +33,7 @@ class ProfilResource extends Resource {
         $data = array();
 
 		ouverture ();
-
+		
 		$queryIdUser = "SELECT pseudo, id_prono FROM phpl_membres WHERE pseudo='$user'";
 		$result = mysql_query($queryIdUser);
 		$row = mysql_fetch_array($result);
@@ -55,9 +55,9 @@ class ProfilResource extends Resource {
 		{
 			$data["id_membre"] = $rowInfosUser["id_membre"];
 			$data["url_avatar"] = "http://".$_SERVER['SERVER_NAME']."/suopronos/prono/images/avatars/".$rowInfosUser["id_membre"].".gif";
-			$data["nom"] = $rowInfosUser["nom"];
-			$data["prenom"] = $rowInfosUser["prenom"];
-			$data["ville"] = $rowInfosUser["ville"];
+			$data["nom"] = utf8_encode($rowInfosUser["nom"]);
+			$data["prenom"] = utf8_encode($rowInfosUser["prenom"]);
+			$data["ville"] = utf8_encode($rowInfosUser["ville"]);
 			$data["departement"] = $rowInfosUser["departement"];
 			$data["url_logo"] = "http://".$_SERVER['SERVER_NAME']."/suopronos/prono/images/clubs/".rawurlencode($rowInfosUser["url_logo"]);
 			$data["club_favori"] = $rowInfosUser["nom_club"];
