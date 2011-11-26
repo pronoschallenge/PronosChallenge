@@ -13,6 +13,7 @@ require_once './rest/profil.php';
 require_once './rest/strategie.php';
 require_once './rest/palmares.php';
 require_once './rest/evolutionClassement.php';
+require_once './rest/listeAmis.php';
 
 
 $uri = $_SERVER['REQUEST_URI'];
