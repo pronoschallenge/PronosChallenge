@@ -138,8 +138,8 @@ class ListeAmisResource extends Resource {
 			while ($row = mysql_fetch_array($resultat))
 			{
 				$pseudo = $row["pseudo"];
-				$nom = $row["nom"];
-				$prenom = $row["prenom"];
+				$nom = utf8_encode($row["nom"]);
+				$prenom = utf8_encode($row["prenom"]);
 				if ($row["ami"] == 0) {
 					$ami = '0';
 				} else {
