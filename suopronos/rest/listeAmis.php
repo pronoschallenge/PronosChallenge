@@ -3,7 +3,7 @@
 /**
  * 
  * Méthode GET : 
- *  => doit avoir "ami" en paramètre
+ *  => doit avoir "type" en paramètre
  *    - "1" = liste des amis
  *    - "0" = liste des utilisateurs non amis (pour les ajouter)
  * 
@@ -82,31 +82,74 @@ class ListeAmisResource extends Resource {
         $data = array();
 
 		ouverture ();
-
-		// Tri par pseudo
-		$queryClassementAmis = 
-					"SELECT classement.pseudo, classement.type, classement.place, classement.points
-					FROM phpl_membres membre
-					JOIN phpl_clmnt_filtre filtre ON filtre.id = membre.id_prono
-					JOIN phpl_clmnt_pronos classement ON classement.id_membre = filtre.idMembre
-					JOIN phpl_gr_championnats groupes ON groupes.id = classement.id_champ
-													 AND groupes.activ_prono = '1'
-					WHERE membre.pseudo = '$user' AND membre.actif = '1'
-					  AND classement.type IN ('general', 'hourra', 'mixte')
-					ORDER BY classement.pseudo ASC, classement.type ASC";
 		
-		$resultat = mysql_query ($queryClassementAmis) or die ("probleme " .mysql_error());
+		// récupération du type de liste
+		if(isset($_GET['type']))  {
+			$type = $_GET['type'];
+		} else {
+			$type = "1";
+		}
 		
-		// Remplissage du tableau avec le palmarès de l'utilisateur
-	    while ($row = mysql_fetch_array($resultat))
-	    {
-			$numPlace = $row["place"];
-			$typeChamp = $row["type"];
-			$pseudoAmi = $row["pseudo"];
-			$nbPoints = $row["points"];
+		if ($type == "1") {
+			// Liste des amis triés par pseudo
+			$queryClassementAmis =
+				"SELECT classement.pseudo, classement.type, classement.place, classement.points
+				FROM phpl_membres membre
+				JOIN phpl_clmnt_filtre filtre ON filtre.id = membre.id_prono
+				JOIN phpl_clmnt_pronos classement ON classement.id_membre = filtre.idMembre
+				JOIN phpl_gr_championnats groupes ON groupes.id = classement.id_champ
+												 AND groupes.activ_prono = '1'
+				WHERE membre.pseudo = '$user' AND membre.actif = '1'
+				  AND classement.type IN ('general', 'hourra', 'mixte')
+				ORDER BY classement.pseudo ASC, classement.type ASC";
 			
-       		array_push($data, array("pseudo" => $pseudoAmi, "type" => $typeChamp, "place" => $numPlace, "point" => $nbPoints));
-	    }
+			$resultat = mysql_query ($queryClassementAmis) or die ("probleme " .mysql_error());
+			
+			// Remplissage du tableau avec le palmarès de l'utilisateur
+			while ($row = mysql_fetch_array($resultat))
+			{
+				$numPlace = $row["place"];
+				$typeChamp = $row["type"];
+				$pseudoAmi = $row["pseudo"];
+				$nbPoints = $row["points"];
+					
+				array_push($data, array("pseudo" => $pseudoAmi, "type" => $typeChamp, "place" => $numPlace, "point" => $nbPoints));
+			}
+				
+		} else {
+			// utilisateur postant la requête
+			$requete = "SELECT id_prono FROM phpl_membres WHERE pseudo = '$user'";
+			$result = mysql_query($requete);
+			$row = mysql_fetch_array($result);
+			$user_id = $row[0];
+						
+			// Liste des utilisateurs non amis
+			$queryListeUtilisateur =
+				"SELECT membre.pseudo, membre.nom, membre.prenom, ifnull(filtre.idMembre, 0) as ami
+				FROM phpl_membres membre
+				LEFT JOIN phpl_clmnt_filtre filtre ON filtre.idMembre = membre.id
+												  AND filtre.id = '$user_id'
+				WHERE membre.actif = '1'
+				ORDER BY membre.pseudo";
+			
+			$resultat = mysql_query ($queryListeUtilisateur) or die ("probleme " .mysql_error());
+			
+			// Remplissage du tableau avec le palmarès de l'utilisateur
+			while ($row = mysql_fetch_array($resultat))
+			{
+				$pseudo = $row["pseudo"];
+				$nom = $row["nom"];
+				$prenom = $row["prenom"];
+				if ($row["ami"] == 0) {
+					$ami = '0';
+				} else {
+					$ami = '1';
+				}
+					
+				array_push($data, array("pseudo" => $pseudo, "nom" => $nom, "prenom" => $prenom, "ami" => $ami));
+			}
+			
+		}
 
 		// Retour du tableau au format JSON
 		$response->body = json_encode(array("listeAmis" => $data));
