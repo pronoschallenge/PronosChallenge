@@ -16,6 +16,8 @@ require_once './rest/evolutionClassement.php';
 require_once './rest/listeAmis.php';
 require_once './rest/serieClub.php';
 require_once './rest/classementL1.php';
+require_once './rest/infoClub.php';
+require_once './rest/coteMatch.php';
 
 
 $uri = $_SERVER['REQUEST_URI'];
