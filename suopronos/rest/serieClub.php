@@ -31,14 +31,24 @@ class SerieClubResource extends Resource {
 	    $response->addHeader('content-type', 'text/plain');
 	    
 	    $data = array();
-	    	    
+
+	    
+	    if(isset($_GET['nbMatch']))  {
+	    	$nbMatch = $_GET['nbMatch']; 
+	    } else {
+	    	$nbMatch = "5";
+	    }
+	    
 	    $requete = "SELECT phpl_gr_championnats.id_champ FROM phpl_gr_championnats WHERE phpl_gr_championnats.activ_prono='1' ORDER by id desc";
 	    $resultat = mysql_query ($requete) or die ("probleme " .mysql_error());
 	    $row = mysql_fetch_array($resultat);
 	    	
 	    $gr_champ = $row[0];
 	    
-	    $query = "SELECT phpl_matchs.buts_dom, phpl_matchs.buts_ext, cldom.nom as clubDom, clext.nom as clubExt
+	    $query = "SELECT phpl_matchs.buts_dom, phpl_matchs.buts_ext, 
+	    				Case When cldom.nom = '$club' then cldom.nom_court else cldom.nom end as clubDom, 
+	    				Case When clext.nom = '$club' then clext.nom_court else clext.nom end as clubExt,
+	    				Case When cldom.nom = '$club' then 'D' else 'E' end as type
 	    			FROM phpl_journees 
 			        JOIN phpl_matchs ON phpl_matchs.id_journee = phpl_journees.id
 							        AND phpl_matchs.buts_dom is not null
@@ -50,14 +60,15 @@ class SerieClubResource extends Resource {
 			        WHERE phpl_journees.id_champ = '$gr_champ'
 			        	AND (cldom.nom = '$club' OR clext.nom = '$club')
 			        ORDER BY phpl_journees.numero DESC
-			        LIMIT 0,5";
+			        LIMIT 0, $nbMatch";
 	    $result = mysql_query($query) or die ("probleme " .mysql_error());
 	    
 	    while ($row=mysql_fetch_array($result)) {
 	    	array_push($data, array("butDom" => $row["buts_dom"], 
 	    							"butExt" => $row["buts_ext"],
 	    							"clubDom" => $row["clubDom"],
-	    							"clubExt" => $row["clubExt"]));
+	    							"clubExt" => $row["clubExt"],
+	    							"type" => $row["type"]));
 	    }
 	    
 	    $response->body = json_encode(array("serieClub" => $data));
