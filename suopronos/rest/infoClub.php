@@ -50,7 +50,9 @@ class InfoClubResource extends Resource {
 
 	    while ($row = mysql_fetch_array($result)) {
 			
-			$queryPlace = "SELECT rownum FROM (
+			$queryPlace = "SELECT rownum, points, joues, g, n, p, butspour, butscontre, diff,
+							domg, domn, domp, extg, extn, extp 
+						    FROM (
 							    SELECT @rownum:=@rownum+1 rownum, classement.*
 							    FROM (SELECT @rownum:=0) r, phpl_clmnt_cache classement
 							    WHERE ID_CHAMP = '$gr_champ'
@@ -60,7 +62,21 @@ class InfoClubResource extends Resource {
 			$rowPlace = mysql_fetch_array($resultPlace);				
 						    
 			array_push($data, array("club" => $row["nom"], 
-									"place" => $rowPlace[0], 
+									"place" => $rowPlace["rownum"],
+									"points" => $rowPlace["points"],
+									"j" => $rowPlace["joues"],
+									"g" => $rowPlace["g"],
+									"n" => $rowPlace["n"],
+									"p" => $rowPlace["p"],
+									"bp" => $rowPlace["butspour"],
+									"bc" => $rowPlace["butscontre"],
+									"diff" => $rowPlace["diff"],
+									"domg" => $rowPlace["domg"],
+									"domn" => $rowPlace["domn"],
+									"domp" => $rowPlace["domp"],
+									"extg" => $rowPlace["extg"],
+									"extn" => $rowPlace["extn"],
+									"extp" => $rowPlace["extp"],
 									"url_logo" => "http://".$_SERVER['SERVER_NAME']."/suopronos/prono/images/clubs/hdpi/".rawurlencode($row["url_logo"])));
 	    }
 	    
