@@ -66,8 +66,6 @@ class CoteMatchResource extends Resource {
 	    			$type_prono = "2";
 	    			break;
 	    	}
-	    	
-	    	$url_logo = $type_prono . "-transparent.gif";
 
 	    	//On compte le nombre de parieurs sur une victoire de l'equipe à l'exterieur
 	    	$requete = "SELECT COUNT(*) FROM phpl_pronostics WHERE id_match = '$idMatch' AND pronostic = '$type_prono'";
@@ -82,8 +80,7 @@ class CoteMatchResource extends Resource {
 	    	}	    	
 	    	
 	    	array_push($data, array("type" => $type_prono,
-    								"cote" => $points_prono,
-    								"url_logo" => "http://".$_SERVER['SERVER_NAME']."/suopronos/prono/images/".rawurlencode($url_logo)));
+    								"cote" => $points_prono));
 
 	    }
 	    
