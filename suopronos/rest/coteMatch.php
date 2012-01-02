@@ -34,6 +34,12 @@ class CoteMatchResource extends Resource {
 	    
 	    $data = array();
 
+		if(isset($_GET['paramProno']))  {
+			$paramProno = $_GET['paramProno']; 
+		} else {
+			$paramProno = "";
+		}	    
+	    
 	    $requete = "SELECT max(id) FROM phpl_championnats";
 	    $resultat = mysql_query ($requete) or die ("probleme " .mysql_error());
 	    $row = mysql_fetch_array($resultat);	    	
@@ -66,7 +72,12 @@ class CoteMatchResource extends Resource {
 	    			$type_prono = "2";
 	    			break;
 	    	}
-
+ 
+	    	if ($paramProno != "") {
+	    		$type_prono = $paramProno;
+	    		$i = 3;
+	    	}
+	    	
 	    	//On compte le nombre de parieurs sur une victoire de l'equipe à l'exterieur
 	    	$requete = "SELECT COUNT(*) FROM phpl_pronostics WHERE id_match = '$idMatch' AND pronostic = '$type_prono'";
 	    	$resultat = mysql_query ($requete) or die ("probleme " .mysql_error());

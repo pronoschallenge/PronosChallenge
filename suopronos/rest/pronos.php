@@ -36,11 +36,13 @@ class PronosResource extends Resource {
 		ouverture ();
 
 		// récupération de l'id du championnat
-		$requete="SELECT phpl_gr_championnats.id FROM phpl_gr_championnats WHERE phpl_gr_championnats.activ_prono='1' ORDER by id desc";
-		$resultat=mysql_query ($requete) or die ("probleme " .mysql_error());
-		$row= mysql_fetch_array($resultat);
+		$requete = "SELECT phpl_gr_championnats.id, phpl_gr_championnats.id_champ, phpl_gr_championnats.pts_prono_exact FROM phpl_gr_championnats WHERE phpl_gr_championnats.activ_prono = '1' ORDER by id desc";
+		$resultat = mysql_query ($requete) or die ("probleme " .mysql_error());
+		$row = mysql_fetch_array($resultat);
 		 
-		$gr_champ=$row[0];
+		$gr_champ = $row["id"];
+		$id_champ = $row["id_champ"];
+		$points_prono_exact = $row["pts_prono_exact"];
 
 		// récupération de la dernière journée
 		/*
@@ -59,32 +61,31 @@ class PronosResource extends Resource {
 		*/
 
 	    // requete pour récupérer les matchs à pronostiquer
-	    $requete="SELECT phpl_clubs.nom, CLEXT.nom, phpl_matchs.id, phpl_matchs.date_reelle, phpl_journees.numero
-				    FROM phpl_clubs, phpl_clubs as CLEXT, phpl_matchs, phpl_journees, phpl_equipes, phpl_equipes as EXT, phpl_gr_championnats
-				    WHERE phpl_clubs.id=phpl_equipes.id_club
-				    AND CLEXT.id=EXT.id_club
-				    AND phpl_equipes.id=phpl_matchs.id_equipe_dom
-				    AND EXT.id=phpl_matchs.id_equipe_ext
-				    AND phpl_matchs.id_journee=phpl_journees.id
-				    AND phpl_journees.id_champ=phpl_gr_championnats.id_champ
-				    AND phpl_gr_championnats.id='$gr_champ'	
-				    AND phpl_matchs.buts_dom is null
-				    AND phpl_matchs.buts_ext is null			    
-				    AND phpl_clubs.nom!='exempte'
-				    AND CLEXT.nom!='exempte'
-				    ORDER by phpl_matchs.date_reelle, phpl_clubs.nom
-				    LIMIT 0, 10 ";
-				    				    	
-	    $i=0;
-	    $x=0;
-	    $resultat=mysql_query($requete);
+	    $requete = 	   "SELECT CDOM.nom, CLEXT.nom, phpl_matchs.id, phpl_matchs.date_reelle, phpl_journees.numero
+    				    FROM phpl_journees 
+    				    JOIN phpl_matchs ON phpl_matchs.id_journee = phpl_journees.id
+			    					    AND phpl_matchs.buts_dom is null
+			    					    AND phpl_matchs.buts_ext is null
+			    		JOIN phpl_equipes as DOM ON DOM.id = phpl_matchs.id_equipe_dom
+			    		JOIN phpl_clubs as CDOM  ON CDOM.id = DOM.id_club
+			    								AND CDOM.nom !='exempte'
+	    				JOIN phpl_equipes as EXT ON EXT.id = phpl_matchs.id_equipe_ext
+			    		JOIN phpl_clubs as CLEXT ON CLEXT.id = EXT.id_club
+			    								AND CLEXT.nom !='exempte'
+    				    WHERE phpl_journees.id_champ = '$id_champ'    				    
+    				    ORDER by phpl_matchs.date_reelle, CDOM.nom
+    				    LIMIT 0, 10 ";
+	     
+	    $i = 0;
+	    $x = 0;
+	    $resultat = mysql_query($requete);
 	    
-	    if (mysql_num_rows($resultat)=="0") 
+	    if (mysql_num_rows($resultat) == "0") 
 	    {
 			//
 		}
 
-	    while ($row=mysql_fetch_array($resultat))
+	    while ($row = mysql_fetch_array($resultat))
 	    {
 		    // nom du club domicile et du club exterieur
 	    	$clubs_dom = stripslashes($row[0]);
@@ -93,30 +94,47 @@ class PronosResource extends Resource {
 			$date = $row["date_reelle"];
 
 	       	// on regarde si le prono a déjà été pronostiqué
-	       	$requete2= "SELECT pronostic FROM phpl_pronostics, phpl_membres 
-				WHERE phpl_pronostics.id_match='$row[2]' 
-				AND phpl_membres.id=phpl_pronostics.id_membre 
-				AND phpl_membres.pseudo='$user'";
-	       	$resultat2=mysql_query($requete2) or die ("probleme " .mysql_error());
-	       	$nb_pronos= mysql_num_rows($resultat2);
+	       	$requete2 = "SELECT pronostic FROM phpl_pronostics, phpl_membres 
+				WHERE phpl_pronostics.id_match = '$id' 
+				AND phpl_membres.id = phpl_pronostics.id_membre 
+				AND phpl_membres.pseudo = '$user'";
+	       	$resultat2 = mysql_query($requete2) or die ("probleme " .mysql_error());
+	       	$nb_pronos = mysql_num_rows($resultat2);
 		
 	       	if ($nb_pronos == "0") 
 	       	{
-		       	$prono="0";
+		       	$prono = "0";
 		    }
 		    
-			while ($row2=mysql_fetch_array($resultat2))
+			while ($row2 = mysql_fetch_array($resultat2))
 			{
-				$prono=$row2["0"];
+				$prono = $row2["0"];
 
 				if ($row2["0"] == "")
 				{
-					$prono="0";
+					$prono = "0";
 				}
 
 			}
 
-       		array_push($data, array("id" => $id, "equipe_dom" => $clubs_dom, "equipe_ext" => $clubs_ext, "date" => $date, "prono" => $prono));
+			//On compte le nombre de parieurs sur le match
+			$requeteNbParieur = "SELECT COUNT(*) FROM phpl_pronostics WHERE id_match = '$id'";
+			$resultatNbParieur = mysql_query ($requeteNbParieur) or die ("probleme " .mysql_error());
+			$rowNbParieur = mysql_fetch_array($resultatNbParieur);
+			$nb_parieurs_total = $rowNbParieur[0];
+				
+			//On compte le nombre de parieurs sur le pronostic du USER
+			$requeteCote = "SELECT COUNT(*) FROM phpl_pronostics WHERE id_match = '$id' AND pronostic = '$prono'";
+			$resultatCote = mysql_query ($requeteCote) or die ("probleme " .mysql_error());
+			$rowCote = mysql_fetch_array($resultatCote);
+			$nb_parieurs = $rowCote[0];
+	    	if ($nb_parieurs == "0") {
+	    		$points_prono = "0";
+	    	} else {
+	    		$points_prono = floor(($points_prono_exact*$nb_parieurs_total)/$nb_parieurs);
+	    	}
+
+       		array_push($data, array("id" => $id, "equipe_dom" => $clubs_dom, "equipe_ext" => $clubs_ext, "date" => $date, "prono" => $prono, "cote" => $points_prono));
 
 		}
 
@@ -180,7 +198,8 @@ class PronosResource extends Resource {
 	     	if ($valeur_prono !== "undefined")
 	     	{
 	       		mysql_query("DELETE FROM phpl_pronostics WHERE pronostic=' '")or die ("probleme " .mysql_error());
-	       		$requete = "SELECT * FROM phpl_matchs, phpl_pronostics, phpl_membres WHERE phpl_membres.pseudo='$user'
+	       		$requete = "SELECT * FROM phpl_matchs, phpl_pronostics, phpl_membres 
+	       					 WHERE phpl_membres.pseudo='$user'
 			                   AND phpl_membres.id=phpl_pronostics.id_membre
 			                   AND phpl_pronostics.id_match=phpl_matchs.id
 			                   AND phpl_pronostics.id_match='$id_match'";
@@ -222,7 +241,7 @@ class PronosResource extends Resource {
 			}
 			
 		}
-        
+		
         $response->code = Response::OK;
         $response->addHeader('content-type', 'text/plain');
         
