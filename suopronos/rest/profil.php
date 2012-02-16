@@ -33,20 +33,15 @@ class ProfilResource extends Resource {
         $data = array();
 
 		ouverture ();
-		
-		$queryIdUser = "SELECT pseudo, id_prono FROM phpl_membres WHERE pseudo='$user'";
-		$result = mysql_query($queryIdUser);
-		$row = mysql_fetch_array($result);
-		$user_id=$row[1];
 
 		$queryInfosUser="SELECT clmnt.id_membre, membre.pseudo,
 			membre.nom as nom,  membre.prenom,  membre.ville, membre.departement, membre.id_club_favori, 
-			club.nom as nom_club, club.url_logo 
-			FROM phpl_clmnt_pronos as clmnt, phpl_membres as membre, phpl_clubs as club
-			WHERE membre.id=$user_id
-			AND membre.id=clmnt.id_membre
-			AND membre.actif='1'
-			AND (membre.id_club_favori IS NULL OR club.id = membre.id_club_favori)
+			club.nom as nom_club, club.url_logo
+			FROM phpl_membres as membre
+			JOIN phpl_clmnt_pronos as clmnt ON clmnt.id_membre = membre.id
+			LEFT JOIN phpl_clubs as club ON club.id = membre.id_club_favori
+			WHERE membre.pseudo = '$user'
+			  AND membre.actif = '1'
 			GROUP by clmnt.pseudo
 			ORDER by  clmnt.points desc, clmnt.participation asc, membre.pseudo";
 		$resultInfosUser=mysql_query($queryInfosUser) or die ("probleme " .mysql_error());
