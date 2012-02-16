@@ -58,7 +58,7 @@ class ClassementResource extends Resource {
 		    $query = "SELECT classement.pseudo, classement.points, classement.participation as champion, 
 		    				 classement.place
 		    		  FROM phpl_membres membre 
-		    		  JOIN phpl_clmnt_pronos classement ON classement.id_champ = membre.id_prono
+		    		  JOIN phpl_clmnt_pronos classement ON classement.id_membre = membre.id_prono
 		    		  								   AND classement.id_champ = '$gr_champ'
 		    		  								   AND classement.type = '$type'
 		    		  WHERE membre.actif = '1' 
@@ -75,11 +75,9 @@ class ClassementResource extends Resource {
 	    			  ORDER by classement.points desc, classement.participation asc, classement.pseudo";
 	    }
 	    $result = mysql_query($query) or die ("probleme " .mysql_error());
-	    //$i = 1;
 	    
 	    while ($row=mysql_fetch_array($result)) {
 	    	array_push($data, array("place" => $row["place"], "pseudo" => $row["pseudo"], "points" => $row["points"]));
-	    	//$i++;
 	    }
 	    
 	    $response->body = json_encode(array("classement" => $data));
