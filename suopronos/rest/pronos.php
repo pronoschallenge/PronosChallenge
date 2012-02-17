@@ -35,6 +35,29 @@ class PronosResource extends Resource {
 
 		ouverture ();
 
+		$mode = "default";
+		if(isset($_GET['mode']))
+		{
+			$mode = $_GET['mode'];
+		}
+
+		$debut = 0;
+		if(isset($_GET['debut']))
+		{
+			$debut = $_GET['debut'];
+		}
+
+		$total = 10;
+		if(isset($_GET['total']))
+		{
+			$total = $_GET['total'];
+		}
+
+		$requete= "SELECT pseudo, id_prono FROM phpl_membres WHERE pseudo='$user'";
+		$result = mysql_query($requete);
+		$row = mysql_fetch_array($result);
+		$user_id=$row[1];
+
 		// récupération de l'id du championnat
 		$requete = "SELECT phpl_gr_championnats.id, phpl_gr_championnats.id_champ, phpl_gr_championnats.pts_prono_exact FROM phpl_gr_championnats WHERE phpl_gr_championnats.activ_prono = '1' ORDER by id desc";
 		$resultat = mysql_query ($requete) or die ("probleme " .mysql_error());
@@ -60,85 +83,143 @@ class PronosResource extends Resource {
 		}
 		*/
 
-	    // requete pour récupérer les matchs à pronostiquer
-	    $requete = 	   "SELECT CDOM.nom, CLEXT.nom, phpl_matchs.id, phpl_matchs.date_reelle, phpl_journees.numero
-    				    FROM phpl_journees 
-    				    JOIN phpl_matchs ON phpl_matchs.id_journee = phpl_journees.id
-			    					    AND phpl_matchs.buts_dom is null
-			    					    AND phpl_matchs.buts_ext is null
-			    		JOIN phpl_equipes as DOM ON DOM.id = phpl_matchs.id_equipe_dom
-			    		JOIN phpl_clubs as CDOM  ON CDOM.id = DOM.id_club
-			    								AND CDOM.nom !='exempte'
-	    				JOIN phpl_equipes as EXT ON EXT.id = phpl_matchs.id_equipe_ext
-			    		JOIN phpl_clubs as CLEXT ON CLEXT.id = EXT.id_club
-			    								AND CLEXT.nom !='exempte'
-    				    WHERE phpl_journees.id_champ = '$id_champ'    				    
-    				    ORDER by phpl_matchs.date_reelle, CDOM.nom
-    				    LIMIT 0, 10 ";
-	     
-	    $i = 0;
-	    $x = 0;
-	    $resultat = mysql_query($requete);
-	    
-	    if (mysql_num_rows($resultat) == "0") 
-	    {
-			//
+		if($mode == "default" || $mode == "all" || $mode == "next") {
+			$data_pronos = array();
+
+			// requete pour récupérer les matchs à pronostiquer
+			$requete = 	   "SELECT CDOM.nom, CLEXT.nom, phpl_matchs.id, phpl_matchs.date_reelle, phpl_journees.numero
+						    FROM phpl_journees 
+						    JOIN phpl_matchs ON phpl_matchs.id_journee = phpl_journees.id
+										    AND phpl_matchs.buts_dom is null
+										    AND phpl_matchs.buts_ext is null
+							JOIN phpl_equipes as DOM ON DOM.id = phpl_matchs.id_equipe_dom
+							JOIN phpl_clubs as CDOM  ON CDOM.id = DOM.id_club
+													AND CDOM.nom !='exempte'
+							JOIN phpl_equipes as EXT ON EXT.id = phpl_matchs.id_equipe_ext
+							JOIN phpl_clubs as CLEXT ON CLEXT.id = EXT.id_club
+													AND CLEXT.nom !='exempte'
+						    WHERE phpl_journees.id_champ = '$id_champ'    				    
+						    ORDER by phpl_matchs.date_reelle, CDOM.nom";
+
+			if($mode == "default") {
+				$requete .= " LIMIT $debut, $total ";
+			}
+			 
+			$i = 0;
+			$x = 0;
+			$resultat = mysql_query($requete);
+			
+			if (mysql_num_rows($resultat) == "0") 
+			{
+				//
+			}
+
+			while ($row = mysql_fetch_array($resultat))
+			{
+				// nom du club domicile et du club exterieur
+				$clubs_dom = stripslashes($row[0]);
+			   	$clubs_ext = stripslashes($row[1]);
+				$id = $row["id"];
+				$date = $row["date_reelle"];
+
+			   	// on regarde si le prono a déjà été pronostiqué
+			   	$requete2 = "SELECT pronostic FROM phpl_pronostics, phpl_membres 
+					WHERE phpl_pronostics.id_match = '$id' 
+					AND phpl_membres.id = phpl_pronostics.id_membre 
+					AND phpl_membres.pseudo = '$user'";
+			   	$resultat2 = mysql_query($requete2) or die ("probleme " .mysql_error());
+			   	$nb_pronos = mysql_num_rows($resultat2);
+		
+			   	if ($nb_pronos == "0") 
+			   	{
+				   	$prono = "0";
+				}
+				
+				while ($row2 = mysql_fetch_array($resultat2))
+				{
+					$prono = $row2["0"];
+
+					if ($row2["0"] == "")
+					{
+						$prono = "0";
+					}
+
+				}
+
+				//On compte le nombre de parieurs sur le match
+				$requeteNbParieur = "SELECT COUNT(*) FROM phpl_pronostics WHERE id_match = '$id'";
+				$resultatNbParieur = mysql_query ($requeteNbParieur) or die ("probleme " .mysql_error());
+				$rowNbParieur = mysql_fetch_array($resultatNbParieur);
+				$nb_parieurs_total = $rowNbParieur[0];
+				
+				//On compte le nombre de parieurs sur le pronostic du USER
+				$requeteCote = "SELECT COUNT(*) FROM phpl_pronostics WHERE id_match = '$id' AND pronostic = '$prono'";
+				$resultatCote = mysql_query ($requeteCote) or die ("probleme " .mysql_error());
+				$rowCote = mysql_fetch_array($resultatCote);
+				$nb_parieurs = $rowCote[0];
+				if ($nb_parieurs == "0") {
+					$points_prono = "0";
+				} else {
+					$points_prono = floor(($points_prono_exact*$nb_parieurs_total)/$nb_parieurs);
+				}
+
+		   		array_push($data_pronos, array("id" => $id, "equipe_dom" => $clubs_dom, "equipe_ext" => $clubs_ext, "date" => $date, "prono" => $prono, "cote" => $points_prono));
+			}
+
+			$data["pronos"] = $data_pronos;
 		}
 
-	    while ($row = mysql_fetch_array($resultat))
-	    {
-		    // nom du club domicile et du club exterieur
-	    	$clubs_dom = stripslashes($row[0]);
-	       	$clubs_ext = stripslashes($row[1]);
-			$id = $row["id"];
-			$date = $row["date_reelle"];
+		if($mode == "all" || $mode == "previous") {
+			$data_pronos_joues = array();
 
-	       	// on regarde si le prono a déjà été pronostiqué
-	       	$requete2 = "SELECT pronostic FROM phpl_pronostics, phpl_membres 
-				WHERE phpl_pronostics.id_match = '$id' 
-				AND phpl_membres.id = phpl_pronostics.id_membre 
-				AND phpl_membres.pseudo = '$user'";
-	       	$resultat2 = mysql_query($requete2) or die ("probleme " .mysql_error());
-	       	$nb_pronos = mysql_num_rows($resultat2);
-		
-	       	if ($nb_pronos == "0") 
-	       	{
-		       	$prono = "0";
-		    }
-		    
-			while ($row2 = mysql_fetch_array($resultat2))
+			$query="SELECT phpl_clubs.nom, CLEXT.nom, phpl_matchs.buts_dom, phpl_matchs.buts_ext, phpl_matchs.id, phpl_matchs.date_reelle, phpl_journees.numero, pronos_user.pronostic
+				FROM phpl_clubs, phpl_clubs as CLEXT, phpl_journees, phpl_equipes, phpl_equipes as EXT, phpl_gr_championnats, phpl_membres, phpl_matchs
+				LEFT OUTER JOIN (SELECT * FROM phpl_pronostics WHERE id_membre=$user_id) as pronos_user ON pronos_user.id_match=phpl_matchs.id
+				WHERE phpl_clubs.id=phpl_equipes.id_club
+				AND CLEXT.id=EXT.id_club 
+				AND phpl_equipes.id=phpl_matchs.id_equipe_dom
+				AND EXT.id=phpl_matchs.id_equipe_ext
+				AND phpl_matchs.id_journee=phpl_journees.id
+				AND phpl_journees.id_champ=phpl_gr_championnats.id_champ
+				AND phpl_gr_championnats.id='$gr_champ'
+				AND phpl_matchs.buts_dom is not null
+				AND phpl_matchs.buts_ext is not null
+				AND phpl_clubs.nom!='exempte'
+				AND CLEXT.nom!='exempte'
+				AND (phpl_membres.id=$user_id OR phpl_membres.id IS NULL)
+				ORDER by phpl_matchs.date_reelle desc, phpl_clubs.nom desc";
+
+			$result=mysql_query($query);
+			if (mysql_num_rows( $result )=="0") 
 			{
-				$prono = $row2["0"];
+				//
+			}
+			while ($row=mysql_fetch_array($result))
+			{
+				// nom du club domicile et du club exterieur
+				$clubs_dom = stripslashes($row[0]);
+			   	$clubs_ext = stripslashes($row[1]);
+				$id = $row["id"];
+				$date = $row["date_reelle"];
+				$prono = $row["pronostic"];
+				$buts_dom = $row["buts_dom"];
+				$buts_ext = $row["buts_ext"];
 
-				if ($row2["0"] == "")
-				{
-					$prono = "0";
-				}
+		   		array_push($data_pronos_joues, array("id" => $id, 
+														"equipe_dom" => $clubs_dom, 
+														"equipe_ext" => $clubs_ext, 
+														"date" => $date, 
+														"prono" => $prono,
+														"buts_dom" => $buts_dom,
+														"buts_ext" => $buts_ext));
 
 			}
 
-			//On compte le nombre de parieurs sur le match
-			$requeteNbParieur = "SELECT COUNT(*) FROM phpl_pronostics WHERE id_match = '$id'";
-			$resultatNbParieur = mysql_query ($requeteNbParieur) or die ("probleme " .mysql_error());
-			$rowNbParieur = mysql_fetch_array($resultatNbParieur);
-			$nb_parieurs_total = $rowNbParieur[0];
-				
-			//On compte le nombre de parieurs sur le pronostic du USER
-			$requeteCote = "SELECT COUNT(*) FROM phpl_pronostics WHERE id_match = '$id' AND pronostic = '$prono'";
-			$resultatCote = mysql_query ($requeteCote) or die ("probleme " .mysql_error());
-			$rowCote = mysql_fetch_array($resultatCote);
-			$nb_parieurs = $rowCote[0];
-	    	if ($nb_parieurs == "0") {
-	    		$points_prono = "0";
-	    	} else {
-	    		$points_prono = floor(($points_prono_exact*$nb_parieurs_total)/$nb_parieurs);
-	    	}
+			$data["pronos_joues"] = $data_pronos_joues;
+		}		
 
-       		array_push($data, array("id" => $id, "equipe_dom" => $clubs_dom, "equipe_ext" => $clubs_ext, "date" => $date, "prono" => $prono, "cote" => $points_prono));
 
-		}
-
-		$response->body = json_encode(array("pronos" => $data));
+		$response->body = json_encode($data);
 
         return $response;
         
