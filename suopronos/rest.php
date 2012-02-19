@@ -23,7 +23,7 @@ require_once './rest/coteMatch.php';
 require_once './rest/confrontationClub.php';
 require_once './rest/gazouillisNonLus.php';
 require_once './rest/evolutionClassementL1.php';
-
+require_once './rest/calendrierClub.php';
 
 $uri = $_SERVER['REQUEST_URI'];
 $config = array();
