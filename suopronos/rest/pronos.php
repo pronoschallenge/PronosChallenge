@@ -152,18 +152,27 @@ class PronosResource extends Resource {
 				$rowNbParieur = mysql_fetch_array($resultatNbParieur);
 				$nb_parieurs_total = $rowNbParieur[0];
 				
-				//On compte le nombre de parieurs sur le pronostic du USER
-				$requeteCote = "SELECT COUNT(*) FROM phpl_pronostics WHERE id_match = '$id' AND pronostic = '$prono'";
-				$resultatCote = mysql_query ($requeteCote) or die ("probleme " .mysql_error());
-				$rowCote = mysql_fetch_array($resultatCote);
-				$nb_parieurs = $rowCote[0];
-				if ($nb_parieurs == "0") {
-					$points_prono = "0";
-				} else {
-					$points_prono = floor(($points_prono_exact*$nb_parieurs_total)/$nb_parieurs);
+				//On compte le nombre de parieurs sur les pronostics
+				$pronostics = array("1", "N", "2");
+				$points_prono = array();
+				$cote = "0";
+				foreach($pronostics as $pronostic) {
+					$requeteCote = "SELECT COUNT(*) FROM phpl_pronostics WHERE id_match = '$id' AND pronostic = '$pronostic'";
+					$resultatCote = mysql_query ($requeteCote) or die ("probleme " .mysql_error());
+					$rowCote = mysql_fetch_array($resultatCote);
+					$nb_parieurs = $rowCote[0];
+					if ($nb_parieurs == "0") {
+						$points_prono[$pronostic] = "0";
+					} else {
+						$points_prono[$pronostic] = floor(($points_prono_exact*$nb_parieurs_total)/$nb_parieurs);
+					}
+					
+					if($pronostic == $prono) {
+						$cote = $points_prono[$pronostic];
+					}
 				}
 
-		   		array_push($data_pronos, array("id" => $id, "equipe_dom" => $clubs_dom, "equipe_ext" => $clubs_ext, "date" => $date, "prono" => $prono, "cote" => $points_prono));
+		   		array_push($data_pronos, array("id" => $id, "equipe_dom" => $clubs_dom, "equipe_ext" => $clubs_ext, "date" => $date, "prono" => $prono, "cote" => $cote, "cote1" => $points_prono["1"], "coteN" => $points_prono["N"], "cote2" => $points_prono["2"]));
 			}
 
 			$data["pronos"] = $data_pronos;
