@@ -3,15 +3,18 @@
 /**
  * An example resource
  * 
- *  Méthode GET : 
- *  "nbUser" = nb top/flop par classement (3 par défaut)
+ *  Méthode GET :
+ *  Parm obligatoire :
+ *   - "typeEvol" = top="0" OU flop="1"
+ *  Param facultatif 
+ *   - "nbUser" = nb top/flop par classement (3 par défaut)
  *    
- * @uri /topFlop/
+ * @uri /topFlop/(.*)?
  * 
  */
 class TopFlopResource extends Resource {
     
-    function get($request) {
+    function get($request, $typeChamp) {
         
         $response = new Response($request);
         $response->code = Response::OK;
@@ -26,6 +29,13 @@ class TopFlopResource extends Resource {
 	    	$nbUser = $_GET['nbUser']; 
 	    } else {
 	    	$nbUser = 3;
+	    }
+		
+    	// récupération du type d'évolution
+	    if(isset($_GET['typeEvol']))  { 
+	    	$typeEvol = $_GET['typeEvol']; 
+	    } else {
+	    	$typeEvol = "0";
 	    }
 		
 		// recherche du championnat en cours
@@ -45,43 +55,35 @@ class TopFlopResource extends Resource {
 		$row = mysql_fetch_array($resultat);
 		$idDerniereJournee = $row[0];		
 		
-		$tableChamp = Array("mixte", "general", "hourra");
-		
-		for ($i = 0; $i < sizeof($tableChamp); $i++) {
-			for ($j = 0; $j <= 1; $j++) {
-				$queryEvolution = 	"SELECT P1.type, (P1.classement - P2.classement) as evolution, membre.pseudo
-									 FROM phpl_membres membre
-						             JOIN phpl_pronos_graph P1 ON P1.id_membre = membre.id_prono
-						             						  AND P1.id_gr_champ = '$idSaisonEnCours'
-						             						  AND P1.type = '$tableChamp[$i]'
-									   						  AND P1.fin = '".($idDerniereJournee-1)."'		             						  
-						             JOIN phpl_pronos_graph P2 ON P2.id_membre = P1.id_membre
-						             						  AND P2.id_gr_champ = P1.id_gr_champ
-						             						  AND P2.type = P1.type
-						               						  AND P2.fin = '$idDerniereJournee'
-						             WHERE membre.actif = '1'";
-				if ($j == 0) {
-					$queryEvolution = $queryEvolution . " ORDER BY P1.type, evolution DESC, P2.participations DESC, membre.pseudo
-														  LIMIT 0, $nbUser";
-				} else {
-					$queryEvolution = $queryEvolution . " ORDER BY P1.type, evolution ASC, P2.participations DESC, membre.pseudo
-														  LIMIT 0, $nbUser";						
-				}
-				$resultat = mysql_query ($queryEvolution) or die ("probleme " .mysql_error());
-				
-				// Remplissage du tableau avec les tops / flops
-				while ($row = mysql_fetch_array($resultat))
-				{
-					$typeChamp = $row["type"];
-					$nomPseudo = $row["pseudo"];
-					$numEvolution = $row["evolution"];						
-					array_push($data, array("type" => $typeChamp, "evol" => $numEvolution, "pseudo" => $nomPseudo));
-				}
-				
-			}			
+		$queryEvolution = 	"SELECT P1.type, (P1.classement - P2.classement) as evolution, membre.pseudo
+							 FROM phpl_membres membre
+				             JOIN phpl_pronos_graph P1 ON P1.id_membre = membre.id_prono
+				             						  AND P1.id_gr_champ = '$idSaisonEnCours'
+				             						  AND P1.type = '$typeChamp'
+							   						  AND P1.fin = '".($idDerniereJournee-1)."'		             						  
+				             JOIN phpl_pronos_graph P2 ON P2.id_membre = P1.id_membre
+				             						  AND P2.id_gr_champ = P1.id_gr_champ
+				             						  AND P2.type = P1.type
+				               						  AND P2.fin = '$idDerniereJournee'
+				             WHERE membre.actif = '1'";
+		if ($typeEvol == "0") {
+			$queryEvolution = $queryEvolution . " ORDER BY P1.type, evolution DESC, P2.participations DESC, membre.pseudo
+												  LIMIT 0, $nbUser";
+		} else {
+			$queryEvolution = $queryEvolution . " ORDER BY P1.type, evolution ASC, P2.participations DESC, membre.pseudo
+												  LIMIT 0, $nbUser";						
 		}
+		$resultat = mysql_query ($queryEvolution) or die ("probleme " .mysql_error());
 		
-
+		// Remplissage du tableau avec les tops / flops
+		while ($row = mysql_fetch_array($resultat))
+		{
+			$typeChamp = $row["type"];
+			$nomPseudo = $row["pseudo"];
+			$numEvolution = $row["evolution"];						
+			array_push($data, array("type" => $typeChamp, "evol" => $numEvolution, "pseudo" => $nomPseudo));
+		}
+				
 		// Retour du tableau au format JSON
 		$response->body = json_encode(array("topFlop" => $data));
 
