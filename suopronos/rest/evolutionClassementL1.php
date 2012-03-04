@@ -38,7 +38,7 @@ class EvolutionClassementL1Resource extends Resource {
 	    	
 	    $gr_champ = $row[0];
 	    
-	    $query = "SELECT evol.classement
+	    $query = "SELECT evol.fin, evol.classement
 	    			FROM phpl_clubs club 
 	    			JOIN phpl_equipes equipe On equipe.id_club = club.id
 	    			                        And equipe.id_champ = '$gr_champ' 
@@ -48,7 +48,7 @@ class EvolutionClassementL1Resource extends Resource {
 	    $result = mysql_query($query) or die ("probleme " .mysql_error());
 	    
 	    while ($row=mysql_fetch_array($result)) {
-	    	array_push($data, array("place" => $row["classement"]));
+	    	array_push($data, array("jour" => $row["fin"], "place" => $row["classement"]));
 	    }
 	    
 	    $response->body = json_encode(array("evolutionClassementL1" => $data));
