@@ -5,15 +5,19 @@
  * 
  *  Méthode GET :
  *  Parm obligatoire :
- *   - "filtre" = "0"=saison OU "1"=dernière journée OU "2"=utilisateur
+ *   - "filtre" = "0"=saison OU "1"=dernière journée
  *  Param facultatif 
- *   - "user" = Utilisateur (pour le filtre utilisateur)
+ *   - "user" = Utilisateur (si "" alors tous les utilisateurs)
  * 
  *  Statistiques retournées :
  *   - meilleur Top par classement
  *   - pire flop par classement
  *   - plus grand nombre de point par classement
  *   - plus petit nombre de point par classement   
+ *   - meilleure série (plus grand nombre de pronos Ok d'affilée)
+ *   - pire série      (plus grand nombre de pronos Ko d'affilée)
+ *   - répartition des pronos (1, N, 2)
+ *   - répartition des résultats (1, N, 2)
  * @uri /statistique/(.*)?
  * 
  */
@@ -39,13 +43,14 @@ class StatistiqueResource extends Resource {
 	    }
 		
 		// recherche du championnat en cours
-		$querySaisonEnCours = 	"SELECT phpl_gr_championnats.id
+		$querySaisonEnCours = 	"SELECT phpl_gr_championnats.id, phpl_gr_championnats.id_champ 
 								FROM phpl_gr_championnats 
 								WHERE phpl_gr_championnats.activ_prono = '1' 
 								ORDER by id desc";
 		$resultat = mysql_query ($querySaisonEnCours) or die ("probleme " .mysql_error());
 		$row = mysql_fetch_array($resultat);
 		$idSaisonEnCours = $row[0];
+		$idChampEnCours = $row[1];
 		
 		// recherche de l'id de la dernière journée
 		$queryDerniereJournee = "SELECT max(evolutionGraph.fin)
@@ -74,11 +79,11 @@ class StatistiqueResource extends Resource {
 		$queryVariableFLOP = "	ORDER BY P2.type, evolution ASC, P2.participations DESC, P2.fin DESC, membre.pseudo
 								LIMIT 0, 1";
 		
-		// 1 occurence par classement (général, hourra, mixte)
-		for ($j = 0; $j < 3; $j++) {
+		// 1 occurence TOP, 1 occurence FLOP
+		for ($i = 0; $i < 2; $i++) {
 			
-			// 1 occurence TOP, 1 occurence FLOP
-			for ($i = 0; $i < 2; $i++) {
+			// 1 occurence par classement (général, hourra, mixte)
+			for ($j = 0; $j < 3; $j++) {
 				
 				$queryVariableP1 = "	JOIN phpl_pronos_graph P1 ON P1.id_membre = P2.id_membre
 											AND P1.id_gr_champ = P2.id_gr_champ
@@ -86,13 +91,18 @@ class StatistiqueResource extends Resource {
 											AND P1.fin = P2.fin - 1
 										WHERE P2.id_gr_champ = '$idSaisonEnCours' AND P2.type = '$listeChamp[$j]'";				
 				
-				if ($filtre == "0") {
+				// Construction de la requête
+				if ($pseudo == "") {
 					$queryEvolution = $queryInitEvol . $queryVariableP1;
-				} else if ($filtre == "1") {
-					$queryEvolution = $queryInitEvol . $queryVariableP1 . $queryVariableJ1;
 				} else {
 					$queryEvolution = $queryInitEvol . $queryVariableUSER . $queryVariableP1;
 				}
+				
+				if ($filtre == "1") {
+					$queryEvolution = $queryEvolution . $queryVariableJ1;
+				}
+				
+				// Tri
 				if ($i == 0) {
 					$queryEvolution = $queryEvolution . $queryVariableTOP;
 				} else {
@@ -105,7 +115,11 @@ class StatistiqueResource extends Resource {
 					$typeStat = $listeEvol[$i];
 					$type = $row["type"];
 					$nomPseudo = $row["pseudo"];
-					$numEvolution = $row["evolution"];
+					if ($i == 0) {
+						$numEvolution = "+" . $row["evolution"];
+					} else {
+						$numEvolution = $row["evolution"];
+					}					
 					$numJournee = $row["fin"];
 					array_push($data, array("stat" => $typeStat, "quoi" => $type, "result" => $numEvolution, "pseudo" => $nomPseudo, "quand" => $numJournee));
 				}
@@ -119,45 +133,54 @@ class StatistiqueResource extends Resource {
 		//liste des stats
 		$listeEvol = array('Point Top','Point Flop');
 		// Préparation requête Plus grand / Plus petit nombre de points
-		$queryInitEvol = 	"SELECT P2.type, P2.fin, P2.points, membre.pseudo
+		$queryInitEvol = 	"SELECT P2.type, P2.fin, (P2.points - P1.points) as evolution, membre.pseudo
 							FROM phpl_pronos_graph P2
 							JOIN phpl_membres membre ON membre.id_prono = P2.id_membre
 													AND membre.actif = '1'";
 		$queryVariableJ1 = "							AND P2.fin = '$idDerniereJournee'";
-		$queryVariableUSER = " 	AND membre.pseudo = '$user'";
-		$queryVariableTOP = "	ORDER BY P2.type, points DESC, P2.participations DESC, P2.fin DESC, membre.pseudo
+		$queryVariableUSER = " 	AND membre.pseudo = '$pseudo'";
+		$queryVariableTOP = "	ORDER BY P2.type, evolution DESC, P2.participations DESC, P2.fin DESC, membre.pseudo
 								LIMIT 0, 1";
-		$queryVariableFLOP = "	ORDER BY P2.type, points ASC, P2.participations DESC, P2.fin DESC, membre.pseudo
+		$queryVariableFLOP = "	ORDER BY P2.type, evolution ASC, P2.participations DESC, P2.fin DESC, membre.pseudo
 								LIMIT 0, 1";
 		
-		// 1 occurence par classement (général, hourra, mixte)
-		for ($j = 0; $j < 3; $j++) {
+		// 1 occurence TOP, 1 occurence FLOP
+		for ($i = 0; $i < 2; $i++) {
 				
-			// 1 occurence TOP, 1 occurence FLOP
-			for ($i = 0; $i < 2; $i++) {
+			// 1 occurence par classement (général, hourra)
+			for ($j = 0; $j < 2; $j++) {
 		
-				$queryVariableP1 = "	WHERE P2.id_gr_champ = '$idSaisonEnCours' AND P2.type = '$listeChamp[$j]'";
+				$queryVariableP1 = "	JOIN phpl_pronos_graph P1 ON P1.id_membre = P2.id_membre
+																AND P1.id_gr_champ = P2.id_gr_champ
+																AND P1.type = P2.type
+																AND P1.fin = P2.fin - 1
+										WHERE P2.id_gr_champ = '$idSaisonEnCours' AND P2.type = '$listeChamp[$j]'";
 		
-				if ($filtre == "0") {
+				// Construction de la requête
+				if ($pseudo == "") {
 					$queryEvolution = $queryInitEvol . $queryVariableP1;
-				} else if ($filtre == "1") {
-					$queryEvolution = $queryInitEvol . $queryVariableP1 . $queryVariableJ1;
 				} else {
 					$queryEvolution = $queryInitEvol . $queryVariableUSER . $queryVariableP1;
 				}
+				
+				if ($filtre == "1") {
+					$queryEvolution = $queryEvolution . $queryVariableJ1;
+				}
+				
+				// Tri
 				if ($i == 0) {
 					$queryEvolution = $queryEvolution . $queryVariableTOP;
 				} else {
 					$queryEvolution = $queryEvolution . $queryVariableFLOP;
 				}
 				$resultat = mysql_query ($queryEvolution) or die ("probleme " .mysql_error());
-					
+				
 				// Remplissage du tableau avec les tops / flops
 				if ($row = mysql_fetch_array($resultat)) {
 					$typeStat = $listeEvol[$i];
 					$type = $row["type"];
 					$nomPseudo = $row["pseudo"];
-					$nbPoints = $row["points"];
+					$nbPoints = $row["evolution"];
 					$numJournee = $row["fin"];
 					array_push($data, array("stat" => $typeStat, "quoi" => $type, "result" => $nbPoints, "pseudo" => $nomPseudo, "quand" => $numJournee));
 				}
@@ -188,10 +211,10 @@ class StatistiqueResource extends Resource {
 			  WHERE phpl_pronostics.id_champ = $idSaisonEnCours				
 			  ORDER BY phpl_journees.numero";		
 		
-		if ($filtre == "0" || $filtre == "1") {
+		if ($pseudo == "") {
 			$querySerie = $queryInitSerie . $querySerieVariable;
 		} else {
-			$querySerie  =  $queryInitSerie . $queryVariableUSER . $querySerieVariable;
+			$querySerie = $queryInitSerie . $queryVariableUSER . $querySerieVariable;
 		}
 		
 		// 1 occurence TOP, 1 occurence FLOP
@@ -259,20 +282,100 @@ class StatistiqueResource extends Resource {
 			}
 			// Tri du tableau par durée, pseudo
 			usort($series, array("Serie", "cmp_serie"));
-	
-			array_push($data, array("stat" => $listeSerie[$i], "quoi" => "histo", "result" => $series[0]->equipe, "pseudo" => $series[0]->user, "quand" => $series[0]->duree));
 			
-			// Traitement des séries en cours
-			foreach($series as $serie_encours) {
-				if($serie_encours->en_cours == true) {
-					$series_encours[] = $serie_encours;
+			if ($filtre == '0') {
+				array_push($data, array("stat" => $listeSerie[$i], "quoi" => "histo", "result" => $series[0]->equipe, "pseudo" => $series[0]->user, "quand" => $series[0]->duree));
+			} else {				
+				// Traitement des séries en cours
+				foreach($series as $serie_encours) {
+					if($serie_encours->en_cours == true) {
+						$series_encours[] = $serie_encours;
+					}
 				}
+				array_push($data, array("stat" => $listeSerie[$i], "quoi" => "en cours", "result" => $series_encours[0]->equipe, "pseudo" => $series_encours[0]->user, "quand" => $series_encours[0]->duree));
 			}
-			array_push($data, array("stat" => $listeSerie[$i], "quoi" => "en cours", "result" => $series_encours[0]->equipe, "pseudo" => $series_encours[0]->user, "quand" => $series_encours[0]->duree));
-			
 		}
 		
-		// Retour du tableau au format JSON
+		
+// REPARTITION DES PRONOS
+		// Préparation requête répartition des pronos
+		$queryInitPronos = 	"SELECT prono.pronostic, count(*) as nbPronos
+							FROM phpl_journees journee
+							JOIN phpl_matchs matchs on matchs.id_journee = journee.id
+							  AND matchs.buts_dom is not null
+							JOIN phpl_pronostics prono on prono.id_match = matchs.id
+							JOIN phpl_membres membre on membre.id = prono.id_membre
+							  AND membre.actif = '1'";							
+		$queryVariableJ1 = " AND journee.numero = '$idDerniereJournee'";
+		$queryVariableUSER = " AND membre.pseudo = '$pseudo'";
+		$queryVariableWHERE = " WHERE journee.id_champ = '$idChampEnCours'";
+		$queryVariableFIN = " GROUP BY prono.pronostic";
+		
+		// Construction de la requête
+		if ($pseudo == "") {
+			$queryPronos = $queryInitPronos . $queryVariableWHERE;
+		} else {
+			$queryPronos = $queryInitPronos . $queryVariableUSER . $queryVariableWHERE;
+		}
+		
+		if ($filtre == "1") {
+			$queryPronos = $queryPronos . $queryVariableJ1;
+		}
+		
+		$queryPronos = $queryPronos . $queryVariableFIN;
+		
+		$resultat = mysql_query ($queryPronos) or die ("probleme " .mysql_error());
+		
+		// Remplissage du tableau avec les tops / flops
+		while ($row = mysql_fetch_array($resultat)) {
+			$typeStat = "Repart Prono";
+			$type = 0;
+			$nomPseudo = $row["pronostic"];
+			$nbPoints = $row["nbPronos"];
+			$numJournee = 0;
+			array_push($data, array("stat" => $typeStat, "quoi" => $type, "result" => $nbPoints, "pseudo" => $nomPseudo, "quand" => $numJournee));
+		}
+
+		
+// REPARTITION DES RESULTATS
+		// Préparation requête répartition des résultats
+		$queryInitPronos = 	"SELECT case when matchs.buts_dom > matchs.buts_ext then '1' 
+										 when matchs.buts_dom = matchs.buts_ext then 'N' 
+										 else '2' end as type, count(*) as nbPronos
+							FROM phpl_journees journee
+							JOIN phpl_matchs matchs on matchs.id_journee = journee.id
+								AND matchs.buts_dom is not null";
+		$queryVariableJ1 = " AND journee.numero = '$idDerniereJournee'";
+		$queryVariableWHERE = " WHERE journee.id_champ = '$idChampEnCours'";
+		$queryVariableFIN = " GROUP BY type";
+		
+		// Construction de la requête
+		if ($pseudo == "") {
+			$queryPronos = $queryInitPronos . $queryVariableWHERE;
+		} else {
+			$queryPronos = $queryInitPronos . $queryVariableUSER . $queryVariableWHERE;
+		}
+		
+		if ($filtre == "1") {
+			$queryPronos = $queryPronos . $queryVariableJ1;
+		}
+		
+		$queryPronos = $queryPronos . $queryVariableFIN;
+		
+		$resultat = mysql_query ($queryPronos) or die ("probleme " .mysql_error());
+		
+		// Remplissage du tableau avec les tops / flops
+		while ($row = mysql_fetch_array($resultat)) {
+			$typeStat = "Repart Result";
+			$type = 0;
+			$nomPseudo = $row["type"];
+			$nbPoints = $row["nbPronos"];
+			$numJournee = 0;
+			array_push($data, array("stat" => $typeStat, "quoi" => $type, "result" => $nbPoints, "pseudo" => $nomPseudo, "quand" => $numJournee));
+		}
+
+		
+// Retour du tableau au format JSON
 		$response->body = json_encode(array("statistique" => $data));
 
         return $response;
