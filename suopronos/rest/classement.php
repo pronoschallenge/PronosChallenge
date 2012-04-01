@@ -50,34 +50,48 @@ class ClassementResource extends Resource {
 	    	    
 	    $requete = "SELECT phpl_gr_championnats.id FROM phpl_gr_championnats WHERE phpl_gr_championnats.activ_prono='1' ORDER by id desc";
 	    $resultat = mysql_query ($requete) or die ("probleme " .mysql_error());
-	    $row = mysql_fetch_array($resultat);
-	    	
+	    $row = mysql_fetch_array($resultat);	    	
 	    $gr_champ = $row[0];
+	    
+	    $requete = "SELECT phpl_gr_championnats.id 
+	    			FROM phpl_gr_championnats 
+	    			WHERE phpl_gr_championnats.activ_prono='0' 
+	    			ORDER by id desc";
+	    $resultat = mysql_query ($requete) or die ("probleme " .mysql_error());
+	    $row = mysql_fetch_array($resultat);
+	    $gr_champ_prec = $row[0];
+	     
 	    
 	    if ($filtre == "0") {
 		    $query = "SELECT classement.pseudo, classement.points, classement.participation as champion, 
-		    				 classement.place
+		    				 classement.place, ifNull(classementPrec.place, 0) as placePrec
 		    		  FROM phpl_membres membre 
 		    		  JOIN phpl_clmnt_pronos classement ON classement.id_membre = membre.id_prono
 		    		  								   AND classement.id_champ = '$gr_champ'
 		    		  								   AND classement.type = '$type'
+		    		  LEFT JOIN phpl_clmnt_pronos classementPrec ON classementPrec.id_membre = membre.id_prono
+		    		  								   AND classementPrec.id_champ = '$gr_champ_prec'
+		    		  								   AND classementPrec.type = '$type'
 		    		  WHERE membre.actif = '1' 
 		    		  ORDER by classement.points desc, classement.participation asc, classement.pseudo";
 	    } else {
 	    	$query = "SELECT classement.pseudo, classement.points, classement.participation as champion,
-	    					 classement.place
+	    					 classement.place, ifNull(classementPrec.place, 0) as placePrec
 	    			  FROM phpl_membres membre
 	    			  JOIN phpl_clmnt_filtre filtre ON filtre.id = membre.id_prono
 	    			  JOIN phpl_clmnt_pronos classement ON classement.id_champ = '$gr_champ' 
 	    			  								   AND classement.type = '$type' 
 	    				  							   AND classement.id_membre = filtre.idMembre
+		    		  LEFT JOIN phpl_clmnt_pronos classementPrec ON classementPrec.id_membre = filtre.idMembre
+		    		  								   AND classementPrec.id_champ = '$gr_champ_prec'
+		    		  								   AND classementPrec.type = '$type'
 	    			  WHERE membre.pseudo = '$user' AND membre.actif = '1'
 	    			  ORDER by classement.points desc, classement.participation asc, classement.pseudo";
 	    }
 	    $result = mysql_query($query) or die ("probleme " .mysql_error());
 	    
 	    while ($row=mysql_fetch_array($result)) {
-	    	array_push($data, array("place" => $row["place"], "pseudo" => $row["pseudo"], "points" => $row["points"]));
+	    	array_push($data, array("place" => $row["place"], "placePrec" => $row["placePrec"], pseudo => $row["pseudo"], "points" => $row["points"]));
 	    }
 	    
 	    $response->body = json_encode(array("classement" => $data));
